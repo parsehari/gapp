@@ -1,0 +1,13 @@
+{
+    "login": {
+        "loginPage": {
+            "welcome": "Welcome,",
+            "signToContinue": "Sign in to Continue",
+            "enterUserDetails": "Enter your registered Email ID / Mobile Number",
+            "mobile": "Mobile",
+            "email": "Email",
+            "getotp": "GET OTP"
+        },
+        "loginTs": {}
+    }
+}

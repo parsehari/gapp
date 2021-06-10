@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="esop-dark-blue">
+    <ion-buttons slot="start">
+      <ion-menu-button *ngIf="showMenuButton" color="esop-white"></ion-menu-button>
+      <ion-back-button *ngIf="showBackButton" [defaultHref]="backReference" text="" icon="ios-arrow-back"
+        color="esop-white"></ion-back-button>
+      <ion-button fill="clear" *ngIf="showCloseModalButton" (click)="dismissModal()">
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="title-props">
+      <ion-row>
+        <ion-col>
+          <img class="esop-logo" [src]="esopLogo">
+        </ion-col>
+        <ion-col>
+          <img class="imgCls" [src]="companyLogo">
+        </ion-col>
+      </ion-row>
+    </ion-title>
+    <ion-buttons slot="end">
+      <div *ngIf="showNotification">
+        <ion-icon name="notifications" class="ion-float-end ion-padding-end notification-icon" color="esop-white"
+          (click)="showNotifications()">
+        </ion-icon>
+        <ion-badge *ngIf="badgeCount>0" class="ion-float-end notification-badge" color="esop-red">{{badgeCount}}
+        </ion-badge>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-toolbar class="sub-header-toolbar">
+  <ion-row class="title-header" *ngIf="showSubHeader">
+    <ion-col>
+      <ion-label class="title">{{heading}}</ion-label>
+    </ion-col>
+    <div *ngIf="showSubHeaderIconColumn">
+      <ion-col class="ion-text-right note-icon">
+        <ion-button fill="clear" (click)="displayInfo()">
+          <ion-icon class="subHeaderIcon" *ngIf="showInstruction" name="md-information-circle"></ion-icon>
+        </ion-button>
+  
+        <ion-button fill="clear" (click)="displayNotes()">
+          <ion-icon class="subHeaderIcon" *ngIf="showNotes" name="md-clipboard"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </div>
+  </ion-row>
+</ion-toolbar>

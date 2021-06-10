@@ -1,0 +1,46 @@
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      logo
+    </ion-row>
+    <ion-row>
+      <div>
+        <h1>{{'login.loginPage.welcome' | translate}}</h1>
+        <div> 
+          {{'login.loginPage.signToContinue' | translate}}
+        </div>
+      </div>
+      </ion-row>
+      <ion-row>
+      <ion-item>
+        <ion-col>
+        <ion-label position="floating">{{'login.loginPage.enterUserDetails' | translate}}</ion-label>
+        <ion-input></ion-input>
+      </ion-col>
+      </ion-item>
+    </ion-row>
+   
+      <ion-radio-group value="mobile">
+        <ion-row>
+      <ion-col>
+           <ion-item>
+              <ion-radio slot="start" mode="md" item-left value="mobile"></ion-radio>
+              <ion-label>{{'login.loginPage.mobile' | translate}}</ion-label>
+         </ion-item>
+       </ion-col>
+  
+      <ion-col>
+          <ion-item>
+              <ion-radio slot="start" mode="md" item-left value="email"></ion-radio>
+              <ion-label>{{'login.loginPage.email' | translate}}</ion-label>
+         </ion-item>
+      </ion-col>
+    </ion-row>
+      </ion-radio-group>
+  <ion-row>
+    <ion-col>
+    <ion-button expand="block" fill="outline">{{'login.loginPage.getotp' | translate}}</ion-button>
+  </ion-col>
+  </ion-row>
+  </ion-grid>
+</ion-content>
