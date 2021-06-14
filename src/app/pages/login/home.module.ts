@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { ModelInfoComponent } from 'src/app/components/model-info/model-info.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { TranslateModule } from '@ngx-translate/core';
     HomePageRoutingModule,
     TranslateModule.forChild()
   ],
-  declarations: [HomePage]
+  declarations: [HomePage,ModelInfoComponent]
 })
 export class HomePageModule { }

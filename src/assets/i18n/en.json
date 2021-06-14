@@ -21,5 +21,11 @@
         "otpTs":{
 
         }
+    },
+    "model": {
+        "modelPage":{
+            "accept":"Accept",
+            "decline":"Decline"
+        }
     }
 }
