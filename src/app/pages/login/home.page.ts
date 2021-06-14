@@ -13,6 +13,7 @@ export class HomePage {
   constructor(private modelCtrl : ModalController) {
 
   }
+  
   async showTermsAndConditions(){
     const model = await this.modelCtrl.create({
       component:ModelInfoComponent

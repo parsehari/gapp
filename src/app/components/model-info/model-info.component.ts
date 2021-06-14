@@ -11,6 +11,7 @@ export class ModelInfoComponent implements OnInit {
   constructor(private modalController : ModalController) { }
 
   ngOnInit() {}
+  
   dismissModel(){
     this.modalController.dismiss({
       'dismissed': true
