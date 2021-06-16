@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -8,7 +9,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class ModelInfoComponent implements OnInit {
 
-  constructor(private modalController : ModalController) { }
+  constructor(private modalController : ModalController,private route:Router) { }
 
   ngOnInit() {}
   
@@ -16,5 +17,9 @@ export class ModelInfoComponent implements OnInit {
     this.modalController.dismiss({
       'dismissed': true
     });
+  }
+  goToProductList(){
+   this.dismissModel();
+   this.route.navigate(["/select-distributor"]);
   }
 }

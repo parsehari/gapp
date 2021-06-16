@@ -1,0 +1,37 @@
+
+.icon-margin{
+    margin-top: 10px !important;
+}
+table{
+    font-size: 10px;
+}
+table, th, td {
+    border: 1px solid lightgray;
+  }
+  th, td {
+    padding: 5px;
+    text-align: center;
+  }
+  .section-margin{
+      margin-top: 10px;
+      width: 100%;
+      background-color: white;
+  }
+  .action-section{
+      background-color: white;
+      padding: 30px;
+      height: auto;
+  }
+  .event-section{
+    padding: 5px 30px 0px 30px;
+    background-color: white;
+    margin-top: 10px;
+    font-size: 10px;
+}
+.header-section{
+    background-color: rgb(206, 206, 206);
+}
+.header-bottom{
+    justify-content: center;
+    font-size: 12px;
+}

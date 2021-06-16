@@ -15,6 +15,14 @@ const routes: Routes = [
     path: 'otp',
     loadChildren: () => import('./pages/otp/otp.module').then( m => m.OtpPageModule)
   },
+ /* {
+    path: 'product-list',
+    loadChildren: () => import('./pages/product-list/product-list.module').then( m => m.ProductListPageModule)
+  },*/
+  {
+    path: 'select-distributor',
+    loadChildren: () => import('./pages/select-distributor/select-distributor.module').then( m => m.SelectDistributorPageModule)
+  },
 ];
 
 @NgModule({

@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button>
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button icon-only>
+        <ion-icon slot="end" name="cart"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="header-section" (click)="goBack()">
+    <ion-grid>
+      <ion-row class="header-bottom">
+        <ion-col size="1" class="ion-no-padding">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-col>
+        <ion-col size="11" class="ion-no-padding">
+          <ion-label>
+            {{'distributor.distributorPage.sdistributor' | translate}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <table  class="section-margin">
+    <thead>
+      <tr>
+        <th>{{'distributor.distributorPage.products' | translate}}</th>
+        <th>{{'distributor.distributorPage.quantity' | translate}}</th>
+        <th>Distributor 1</th>
+        <th>Distributor 2</th>
+        <th>Distributor 3</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of [1,2,3,4]">
+        <td>Synfiorix</td>
+        <td>
+          <ion-input type="number" value="5" max="100" min="0" style="width: 30px;"></ion-input>
+        </td>
+        <td>{{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}</td>
+        <td>{{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}</td>
+        <td>{{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>{{'distributor.distributorPage.total' | translate}}</td>
+        <td>
+          <ion-label>50</ion-label>
+        </td>
+        <td>{{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}</td>
+        <td>{{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}</td>
+        <td>{{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}</td>
+      </tr>
+      <tr>
+        <td [colSpan]="2">{{'distributor.distributorPage.sdistributor' | translate }}</td>
+        <td>
+          <ion-checkbox type="checkbox" name="distributor" value="first" (ionChange)="selectDistributor($event)">
+          </ion-checkbox>
+        </td>
+        <td>
+          <ion-checkbox type="checkbox" name="distributor" value="second" (ionChange)="selectDistributor($event)">
+          </ion-checkbox>
+        </td>
+        <td>
+          <ion-checkbox type="checkbox" name="distributor" value="third" (ionChange)="selectDistributor($event)">
+          </ion-checkbox>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+  <div class="event-section">
+    <ion-row >
+      <ion-col>
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        <ion-label> {{'distributor.distributorPage.selecteddistributor' | translate:{param : 'Distributor 1'} }}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <div class="ion-text-left">
+          <ion-button fill="outline">{{'distributor.distributorPage.continue' | translate}}</ion-button>
+        </div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="ion-text-right">
+          <ion-button fill="outline">{{'distributor.distributorPage.cancel' | translate}}</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>
