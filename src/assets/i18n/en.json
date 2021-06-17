@@ -27,5 +27,17 @@
             "accept":"Accept",
             "decline":"Decline"
         }
+    },
+    "distributor":{
+        "distributorPage":{
+            "sdistributor":"Select Distributor",
+            "products":"Products",
+            "quantity":"Qty.",
+            "continue":"Continue",
+            "cancel":"Cancel",
+            "selecteddistributor":"You have selected {{param}}",
+            "total":"Total"
+
+        }
     }
 }
