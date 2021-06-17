@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { MenuController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { ModelInfoComponent } from 'src/app/components/model-info/model-info.component';
+
 
 @Component({
   selector: 'app-home',
@@ -10,13 +11,13 @@ import { ModelInfoComponent } from 'src/app/components/model-info/model-info.com
 })
 export class HomePage {
   public sexe: string;
-  constructor(private modelCtrl : ModalController) {
-
+  constructor(private modelCtrl: ModalController, private menu: MenuController) {
+    this.menu.enable(false);
   }
-  
-  async showTermsAndConditions(){
+
+  async showTermsAndConditions() {
     const model = await this.modelCtrl.create({
-      component:ModelInfoComponent
+      component: ModelInfoComponent
     })
     return await model.present();
   }

@@ -1,4 +1,11 @@
 {
+    "sideMenu":{
+        "placeOrder": "Place Order",
+        "obyD":"Order By Distributor",
+        "mPreD":"My Preferred Distributor",
+        "myOrder":"My Order",
+        "logout": "Logout"
+    },
     "login": {
         "loginPage": {
             "welcome": "Welcome,",

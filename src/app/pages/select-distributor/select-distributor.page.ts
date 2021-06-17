@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-select-distributor',
@@ -7,15 +8,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./select-distributor.page.scss'],
 })
 export class SelectDistributorPage implements OnInit {
- distributor:any;
-  constructor(private route:Router) { }
+  distributor: any;
+  constructor(private route: Router, private menu: MenuController) { }
 
   ngOnInit() {
+
   }
-  selectDistributor(event){
-    
+
+  ionViewWillEnter() {
+    this.menu.enable(true);
   }
-  goBack(){
+
+  selectDistributor(event) {
+
+  }
+  goBack() {
     this.route.navigate(['/login']);
   }
 }
