@@ -1,25 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-// import { TranslateModule } from '@ngx-translate/core';
-
-// @Component({
-//   selector: 'app-otp',
-//   templateUrl: './otp.page.html',
-//   styleUrls: ['./otp.page.scss'],
-// })
-// export class OtpPage implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit() {
-//   }
-
-//   next(el) {
-//     el.setFocus();
-//   }
-
-// }
-
-
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { MenuController } from "@ionic/angular";
@@ -71,6 +49,9 @@ export class OtpPage implements OnInit {
   }
 
   validateOTP() {
+    this.router.navigate(["/select-distributor"]);
+    return;
+
     let finalOTP: Number;
     console.log(
       "1,2,3,4--" +

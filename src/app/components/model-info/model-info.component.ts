@@ -9,17 +9,17 @@ import { ModalController } from '@ionic/angular';
 })
 export class ModelInfoComponent implements OnInit {
 
-  constructor(private modalController : ModalController,private route:Router) { }
+  constructor(private modalController: ModalController, private route: Router) { }
 
-  ngOnInit() {}
-  
-  dismissModel(){
+  ngOnInit() { }
+
+  dismissModel() {
     this.modalController.dismiss({
       'dismissed': true
     });
   }
-  goToProductList(){
-   this.dismissModel();
-   this.route.navigate(["/select-distributor"]);
+  goToProductList() {
+    this.dismissModel();
+    this.route.navigate(["/otp"]);
   }
 }
