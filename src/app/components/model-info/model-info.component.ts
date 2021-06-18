@@ -20,6 +20,6 @@ export class ModelInfoComponent implements OnInit {
   }
   goToProductList(){
    this.dismissModel();
-   this.route.navigate(["/select-distributor"]);
+   this.route.navigate(["/preferred-distributor"]);
   }
 }
