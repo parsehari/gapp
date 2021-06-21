@@ -43,9 +43,16 @@
             "quantity":"Qty.",
             "continue":"Continue",
             "cancel":"Cancel",
-            "selecteddistributor":"You have selected {{param}}",
+            "selected-distributor":"You have selected {{param}}",
             "total":"Total"
 
         }
+    },
+    "pdistributor":{
+        "pdistributorPage":{
+            "pdistributor":"Preferred distributor",
+            "save-pdistributor":"Save as preferred distributor"
+        }
+
     }
 }

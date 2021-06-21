@@ -23,6 +23,14 @@ const routes: Routes = [
     path: 'select-distributor',
     loadChildren: () => import('./pages/select-distributor/select-distributor.module').then( m => m.SelectDistributorPageModule)
   },
+  {
+    path: 'preferred-distributor',
+    loadChildren: () => import('./pages/preferred-distributor/preferred-distributor.module').then( m => m.PreferredDistributorPageModule)
+  },
+  {
+    path: 'distributor-details',
+    loadChildren: () => import('./pages/distributor-details/distributor-details.module').then( m => m.DistributorDetailsPageModule)
+  },
 ];
 
 @NgModule({
