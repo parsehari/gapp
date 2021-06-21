@@ -1,7 +1,28 @@
 .msgDiv {
-  padding: 0px 0px 33px 21px;
+  text-align: center;
 }
 
 .loginDiv {
   padding: 15px 0px 127px 0px;
+}
+
+.pdnTop {
+  padding-top: 5%;
+}
+
+.plcText {
+  text-indent: 10px;
+}
+
+.textInput {
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+
+ion-col {
+  ion-input {
+    border: solid 1px red;
+    border-radius: 9px;
+  }
 }

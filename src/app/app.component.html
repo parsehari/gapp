@@ -6,16 +6,23 @@
           <ion-item class="profileText" routerDirection="root" routerLink="/profile" routerLinkActive="active"
             detail="false" mode='md' no-lines>
               Welcome, John Doe
+              <ion-buttons slot="end">
+                <ion-button icon-only>
+                  <ion-icon slot="end" name="close"></ion-icon>
+                </ion-button>
+              </ion-buttons>
           </ion-item>
         </ion-menu-toggle>
       </ion-header>
       <ion-content>
         <ion-list id="inbox-list">
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+            <ion-card>
+            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="true" routerLinkActive="selected">
               <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
+          </ion-card>
           </ion-menu-toggle>
         </ion-list>
       </ion-content>

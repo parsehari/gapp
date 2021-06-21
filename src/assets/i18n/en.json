@@ -10,9 +10,10 @@
         "loginPage": {
             "welcome": "Welcome,",
             "signToContinue": "Sign in to Continue",
-            "enterUserDetails": "Enter your registered Email ID / Mobile Number",
+            "enterUserDetails": "Enter registered Mobile No. or Email Id",
             "mobile": "Mobile",
             "email": "Email",
+            "otpText": "Select option to get OTP on",
             "getotp": "GET OTP"
         },
         "loginTs": {}

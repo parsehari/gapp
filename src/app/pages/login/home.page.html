@@ -1,29 +1,38 @@
 <ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row>
-      <ion-col size="4" offset="4">
-        <img src="/assets/images/ionicimg.png">
+      <ion-col float-right>
+        <img src="/assets/images/ionicimg.png" style="width: 50%;">
+      </ion-col>
+      <ion-col float-left>
+        <img src="/assets/images/ionicimg.png" style="width: 50%;">
       </ion-col>
  </ion-row>
     <ion-row>
-      <div class="msgDiv">
+      <ion-col class="msgDiv">
         <h1>{{'login.loginPage.welcome' | translate}}</h1>
         <div> 
           {{'login.loginPage.signToContinue' | translate}}
         </div>
-      </div>
+      </ion-col>
+      </ion-row>
+      <ion-row class="textInput">
+        <ion-col size="4" offset="4">
+          <img src="/assets/images/ionicimg.png">
+        </ion-col>
       </ion-row>
       <ion-row>
-      <ion-item>
         <ion-col>
-        <ion-label position="floating">{{'login.loginPage.enterUserDetails' | translate}}</ion-label>
-        <ion-input></ion-input>
+        <ion-input placeholder="{{'login.loginPage.enterUserDetails' | translate}}" class="plcText"></ion-input>
       </ion-col>
-      </ion-item>
     </ion-row>
-   
+   <div class="pdnTop">
       <ion-radio-group value="mobile">
+        <div class="msgDiv">
+          {{'login.loginPage.otpText' | translate}}
+        </div>
         <ion-row class="loginDiv">
+          
       <ion-col>
            <ion-item lines="none">
               <ion-radio slot="start" mode="md" item-left value="mobile"></ion-radio>
@@ -38,6 +47,7 @@
       </ion-col>
     </ion-row>
       </ion-radio-group>
+    </div>
   <ion-row>
     <ion-col>
     <ion-button expand="block" fill="outline" (click)="showTermsAndConditions()">{{'login.loginPage.getotp' | translate}}</ion-button>
