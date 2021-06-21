@@ -1,0 +1,44 @@
+ion-searchbar{
+    --background : white;
+    --border-radius: 5px !important;
+    --box-shadow:0 ;
+}
+ion-card{
+    background-color: white;
+    margin-bottom: 30px;
+}
+.product-quantity{
+    font-size: 28px;
+}
+.quantity{
+    font-size: 10px;
+    align-self: center;
+   
+}
+ion-col{
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.img-padding{
+    padding-top: 30px !important;
+    img{
+        width: 200px;
+        height: 120px;
+    }
+}
+.card-section{
+    padding: 10px;
+}
+.content-section{
+    align-items: center; 
+    margin-top: 10px;
+}
+.text-margin{
+    margin-top: 5px;
+}
+.text-color{
+    color: black;
+}
+
+
+

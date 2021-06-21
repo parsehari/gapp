@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button icon-only>
+        <ion-icon slot="start" name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button icon-only>
+        <ion-icon slot="end" name="cart"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-searchbar inputmode="search" debounce=500 (ionChange)="searchInputValueChange($event)"
+    placeholder="Search Medician / Produts.."></ion-searchbar>
+  <ion-card *ngFor="let item of [1,2,3]">
+    <ion-grid class="card-section">
+      <ion-row>
+        <ion-col class="img-padding">
+          <div class="ion-text-center">
+            <img src="/assets/images/vaccine.jpeg">
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="content-section">
+        <ion-col size="8">
+          <div class="ion-text-left">
+            <ion-label >
+              <h2 class="text-color">Oral poliovirus vaccine </h2>
+              <p class="text-color">Polio</p>
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="4">
+          <ion-row>
+            <ion-col>
+              <div class="ion-text-center quantity">Quantity</div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div class="ion-text-right">
+                <ion-icon class="product-quantity" name="remove-circle-outline"></ion-icon>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="ion-text-center text-margin">
+                <ion-label class="quantity">87</ion-label>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="ion-text-left">
+                <ion-icon class="product-quantity" name="add-circle-outline"></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ion-content>
