@@ -13,24 +13,24 @@ const routes: Routes = [
   },
   {
     path: 'otp',
-    loadChildren: () => import('./pages/otp/otp.module').then( m => m.OtpPageModule)
+    loadChildren: () => import('./pages/otp/otp.module').then(m => m.OtpPageModule)
   },
- /* {
-    path: 'product-list',
-    loadChildren: () => import('./pages/product-list/product-list.module').then( m => m.ProductListPageModule)
-  },*/
+  /* {
+     path: 'product-list',
+     loadChildren: () => import('./pages/product-list/product-list.module').then( m => m.ProductListPageModule)
+   },*/
   {
     path: 'select-distributor',
-    loadChildren: () => import('./pages/select-distributor/select-distributor.module').then( m => m.SelectDistributorPageModule)
+    loadChildren: () => import('./pages/select-distributor/select-distributor.module').then(m => m.SelectDistributorPageModule)
   },
   {
     path: 'preferred-distributor',
-    loadChildren: () => import('./pages/preferred-distributor/preferred-distributor.module').then( m => m.PreferredDistributorPageModule)
-  },
-  {
-    path: 'distributor-details',
-    loadChildren: () => import('./pages/distributor-details/distributor-details.module').then( m => m.DistributorDetailsPageModule)
-  },
+    loadChildren: () => import('./pages/preferred-distributor/preferred-distributor.module').then(m => m.PreferredDistributorPageModule)
+  }
+  // {
+  //   path: 'distributor-details',
+  //   loadChildren: () => import('./pages/distributor-details/distributor-details.module').then( m => m.DistributorDetailsPageModule)
+  // },
 ];
 
 @NgModule({
