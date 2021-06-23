@@ -1,16 +1,24 @@
-ion-title{
-    font-size: 14px !important;
-    font-weight: bold;
+ion-title {
+  font-size: 14px !important;
+  font-weight: bold;
 }
-.term-section{
-    padding: 20px;
+
+.term-section {
+  padding: 20px;
 }
-.bottom-section{
-    position: fixed;
-    bottom: 0 !important;
-    width: 100%;
+
+.bottom-section {
+  position: fixed;
+  bottom: 0 !important;
+  width: 100%;
 }
-.button-padding{
-    padding: 10px;
-    display: inline;
+
+.button-padding {
+  padding: 10px;
+  display: inline;
+}
+
+.termsCondtn {
+  text-align: left;
+  padding-left: 15px;
 }

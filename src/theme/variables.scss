@@ -4,12 +4,12 @@
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-color-primary: #3880ff;
+  --ion-color-primary: #F36633;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #3171e0;
-  --ion-color-primary-tint: #4c8dff;
+  --ion-color-primary-shade: #F36633;
+  --ion-color-primary-tint: #F36633;
 
 
   /** secondary **/
@@ -144,11 +144,11 @@
   --ion-background-color: #ebebeb;
 
   /* Set the font family of the entire app */
-  --ion-font-family: "Arial";
+  --ion-font-family: "DIN";
 
   /**gsk colors**/
   --ion-gsk-background: #ebebeb;
-  --ion-gsk-red-color: #8C1219;
+  --ion-gsk-orange-color: #F36633;
   --ion-gsk-white-color: #ffffff;
   --ion-gsk-label-title: #ffffff;
   --ion-gsk-back-button: #8D1119;
@@ -158,6 +158,9 @@
   --ion-gsk-unread-color: #ebebeb;
   --ion-gsk-legend-color: #333333;
   --ion-gsk-error-message-color: #ff0000;
+  --ion-gsk-lineargradient-color: transparent linear-gradient(180deg, #EF4B22 0%, #F69427 100%) 0% 0% no-repeat padding-box;
+
+
 
 }
 

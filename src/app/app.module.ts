@@ -11,6 +11,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { IonicGestureConfig } from './utils/IonicGestureConfig';
 
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -32,12 +33,12 @@ export function createTranslateLoader(http: HttpClient) {
       }
     })
   ],
-  providers: [HttpClient, 
+  providers: [HttpClient,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: IonicGestureConfig
-  },
+    },
   ],
   bootstrap: [AppComponent],
 })

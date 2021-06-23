@@ -8,6 +8,7 @@ import { OtpPageRoutingModule } from './otp-routing.module';
 
 import { OtpPage } from './otp.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/components/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     IonicModule,
     OtpPageRoutingModule,
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    SharedModule
   ],
   declarations: [OtpPage]
 })

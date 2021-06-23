@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { MenuController } from "@ionic/angular";
+import { Subscription } from "rxjs";
 
 // import { HelperService } from "src/app/helper.service";
 // import { ApiService } from "src/app/Service/api/api.service";
@@ -22,13 +23,33 @@ export class OtpPage implements OnInit {
     speed: 400,
     autoplay: true,
   };
+  timeLeft: any = 180;
   mobileNumber;
+
+  countDown: Subscription;
+  counter = 1800;
+  tick = 1000;
+
   constructor(
     public menu: MenuController,
     private router: Router,
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    // this.countDown = timer(0, this.tick)
+    //   .subscribe(() => --this.counter)
+  }
+
+  battleInit() {
+    if (this.timeLeft == -1) {
+
+    } else {
+      this.timeLeft = this.timeLeft + ' seconds remaining';
+      this.timeLeft--;
+    }
+    console.log("this time ", this.timeLeft);
+  }
+
   ionViewWillEnter() {
     this.menu.enable(false);
   }

@@ -26,6 +26,14 @@ const routes: Routes = [
   {
     path: 'preferred-distributor',
     loadChildren: () => import('./pages/preferred-distributor/preferred-distributor.module').then(m => m.PreferredDistributorPageModule)
+  },
+  {
+    path: 'my-orders',
+    loadChildren: () => import('./pages/my-orders/my-orders.module').then(m => m.MyOrdersPageModule)
+  },
+  {
+    path: 'order-details',
+    loadChildren: () => import('./pages/order-details/order-details.module').then( m => m.OrderDetailsPageModule)
   }
   // {
   //   path: 'distributor-details',

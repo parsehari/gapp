@@ -1,11 +1,11 @@
 <ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row>
-      <ion-col float-right>
-        <img src="/assets/images/ionicimg.png" style="width: 50%;">
-      </ion-col>
       <ion-col float-left>
-        <img src="/assets/images/ionicimg.png" style="width: 50%;">
+        <img src="/assets/images/VX_logo.png">
+      </ion-col>
+      <ion-col float-right class="logoRight">
+        <img src="/assets/images/GSK_logo.png">
       </ion-col>
  </ion-row>
     <ion-row>
@@ -16,13 +16,13 @@
         </div>
       </ion-col>
       </ion-row>
-      <ion-row class="textInput">
-        <ion-col size="4" offset="4">
-          <img src="/assets/images/ionicimg.png">
+      <ion-row>
+        <ion-col class="imgCenter">
+          <img src="/assets/images/Icon_01_Vaccine.svg">
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col>
+        <ion-col offset=1 size=10>
         <ion-input placeholder="{{'login.loginPage.enterUserDetails' | translate}}" class="plcText"></ion-input>
       </ion-col>
     </ion-row>
@@ -31,9 +31,8 @@
         <div class="msgDiv">
           {{'login.loginPage.otpText' | translate}}
         </div>
-        <ion-row class="loginDiv">
-          
-      <ion-col>
+        <ion-row>
+         <ion-col offset="1">
            <ion-item lines="none">
               <ion-radio slot="start" mode="md" item-left value="mobile"></ion-radio>
               <ion-label>{{'login.loginPage.mobile' | translate}}</ion-label>
@@ -48,10 +47,14 @@
     </ion-row>
       </ion-radio-group>
     </div>
-  <ion-row>
-    <ion-col>
-    <ion-button expand="block" fill="outline" (click)="showTermsAndConditions()">{{'login.loginPage.getotp' | translate}}</ion-button>
-  </ion-col>
-  </ion-row>
+  
   </ion-grid>
+
 </ion-content>
+<ion-footer class="ion-no-border">
+  <ion-row>
+      <ion-col>
+      <ion-button expand="block" fill="solid" (click)="showTermsAndConditions()">{{'login.loginPage.getotp' | translate}}</ion-button>
+    </ion-col>
+    </ion-row>
+</ion-footer>
