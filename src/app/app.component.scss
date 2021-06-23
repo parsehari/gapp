@@ -1,11 +1,18 @@
-.menuHeight {
-  height: 10%;
-}
-
 .profileText {
   padding-top: 10%;
 }
 
 ion-menu {
   --min-width: 100%;
+}
+
+.menuTitle {
+  text-align: left;
+  padding-left: 45px;
+}
+
+.someText {
+  color: var(--ion-gsk-white-color);
+  font-size: 36px;
+  padding-top: 36px;
 }
