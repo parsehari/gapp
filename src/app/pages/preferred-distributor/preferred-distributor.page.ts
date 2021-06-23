@@ -29,5 +29,6 @@ export class PreferredDistributorPage implements OnInit {
   }
 
   goToDetail(){
+     this.route.navigate(['\distributor-details']);
   }
 }

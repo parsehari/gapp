@@ -1,0 +1,50 @@
+.header-section
+{
+    background-color: rgb(206, 206, 206);
+}
+.header-bottom
+{
+    justify-content: center;
+    font-size: 12px;
+}
+ion-footer
+{
+    background-color: white;
+    ion-button{
+      margin: 10px;
+    }
+}
+.title-label{
+    display: block !important;
+}
+
+ion-card{
+    border: 1px solid lightgray;
+    margin-top: 10px !important;
+ }
+ ion-item{
+     --ion-background-color: transparent !important;
+     --detail-icon-color:black;
+     --detail-icon-font-size:24px;
+     --detail-icon-opacity:1;
+ }
+ ion-row{
+     padding: 0 !important;
+ }
+ ion-col {
+     padding: 0 !important;
+ }
+ .icon-color {
+     color: gray;
+     font-size: 14px;
+ }
+ .text-bold {
+     font-weight: bold;
+ }
+ .title-margin{
+     margin-top: 15px;
+ }
+ .subtitle-margin {
+     margin-top: 20px !important;
+     margin-bottom: 10px;
+ }
