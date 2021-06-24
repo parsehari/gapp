@@ -25,4 +25,7 @@ export class SelectDistributorPage implements OnInit {
   goBack() {
     this.route.navigate(['/login']);
   }
+  continueClicked(){
+    this.route.navigate(['/payment'])
+  }
 }

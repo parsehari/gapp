@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-preferred-distributor',
@@ -10,9 +11,10 @@ export class PreferredDistributorPage implements OnInit {
  // bgColor='#B8DEFD'
   bgColor='white'
 
-  constructor(private route:Router) { }
+  constructor(private route:Router, private menu : MenuController) { }
   
   ngOnInit() {
+     this.menu.enable(true);
   }
   goBack(){
 
@@ -29,5 +31,9 @@ export class PreferredDistributorPage implements OnInit {
   }
 
   goToDetail(){
+     this.route.navigate(['/distributor-details']);
+  }
+  savePressed(event){
+     this.route.navigate(['/product-list'])
   }
 }

@@ -49,7 +49,7 @@ export class OtpPage implements OnInit {
   }
 
   validateOTP() {
-    this.router.navigate(["/select-distributor"]);
+    this.router.navigate(["/preferred-distributor"]);
     return;
 
     let finalOTP: Number;
