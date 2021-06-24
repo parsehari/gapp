@@ -24,3 +24,63 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+.title-header {
+  top: 0px !important;
+  left: 0px !important;
+  width: 375px !important;
+  height: 90px !important;
+  background: transparent linear-gradient(180deg, #EF4B22 0%, #F69427 100%) 0% 0% no-repeat padding-box !important;
+  opacity: 1 !important;
+}
+
+ion-toolbar {
+  top: 0px;
+  left: 0px;
+  width: 375px;
+  height: 90px;
+  --background: transparent linear-gradient(180deg, #EF4B22 0%, #F69427 100%) 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+
+// ion-header {
+//   top: 0px;
+//   left: 0px;
+//   width: 375px;
+//   height: 90px;
+//   background: transparent linear-gradient(180deg, #EF4B22 0%, #F69427 100%) 0% 0% no-repeat padding-box;
+//   opacity: 1;
+// }
+
+.cartSize {
+  color: var(--ion-color-gsk-gray-contrast);
+  font-size: 35px;
+}
+
+.menuBtn {
+  padding-top: 12%;
+  opacity: 1;
+}
+
+.menuSize {
+  font-size: 35px;
+}
+
+.backButtonicon {
+  color: var(--ion-gsk-background);
+  font-size: 12px;
+}
+
+ion-item {
+  --detail-icon-color: var(--ion-gsk-orange-color);
+  --detail-icon-opacity: 1px;
+}
+
+ion-button {
+  --background: var(--ion-gsk-lineargradient-color);
+}
+
+.imgCenter {
+  text-align: center;
+}

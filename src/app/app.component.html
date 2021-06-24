@@ -3,15 +3,15 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-header class="menuHeight">
         <ion-menu-toggle auto-hide="false">
-          <ion-item class="profileText" routerDirection="root" routerLink="/profile" routerLinkActive="active"
-            detail="false" mode='md' no-lines>
-              Welcome, John Doe
-              <ion-buttons slot="end">
-                <ion-button icon-only>
-                  <ion-icon slot="end" name="close"></ion-icon>
-                </ion-button>
-              </ion-buttons>
-          </ion-item>
+          <ion-toolbar class="someText">
+            <ion-icon  slot="start" name="person-circle-outline"></ion-icon>
+          <ion-title class="menuTitle" color="gsk-white">
+            Welcome, John Doe
+           
+          </ion-title>
+              <ion-icon slot="end" name="close"></ion-icon>
+        
+        </ion-toolbar>
         </ion-menu-toggle>
       </ion-header>
       <ion-content>
@@ -26,6 +26,18 @@
           </ion-menu-toggle>
         </ion-list>
       </ion-content>
+      <ion-footer>
+        <ion-row>
+          <ion-col class="imgCenter">
+        <img src="/assets/images/GSK_logo.png">
+      </ion-col>
+        </ion-row>
+        <ion-row class="imgCenter">
+          <ion-col class="imgCenter">
+        <img src="/assets/images/VX_logo.png">
+        </ion-col>
+      </ion-row>
+      </ion-footer>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>

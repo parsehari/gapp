@@ -1,0 +1,16 @@
+<app-header heading="My Order" showMenuButton="true" showSubHeader=true>
+</app-header>
+
+<ion-content>
+  <ion-card *ngFor="let item of [1,2,3,4]"  [ngStyle]="{'background-color':bgColor}"  (click)="goToDetail()" >
+    <ion-item detail >
+        <ion-icon slot="start"  name="person" class="card-icon"></ion-icon>
+        <ion-label class="card-label">
+          <p class="card-title">Synflorix lorem ipsum dolor sit asem</p>
+          <p>
+            <ion-label class="left-content">Delivered on 21/12/23</ion-label>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+</ion-content>

@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="menuBtn">
+      <ion-menu-button *ngIf="showMenuButton" color="gsk-white" class="menuSize"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="menuBtn" color="gsk-white">
+      {{heading}}
+    </ion-title>
+    <ion-buttons slot="end" class="menuBtn"> 
+    <ion-button *ngIf="!showCart">
+      <ion-icon class="cartSize" icon-only name="cart-outline"></ion-icon>
+    </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-toolbar *ngIf="!showSubHeader" class="sub-header-toolbar" >
+  <ion-row class="title-header">
+    <ion-col>
+      <ion-icon name="chevron-back-outline" class="backButtonicon"></ion-icon>
+      <ion-label color="gsk-white">Back</ion-label>
+    </ion-col>
+  </ion-row>
+  
+</ion-toolbar>
+<ng-container *ngIf="!showSearch">
+  <ion-row>
+    <ion-col size="10">
+      <ion-searchbar> </ion-searchbar>
+     </ion-col>
+    <ion-col size="2" class="searchBar">
+      <ion-icon name="options-outline"></ion-icon>
+    </ion-col>
+  </ion-row>
+</ng-container>

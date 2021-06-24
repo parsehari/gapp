@@ -4,10 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { OtpPageRoutingModule } from './otp-routing.module';
+import { OrderDetailsPageRoutingModule } from './order-details-routing.module';
 
-import { OtpPage } from './otp.page';
-import { TranslateModule } from '@ngx-translate/core';
+import { OrderDetailsPage } from './order-details.page';
 import { SharedModule } from 'src/app/components/shared/shared.module';
 
 @NgModule({
@@ -15,10 +14,9 @@ import { SharedModule } from 'src/app/components/shared/shared.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    OtpPageRoutingModule,
-    TranslateModule.forChild(),
-    SharedModule
+    SharedModule,
+    OrderDetailsPageRoutingModule
   ],
-  declarations: [OtpPage]
+  declarations: [OrderDetailsPage]
 })
-export class OtpPageModule { }
+export class OrderDetailsPageModule { }

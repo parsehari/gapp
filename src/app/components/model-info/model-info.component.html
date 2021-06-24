@@ -1,10 +1,10 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>
+  <ion-toolbar>
+     <ion-title color="gsk-white" class="termsCondtn"> 
       Terms & Conditions
     </ion-title>
   </ion-toolbar>
- </ion-header>
+</ion-header>
  <ion-content>
    <ion-row>
      <ion-col class="term-section">
@@ -16,18 +16,13 @@
    </ion-row>
  </ion-content>
  <ion-footer class="ion-no-border">
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <div class="ion-text-center">
-          <div class="button-padding">
-            <ion-button  fill="outline" (click)="goToProductList()">{{'model.modelPage.accept' | translate}}</ion-button>
-          </div>
-          <div class="button-padding">
-            <ion-button  fill="outline" (click)="dismissModel()">{{'model.modelPage.decline' | translate}}</ion-button>
-          </div>
-        </div>
-      </ion-col>
-    </ion-row>
-   </ion-grid>
- </ion-footer>
+  <ion-row>
+    <ion-col>
+      <ion-button expand="block" fill="solid" (click)="goToProductList()">{{'model.modelPage.accept' | translate}}</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button expand="block" fill="solid" (click)="dismissModel()">{{'model.modelPage.decline' | translate}}</ion-button>
+    </ion-col>
+  </ion-row>

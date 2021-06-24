@@ -109,11 +109,10 @@ ion-button {
 
 .content-label-css {
   display: flex;
-  justify-content: center;
   font-weight: 200;
-  font-size: 11px;
+  font-size: 20px;
   margin: 5px;
-  color: #4b4949;
+  text-align: center;
 }
 
 .back-label-css {
@@ -149,15 +148,14 @@ ion-input {
 }
 
 .card-container {
-  // height: 100%;
   display: flex;
   margin: auto;
   display: flex;
   align-content: center;
   align-items: center;
   justify-content: center;
-  margin-top: 30%;
 }
+
 
 .login-card {
   width: 90%;
