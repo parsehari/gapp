@@ -15,10 +15,10 @@ const routes: Routes = [
     path: 'otp',
     loadChildren: () => import('./pages/otp/otp.module').then(m => m.OtpPageModule)
   },
- {
-     path: 'product-list',
-     loadChildren: () => import('./pages/product-list/product-list.module').then( m => m.ProductListPageModule)
-   },
+  {
+    path: 'product-list',
+    loadChildren: () => import('./pages/product-list/product-list.module').then(m => m.ProductListPageModule)
+  },
   {
     path: 'select-distributor',
     loadChildren: () => import('./pages/select-distributor/select-distributor.module').then(m => m.SelectDistributorPageModule)
@@ -27,22 +27,22 @@ const routes: Routes = [
     path: 'preferred-distributor',
     loadChildren: () => import('./pages/preferred-distributor/preferred-distributor.module').then(m => m.PreferredDistributorPageModule)
   },
-   {
-     path: 'distributor-details',
-     loadChildren: () => import('./pages/distributor-details/distributor-details.module').then( m => m.DistributorDetailsPageModule)
-   },
+  {
+    path: 'distributor-details',
+    loadChildren: () => import('./pages/distributor-details/distributor-details.module').then(m => m.DistributorDetailsPageModule)
+  },
   {
     path: 'cart',
-    loadChildren: () => import('./pages/cart/cart.module').then( m => m.CartPageModule)
+    loadChildren: () => import('./pages/cart/cart.module').then(m => m.CartPageModule)
   },
-  {
-    path: 'order-by-distributor',
-    loadChildren: () => import('./pages/order-by-distributor/order-by-distributor.module').then( m => m.OrderByDistributorPageModule)
-  },
-  {
-    path: 'payment',
-    loadChildren: () => import('./pages/payment/payment.module').then( m => m.PaymentPageModule)
-  },
+  // {
+  //   path: 'order-by-distributor',
+  //   loadChildren: () => import('./pages/order-by-distributor/order-by-distributor.module').then( m => m.OrderByDistributorPageModule)
+  // },
+  // {
+  //   path: 'payment',
+  //   loadChildren: () => import('./pages/payment/payment.module').then( m => m.PaymentPageModule)
+  // },
   {
     path: 'my-orders',
     loadChildren: () => import('./pages/my-orders/my-orders.module').then(m => m.MyOrdersPageModule)
@@ -53,7 +53,7 @@ const routes: Routes = [
   },
   {
     path: 'order-view-modal',
-    loadChildren: () => import('./pages/order-view-modal/order-view-modal.module').then( m => m.OrderViewModalPageModule)
+    loadChildren: () => import('./pages/order-view-modal/order-view-modal.module').then(m => m.OrderViewModalPageModule)
   },
   // {
   //   path: 'distributor-details',

@@ -22,9 +22,9 @@ export class AppComponent {
 
   loadMenu() {
     this.appPages = [
-      { title: this.translate.instant("sideMenu.placeOrder"), url: '/folder/Inbox', icon: 'mail' },
+      { title: this.translate.instant("sideMenu.placeOrder"), url: 'product-list', icon: 'mail' },
       { title: this.translate.instant("sideMenu.obyD"), url: '/folder/Outbox', icon: 'paper-plane' },
-      { title: this.translate.instant("sideMenu.mPreD"), url: '/folder/Favorites', icon: 'heart' },
+      { title: this.translate.instant("sideMenu.mPreD"), url: 'preferred-distributor', icon: 'heart' },
       { title: this.translate.instant("sideMenu.myOrder"), url: 'my-orders', icon: 'archive' },
       { title: this.translate.instant("sideMenu.logout"), url: 'login', icon: 'trash' }
     ];
