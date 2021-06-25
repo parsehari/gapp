@@ -8,7 +8,7 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./select-distributor.page.scss'],
 })
 export class SelectDistributorPage implements OnInit {
-  distributor: any;
+  distributor: any = 'Distributor 2';
   constructor(private route: Router, private menu: MenuController) { }
 
   ngOnInit() {

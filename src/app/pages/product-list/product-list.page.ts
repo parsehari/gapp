@@ -19,9 +19,9 @@ export class ProductListPage implements OnInit {
   console.log("change",event);
   }
   addToCart(){
-
+    this.route.navigate(['/cart']);
   }
   buyNow(){
-    this.route.navigate(['/cart']);
+    this.route.navigate(['/select-distributor']);
   }
 }

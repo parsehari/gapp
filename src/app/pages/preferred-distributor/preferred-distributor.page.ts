@@ -33,7 +33,7 @@ export class PreferredDistributorPage implements OnInit {
   goToDetail(){
      this.route.navigate(['/distributor-details']);
   }
-  savePressed(event){
+  savePressed(){
      this.route.navigate(['/product-list'])
   }
 }

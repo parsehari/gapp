@@ -1,26 +1,44 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button icon-only>
-        <ion-icon slot="end" name="cart"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-header heading=" " [showMenuButton]="true" [showSubHeader]="false" [showSearch]="true" [showCart]="true">
+</app-header>
 <ion-content>
-  <ion-searchbar inputmode="search" debounce=500 (ionChange)="searchInputValueChange($event)"
-    placeholder="Search Medician / Produts.."></ion-searchbar>
   <ion-card *ngFor="let item of [1,2,3]">
     <ion-grid class="card-section">
-      <ion-row>
-        <ion-col>
-          <div class="offer-content"></div>
+      <ion-row class="ion-no-padding"class="ion-no-margin" >
+        <ion-col size="4">
+          <div class="offer-content">
+            <ion-grid class="offer-item">
+              <ion-row style="align-items: center;">
+                <ion-col size="4">
+                  <div class="line"></div>
+                </ion-col>
+                <ion-col size="4">
+                  <div class="ion-text-center">
+                    <ion-icon style="color: white;" name="star"></ion-icon>
+                  </div>
+                </ion-col>
+                <ion-col size="4">
+                  <div class="line"></div>
+                                </ion-col>
+              </ion-row>
+              <ion-row >
+                <ion-col >
+                  <div class="ion-text-center">
+                    <ion-label style="font-size: 10px;color: white;">BUY 2 & GET 2</ion-label>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row >
+                <ion-col >
+                  <div class="ion-text-center" style="padding-top: 5px;">
+                    <ion-label style="font-size: 20px;border: 1px solid white;padding: 2px;margin-top: 8px;">FREE</ion-label>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
           <div class="content"></div>
-        </ion-col>
-        <ion-col class="img-padding">
+        </ion-col >
+        <ion-col class="img-padding" size="8">
           <div class="ion-text-center">
             <img src="/assets/images/vaccine.jpeg">
           </div>
@@ -36,11 +54,6 @@
           </div>
         </ion-col>
         <ion-col size="4">
-          <ion-row>
-            <ion-col>
-              <div class="ion-text-center quantity">Quantity</div>
-            </ion-col>
-          </ion-row>
           <ion-row>
             <ion-col>
               <div class="ion-text-right">
@@ -63,20 +76,5 @@
     </ion-grid>
   </ion-card>
 </ion-content>
-<ion-footer>
 
-  <div class="event-section">
-    <ion-row>
-      <ion-col size="6">
-        <div class="ion-text-left">
-          <ion-button fill="outline" (click)="addToCart()">Add To Cart</ion-button>
-        </div>
-      </ion-col>
-      <ion-col size="6">
-        <div class="ion-text-right">
-          <ion-button fill="outline" (click)="buyNow()">Buy Now</ion-button>
-        </div>
-      </ion-col>
-    </ion-row>
-  </div>
-</ion-footer>
+<app-footer  [isFirstOutline]=true [isSecondOutline]=false [firstTitle]="'product-list.product-listPage.aCart'" [secondTitle]="'product-list.product-listPage.bNow'" (firstEvent)="addToCart()" (secondEvent)="buyNow()"></app-footer>

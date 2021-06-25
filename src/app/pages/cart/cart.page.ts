@@ -22,7 +22,7 @@ export class CartPage implements OnInit {
    this.route.navigate(['/select-distributor'])
   }
   addNewProduct(){
-
+    this.route.navigate(['/product-list'])
   }
 
 }

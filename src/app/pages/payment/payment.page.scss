@@ -1,0 +1,35 @@
+.circel{
+    min-width: 40px;
+    min-height: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border:1px solid black;
+    background-color:green ;
+}
+
+.line {
+    width: 100% !important;
+    background-color: green;
+    height: 5px;
+    position: relative;
+    top: 50%;
+    bottom: 50%;
+}
+.order {
+    padding: 10px;
+    align-items:center;
+    position: relative;
+    background-color: greenyellow;
+    height: 80px;
+}
+.circel-content{
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+}
+ion-avatar{
+    border:1px solid black;
+}
