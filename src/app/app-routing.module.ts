@@ -35,14 +35,14 @@ const routes: Routes = [
     path: 'cart',
     loadChildren: () => import('./pages/cart/cart.module').then(m => m.CartPageModule)
   },
-  // {
-  //   path: 'order-by-distributor',
-  //   loadChildren: () => import('./pages/order-by-distributor/order-by-distributor.module').then( m => m.OrderByDistributorPageModule)
-  // },
-  // {
-  //   path: 'payment',
-  //   loadChildren: () => import('./pages/payment/payment.module').then( m => m.PaymentPageModule)
-  // },
+  {
+    path: 'order-by-distributor',
+    loadChildren: () => import('./pages/order-by-distributor/order-by-distributor.module').then( m => m.OrderByDistributorPageModule)
+  },
+  {
+    path: 'payment',
+    loadChildren: () => import('./pages/payment/payment.module').then( m => m.PaymentPageModule)
+  },
   {
     path: 'my-orders',
     loadChildren: () => import('./pages/my-orders/my-orders.module').then(m => m.MyOrdersPageModule)

@@ -6,7 +6,15 @@
     justify-content: center;
     font-size: 12px;
 }
-ion-item {
-    --detail-icon-color:black;
-    --details-icon-opicity:1;
-}
+ion-card{
+    background-color: white;
+ }
+ ion-item{
+     --ion-background-color: transparent !important;
+     --detail-icon-color: #F36633;
+     --detail-icon-font-size:24px;
+     --detail-icon-opacity:1;
+ }
+ ion-avatar{
+     padding: 5px;
+ }
