@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController, ModalController } from '@ionic/angular';
+import { OrderViewModalPage } from 'src/app/pages/order-view-modal/order-view-modal.page';
 
 @Component({
   selector: 'app-order-details',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderDetailsPage implements OnInit {
 
-  constructor() {
+  constructor(private modelCtrl: ModalController, private menu: MenuController) {
   }
 
   ngOnInit() {
@@ -17,7 +19,11 @@ export class OrderDetailsPage implements OnInit {
 
   }
 
-  viewDetails() {
+  async viewDetails() {
+    const model = await this.modelCtrl.create({
+      component: OrderViewModalPage
+    })
+    return await model.present();
 
   }
 

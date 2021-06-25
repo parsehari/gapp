@@ -7,24 +7,25 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
- @Input() firstTitle:string;
- @Input() secondTitle:string;
- @Input() moreEvent:boolean=true;
- @Input() isFirstOutline:boolean= true;
- @Input() isSecondOutline:boolean=false;
- @Output() firstEvent=new EventEmitter();
- @Output() secondEvent=new EventEmitter();
- @Input() showInfo:boolean = false;
-@Input() infoText:string;
-@Input() infoLabel:string;
+  @Input() firstTitle: string;
+  @Input() secondTitle: string;
+  @Input() moreEvent: boolean = true;
+  @Input() isFirstOutline: boolean = true;
+  @Input() isSecondOutline: boolean = false;
+  @Input() isIcon: boolean = false;
+  @Output() firstEvent = new EventEmitter();
+  @Output() secondEvent = new EventEmitter();
+  @Input() showInfo: boolean = false;
+  @Input() infoText: string;
+  @Input() infoLabel: string;
   constructor() { }
 
-  ngOnInit() {}
-  actionFirstTapped(){
-     this.firstEvent.emit();
+  ngOnInit() { }
+  actionFirstTapped() {
+    this.firstEvent.emit();
   }
-  actionSecondTapped(){
-     this.secondEvent.emit()
+  actionSecondTapped() {
+    this.secondEvent.emit()
   }
 
 }

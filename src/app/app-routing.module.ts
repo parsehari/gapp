@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'cart',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {

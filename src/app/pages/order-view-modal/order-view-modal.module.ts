@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { OrderViewModalPageRoutingModule } from './order-view-modal-routing.module';
 
 import { OrderViewModalPage } from './order-view-modal.page';
+import { SharedModule } from 'src/app/components/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    SharedModule,
     OrderViewModalPageRoutingModule
   ],
   declarations: [OrderViewModalPage]
 })
-export class OrderViewModalPageModule {}
+export class OrderViewModalPageModule { }

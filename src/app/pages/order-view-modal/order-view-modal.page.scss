@@ -1,0 +1,65 @@
+.cardContent {
+  padding: 10px 0px 5px 8px;
+  color: var(--ion-gsk-orange-color);
+  font-size: 18px;
+  font-weight: Medium;
+  background: var(--ion-gsk-white-color);
+}
+
+.cardContn {
+  padding: 0px 0px 0px 8px;
+  font-size: 14px;
+  background: var(--ion-gsk-white-color);
+  padding-bottom: 5px;
+}
+
+.orderClass {
+  padding: 7px 0px 0px 11px;
+  border-bottom-style: dashed;
+  border-bottom-color: var(--ion-color-gsk-gray);
+  border-bottom-width: thin;
+
+}
+
+.viewdetail {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 5px;
+  text-decoration: underline;
+  color: var(--ion-gsk-orange-color);
+}
+
+ion-card {
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  border-radius: inherit;
+}
+
+.cardContentDetail {
+  padding: 10px 0px 10px 8px;
+  color: var(--ion-gsk-orange-color);
+  font-size: 18px;
+  font-weight: Medium;
+  border-bottom-style: dashed;
+  border-bottom-color: var(--ion-color-gsk-gray);
+  border-bottom-width: thin;
+  background: var(--ion-gsk-white-color);
+}
+
+.cardContentDetailGST {
+  padding: 10px 0px 10px 8px;
+  color: var(--ion-gsk-orange-color);
+  font-size: 18px;
+  font-weight: Medium;
+  background: var(--ion-gsk-white-color);
+}
+
+
+.cardContn {
+  padding: 0px 0px 0px 8px;
+  font-size: 14px;
+  background: var(--ion-gsk-white-color);
+  padding-bottom: 5px;
+}

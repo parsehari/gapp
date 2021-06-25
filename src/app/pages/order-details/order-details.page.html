@@ -76,7 +76,8 @@
     </div>
 </ion-content>
 
-<ion-footer class="ion-no-border">
+<app-footer [isIcon]=true  [isFirstOutline]=false [moreEvent]=false [firstTitle]="'Re-order'" (firstEvent)="savePressed()"></app-footer>
+<!-- <ion-footer class="ion-no-border">
   <div class="footerDiv">
   <ion-row>
       <ion-col>
@@ -85,4 +86,4 @@
     </ion-col>
     </ion-row>
   </div>
-</ion-footer>
+</ion-footer> -->

@@ -20,7 +20,7 @@
     <ion-row *ngIf="!moreEvent">
       <ion-col >
         <div class="ion-text-center">
-          <ion-button expand="block" [ngClass]="{'button-single': isFirstOutline === true,'button-single': isFirstOutline === false}" shape="round"  (click)="actionFirstTapped()"><ion-label >{{firstTitle | translate}}</ion-label></ion-button>
+          <ion-button expand="block" [ngClass]="{'button-single': isFirstOutline === true,'button-single': isFirstOutline === false}" shape="round"  (click)="actionFirstTapped()"><ion-icon *ngIf="isIcon" slot="start" name="refresh-outline"></ion-icon><ion-label >{{firstTitle | translate}}</ion-label></ion-button>
         </div>
       </ion-col>
     </ion-row>
