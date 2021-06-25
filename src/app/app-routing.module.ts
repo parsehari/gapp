@@ -33,8 +33,12 @@ const routes: Routes = [
   },
   {
     path: 'order-details',
-    loadChildren: () => import('./pages/order-details/order-details.module').then( m => m.OrderDetailsPageModule)
-  }
+    loadChildren: () => import('./pages/order-details/order-details.module').then(m => m.OrderDetailsPageModule)
+  },
+  {
+    path: 'order-view-modal',
+    loadChildren: () => import('./pages/order-view-modal/order-view-modal.module').then( m => m.OrderViewModalPageModule)
+  },
   // {
   //   path: 'distributor-details',
   //   loadChildren: () => import('./pages/distributor-details/distributor-details.module').then( m => m.DistributorDetailsPageModule)

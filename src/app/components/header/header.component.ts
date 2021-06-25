@@ -14,7 +14,6 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   @Input() heading: string;
-  @Input() backReference: string;
   @Input() showMenuButton: boolean = false;
   @Input() showSubHeader: boolean = false;
   @Input() showNotification: boolean = false;

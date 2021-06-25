@@ -7,12 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderDetailsPage implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
-  selectChange(e) {
-    console.log('stepper event ', e);
+  ionViewDidEnter() {
+
   }
+
+
+
 }
