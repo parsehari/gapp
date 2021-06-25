@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-product-list',
@@ -7,11 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductListPage implements OnInit {
 
-  constructor() { }
+  constructor(private menu : MenuController,private route :Router) { }
 
   ngOnInit() {
+    this.menu.enable(true);
   }
+
   searchInputValueChange(event){
   console.log("change",event);
+  }
+  addToCart(){
+
+  }
+  buyNow(){
+    this.route.navigate(['/cart']);
   }
 }

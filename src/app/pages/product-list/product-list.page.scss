@@ -15,6 +15,9 @@ ion-card{
     align-self: center;
    
 }
+.text-margin{
+    margin-top: 5px;
+}
 ion-col{
     padding: 0 !important;
     margin: 0 !important;
@@ -33,11 +36,26 @@ ion-col{
     align-items: center; 
     margin-top: 10px;
 }
-.text-margin{
-    margin-top: 5px;
-}
+
 .text-color{
     color: black;
+}
+.event-section{
+    padding: 5px 30px 0px 30px;
+    background-color: white;
+}
+.offer-content{
+    width: 80px;
+    height: 60px;
+    background-color: red;
+}
+.content{
+    width: 0;
+    height: 0;
+    border-left: 40px solid red;
+    border-right: 40px solid red;
+    border-top: 20px solid red;
+    border-bottom: 20px solid transparent;
 }
 
 

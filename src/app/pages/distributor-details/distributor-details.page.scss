@@ -21,6 +21,9 @@ ion-footer
 ion-card{
     border: 1px solid lightgray;
     margin-top: 10px !important;
+    border-radius: 10px;
+    padding-top: 5px !important;
+    background-color: white;
  }
  ion-item{
      --ion-background-color: transparent !important;
@@ -28,12 +31,10 @@ ion-card{
      --detail-icon-font-size:24px;
      --detail-icon-opacity:1;
  }
- ion-row{
+ ion-row, ion-col {
      padding: 0 !important;
  }
- ion-col {
-     padding: 0 !important;
- }
+
  .icon-color {
      color: gray;
      font-size: 14px;
@@ -47,4 +48,15 @@ ion-card{
  .subtitle-margin {
      margin-top: 20px !important;
      margin-bottom: 10px;
+ }
+ .padding-bottom{
+     padding-bottom: 8px !important;
+ }
+ .padding-title{
+    padding-bottom: 12px !important;
+ }
+ .info-section {
+    font-size: 10px;
+    color: black;
+    padding-left: 12px !important;
  }

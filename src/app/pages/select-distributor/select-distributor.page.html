@@ -26,7 +26,7 @@
     </ion-grid>
   </div>
   <table  class="section-margin">
-    <thead>
+    <thead >
       <tr>
         <th>{{'distributor.distributorPage.products' | translate}}</th>
         <th>{{'distributor.distributorPage.quantity' | translate}}</th>
@@ -39,7 +39,10 @@
       <tr *ngFor="let item of [1,2,3,4]">
         <td>Synfiorix</td>
         <td>
-          <ion-input type="number" value="5" max="100" min="0" style="width: 30px;"></ion-input>
+            <ion-icon  name="remove-circle-outline"></ion-icon>
+            <ion-label style="min-width: 30px ;display: block;">609</ion-label>
+            <ion-icon  name="add-circle-outline"></ion-icon>
+
         </td>
         <td>{{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}</td>
         <td>{{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}</td>
@@ -73,6 +76,9 @@
       </tr>
     </tfoot>
   </table>
+  
+
+
   <div class="event-section">
     <ion-row >
       <ion-col>
@@ -83,7 +89,7 @@
     <ion-row>
       <ion-col size="6">
         <div class="ion-text-left">
-          <ion-button fill="outline">{{'distributor.distributorPage.continue' | translate}}</ion-button>
+          <ion-button fill="outline" (click)="continueClicked()">{{'distributor.distributorPage.continue' | translate}}</ion-button>
         </div>
       </ion-col>
       <ion-col size="6">
@@ -93,4 +99,5 @@
       </ion-col>
     </ion-row>
   </div>
+ 
 </ion-content>
