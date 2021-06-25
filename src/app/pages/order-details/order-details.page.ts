@@ -17,6 +17,9 @@ export class OrderDetailsPage implements OnInit {
 
   }
 
+  viewDetails() {
+
+  }
 
 
 }
