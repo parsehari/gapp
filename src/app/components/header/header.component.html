@@ -1,27 +1,27 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start" class="menuBtn">
+  <ion-toolbar style="padding-top: 12%;">
+    <ion-buttons slot="start" >
       <ion-menu-button *ngIf="showMenuButton" color="gsk-white" class="menuSize"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="menuBtn" color="gsk-white">
+    <ion-title  color="gsk-white">
       {{heading}}
     </ion-title>
-    <ion-buttons slot="end" class="menuBtn"> 
-    <ion-button *ngIf="!showCart">
+    <ion-buttons slot="end"  *ngIf="!showCart">
       <ion-icon class="cartSize" icon-only name="cart-outline"></ion-icon>
-    </ion-button>
     </ion-buttons>
+    
   </ion-toolbar>
 </ion-header>
-<ion-toolbar *ngIf="!showSubHeader" class="sub-header-toolbar" >
+<ng-container *ngIf="showSubHeader">
+<ion-toolbar class="sub-header-toolbar" >
   <ion-row class="title-header">
     <ion-col>
       <ion-icon name="chevron-back-outline" class="backButtonicon"></ion-icon>
       <ion-label color="gsk-white">Back</ion-label>
     </ion-col>
   </ion-row>
-  
 </ion-toolbar>
+</ng-container>
 <ng-container *ngIf="!showSearch">
   <ion-row>
     <ion-col size="10">

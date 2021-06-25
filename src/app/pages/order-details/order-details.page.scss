@@ -1,0 +1,148 @@
+ion-item {
+  --padding-start: 0;
+  --background-focused: transparent;
+
+  ion-label {
+    margin-top: 3px;
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+
+  ion-input,
+  ion-textarea,
+  select,
+  input {
+    border: 1px solid #cbcbcb;
+    border-radius: 3px;
+    font-size: 13px;
+    --padding-start: 10px;
+  }
+}
+
+ion-col {
+  --ion-grid-column-padding: 0 5px;
+}
+
+ion-slides {
+  height: 100%;
+
+  ion-slide {
+    align-items: flex-start;
+  }
+
+  .swiper-slide {
+    visibility: hidden;
+  }
+
+  .swiper-slide.swiper-slide-active {
+    visibility: visible;
+  }
+}
+
+ion-list-header ion-label {
+  margin-top: 16px;
+}
+
+select,
+input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  padding: 8px 6px;
+}
+
+.line {
+  height: 3px;
+  background: var(--ion-color-light-shade);
+  top: 14px;
+  z-index: -1;
+}
+
+.img-thumb {
+  width: 45px;
+  height: 55px;
+  object-fit: cover;
+  display: block;
+}
+
+.orderDetail {
+  --background: var(--ion-gsk-white-color);
+  margin-top: 4%;
+}
+
+.orderCss {
+  --background: var(--ion-color-gsk-gray-tin);
+}
+
+ion-card {
+  margin-top: 10px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  border-radius: inherit;
+}
+
+.cardContent {
+  padding: 10px 0px 5px 8px;
+  color: var(--ion-gsk-orange-color);
+  font-size: 18px;
+  font-weight: Medium;
+  border-bottom-style: dashed;
+  border-bottom-color: var(--ion-color-gsk-gray);
+  border-bottom-width: thin;
+  background: var(--ion-gsk-white-color);
+}
+
+.cardContentDetail {
+  padding: 10px 0px 10px 8px;
+  color: var(--ion-gsk-orange-color);
+  font-size: 18px;
+  font-weight: Medium;
+  border-bottom-style: dashed;
+  border-bottom-color: var(--ion-color-gsk-gray);
+  border-bottom-width: thin;
+  background: var(--ion-gsk-white-color);
+}
+
+.cardContentDetailGST {
+  padding: 10px 0px 10px 8px;
+  color: var(--ion-gsk-orange-color);
+  font-size: 18px;
+  font-weight: Medium;
+  border-bottom-style: solid;
+  border-bottom-color: var(--ion-gsk-orange-color);
+  border-bottom-width: thin;
+  background: var(--ion-gsk-white-color);
+}
+
+
+.cardContn {
+  padding: 0px 0px 0px 8px;
+  font-size: 14px;
+  background: var(--ion-gsk-white-color);
+  padding-bottom: 5px;
+}
+
+.textGreen {
+  color: var(--ion-color-gsk-green);
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.orderClass {
+  padding: 7px 0px 0px 11px;
+}
+
+.viewdetail {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 5px;
+  text-decoration: underline;
+  color: var(--ion-gsk-orange-color);
+}
+
+.viewIcon {
+  display: inline-block;
+  vertical-align: middle;
+}

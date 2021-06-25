@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, HammerModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+//import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -10,6 +11,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { IonicGestureConfig } from './utils/IonicGestureConfig';
+
 
 
 export function createTranslateLoader(http: HttpClient) {

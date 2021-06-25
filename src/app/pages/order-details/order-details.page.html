@@ -1,19 +1,88 @@
-<app-header heading="Order Details" showMenuButton="true" showSubHeader=true showSearch="false">
+<app-header heading="Order Details" showMenuButton="true" showSubHeader="true" showSearch="false">
 </app-header>
 
 <ion-content>
-  <ion-stepper #stepper (selectIndexChange)="selectChange($event)">
-    <ion-step label="Step1"
-              description="Step1 description">
-      <h2>Step1 Content</h2>
-      <p>Step1 Content</p>
-      <button ion-button small ionicStepperNext>Next</button>
-    </ion-step>
-    <ion-step label="Step2 - Step2 - Step2"
-              description="Step1 description">
-      <h2>Step2 Content</h2>
-      <p>Step2 Content</p>
-      <button ion-button color="light" small ionicStepperPrevious>Previous</button>
-    </ion-step>
-  </ion-stepper>
+<ion-card>
+  <div class="cardContent">
+    Order Id: 1231231334534534
+  </div>
+  <div class="cardContn">
+    Order Status: <span class="textGreen">Delivered</span>
+  </div>
+</ion-card>
+<div>
+<ion-row class="orderClass">
+  <ion-col>
+    Order Summary
+    <div (click)="viewDetails();">
+      <ion-icon name="eye-outline" class="viewIcon"></ion-icon><span class="viewdetail">View Details</span>
+    </div>
+  </ion-col>
+  <ion-col (click)="viewDetails();">
+    Invoice Summary
+    <div>
+      <ion-icon name="eye-outline" class="viewIcon"></ion-icon> <span class="viewdetail">View Details</span>
+    </div>
+  </ion-col>
+</ion-row>
+</div>
+<ion-card>
+  <ion-row class="cardContentDetail">
+    <ion-col>
+      Sub Total
+    </ion-col>
+    <ion-col>
+      123345
+    </ion-col>
+    <ion-col>
+      234234
+    </ion-col>
+  </ion-row>
+  <ion-row class="cardContentDetail">
+    <ion-col>
+      GST
+    </ion-col>
+    <ion-col>
+      123345
+    </ion-col>
+    <ion-col>
+      234234
+    </ion-col>
+  </ion-row>
+  <ion-row class="cardContentDetailGST">
+    <ion-col>
+      GST Discount
+    </ion-col>
+    <ion-col>
+      123345
+    </ion-col>
+    <ion-col>
+      234234
+    </ion-col>
+  </ion-row>
+</ion-card>
+<div>
+  <ion-row class="orderClass">
+    <ion-col>
+      Net Price
+    </ion-col>
+    <ion-col>
+      123345
+    </ion-col>
+    <ion-col>
+      234234
+    </ion-col>
+    </ion-row>
+    </div>
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <div class="footerDiv">
+  <ion-row>
+      <ion-col>
+          <ion-button (click)="onNextButtonTouched()" class="button-text orderDetail" expand="block"  fill="outline">
+            <ion-icon slot="start" name="refresh-outline"></ion-icon>Re-order</ion-button>
+    </ion-col>
+    </ion-row>
+  </div>
+</ion-footer>
