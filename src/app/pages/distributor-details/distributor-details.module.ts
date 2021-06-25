@@ -8,6 +8,7 @@ import { DistributorDetailsPageRoutingModule } from './distributor-details-routi
 
 import { DistributorDetailsPage } from './distributor-details.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/components/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     IonicModule,
     DistributorDetailsPageRoutingModule,
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    SharedModule
   ],
   declarations: [DistributorDetailsPage]
 })

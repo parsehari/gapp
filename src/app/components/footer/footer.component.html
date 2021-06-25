@@ -1,0 +1,28 @@
+
+<ion-footer>
+ <ion-item *ngIf="showInfo" class="info-section">
+   <ion-icon   slot="start" name="information-circle"></ion-icon>
+   <ion-label >{{infoLabel | translate : {param:infoText} }}</ion-label>
+ </ion-item>
+  <div class="event-section footer-section">
+    <ion-row *ngIf="moreEvent">
+      <ion-col size="6">
+        <div class="ion-text-left">
+          <ion-button [ngClass]="{'button-left': isFirstOutline === true,'button-right': isFirstOutline === false}" shape="round"  (click)="actionFirstTapped()"><ion-label >{{firstTitle | translate}}</ion-label></ion-button>
+        </div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="ion-text-right">
+          <ion-button [ngClass]="{'button-left': isSecondOutline === true,'button-right': isSecondOutline === false}" shape="round"   (click)="actionSecondTapped()"><ion-label>{{secondTitle | translate}}</ion-label></ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!moreEvent">
+      <ion-col >
+        <div class="ion-text-center">
+          <ion-button expand="block" [ngClass]="{'button-single': isFirstOutline === true,'button-single': isFirstOutline === false}" shape="round"  (click)="actionFirstTapped()"><ion-label >{{firstTitle | translate}}</ion-label></ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-footer>

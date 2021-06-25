@@ -1,29 +1,6 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon icon-only name="cart"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-header heading=" " [showMenuButton]="true" [showSubHeader]="true" [showSearch]="false" [showCart]="true">
+</app-header>
 <ion-content>
-  <div class="header-section" (click)="goBack()">
-    <ion-grid>
-      <ion-row class="header-bottom">
-        <ion-col size="1" class="ion-no-padding">
-          <ion-icon name="chevron-back-outline"></ion-icon>
-        </ion-col>
-        <ion-col size="11" class="ion-no-padding">
-          <ion-label>
-            Back</ion-label>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
   <ion-card *ngFor="let item of [1,2,3]">
     <ion-grid>
       <ion-row>
@@ -35,7 +12,7 @@
           </ion-row>
           <ion-row>
             <ion-col >
-              <ion-label>this vaccine areewrwrwrw used for covid 19</ion-label>
+              <ion-label class="vaccine-text">this vaccine areewrwrwrw used for covid 19</ion-label>
             </ion-col>
             </ion-row>
         </ion-col>
@@ -43,7 +20,7 @@
           <ion-row>
             <ion-col>
               <div class="ion-text-right">
-                <ion-label> {{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}
+                <ion-label class="price-text"> {{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}
                 </ion-label>
               </div>
             </ion-col>
@@ -77,20 +54,4 @@
       </ion-grid>
   </ion-card>
 </ion-content>
-<ion-footer>
-
-  <div class="event-section">
-    <ion-row>
-      <ion-col size="6">
-        <div class="ion-text-left">
-          <ion-button fill="outline" (click)="addNewProduct()">Add To Cart</ion-button>
-        </div>
-      </ion-col>
-      <ion-col size="6">
-        <div class="ion-text-right">
-          <ion-button fill="outline" (click)="continueClicked()">Buy Now</ion-button>
-        </div>
-      </ion-col>
-    </ion-row>
-  </div>
-</ion-footer>
+<app-footer  [isFirstOutline]=true [isSecondOutline]=false [firstTitle]="'cart.cartPage.aNProduct'" [secondTitle]="'cart.cartPage.continue'" (firstEvent)="addNewProduct()" (secondEvent)="continueClicked()"></app-footer>

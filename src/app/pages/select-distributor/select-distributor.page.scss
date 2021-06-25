@@ -3,7 +3,7 @@
     margin-top: 10px !important;
 }
 table{
-    font-size: 10px;
+    font-size: 12px;
 }
 tr:nth-child(even) {background-color: rgb(227, 227, 227)}
 tr {
@@ -11,6 +11,7 @@ tr {
 }
 thead th {
     padding: 18px 10px 15px 10px;
+    color: #F36633;
 }
 thead tr {
     background-color: white !important;
@@ -38,10 +39,11 @@ thead tr {
     margin-top: 10px;
     font-size: 10px;
 }
-.header-section{
-    background-color: rgb(206, 206, 206);
+.color-transparent {
+    background-color:rgba(240, 222, 216, 1) ;
 }
-.header-bottom{
-    justify-content: center;
-    font-size: 12px;
+.icon-color {
+color: #F36633;
+    
 }
+

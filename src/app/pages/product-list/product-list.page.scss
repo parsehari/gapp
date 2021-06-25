@@ -1,36 +1,35 @@
-ion-searchbar{
-    --background : white;
-    --border-radius: 5px !important;
-    --box-shadow:0 ;
-}
+
 ion-card{
     background-color: white;
     margin-bottom: 30px;
+    padding: 0 !important;
 }
 .product-quantity{
     font-size: 28px;
+    color: #F36633;
 }
 .quantity{
-    font-size: 10px;
+    font-size: 20px;
     align-self: center;
    
 }
 .text-margin{
-    margin-top: 5px;
+    margin-top: 3px;
 }
 ion-col{
     padding: 0 !important;
     margin: 0 !important;
 }
 .img-padding{
-    padding-top: 30px !important;
+    padding-top: 10px !important;
     img{
         width: 200px;
-        height: 120px;
+        height: 100px;
     }
 }
 .card-section{
-    padding: 10px;
+    padding: 0 10px 10px 10px !important;
+    margin: 0 !important;
 }
 .content-section{
     align-items: center; 
@@ -39,24 +38,43 @@ ion-col{
 
 .text-color{
     color: black;
+    font-size: 14px;
 }
 .event-section{
     padding: 5px 30px 0px 30px;
     background-color: white;
 }
 .offer-content{
-    width: 80px;
-    height: 60px;
-    background-color: red;
+    width: 76px;
+    height: 63px;
+    background-color: #A90B1B;
+    border-bottom: 1px solid #A90B1B;
 }
 .content{
     width: 0;
     height: 0;
-    border-left: 40px solid red;
-    border-right: 40px solid red;
-    border-top: 20px solid red;
-    border-bottom: 20px solid transparent;
+    border-left: 38px solid #A90B1B;
+    border-right: 38px solid #A90B1B;
+    border-top: 19px solid #A90B1B;
+    border-bottom: 19px solid transparent;
 }
+.line{
+    min-height: 1px !important;
+    min-width: 20px !important;
+    height: 1px !important;
+    width: 20px !important;
+    background-color: white !important;  
+}
+.offer-item {
+    padding: 0 !important;
+    margin:0 !important;
+    ion-row, ion-col {
+        padding: 0 !important;
+        margin:0 !important;
+    }
+    color: white;
+}
+
 
 
 

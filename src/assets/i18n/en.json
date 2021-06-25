@@ -36,8 +36,8 @@
             "decline":"Decline"
         }
     },
-    "distributor":{
-        "distributorPage":{
+    "sdistributor":{
+        "sdistributorPage":{
             "sdistributor":"Select Distributor",
             "products":"Products",
             "quantity":"Qty.",
@@ -51,8 +51,31 @@
     "pdistributor":{
         "pdistributorPage":{
             "pdistributor":"Preferred distributor",
-            "save-pdistributor":"Save as preferred distributor"
+            "save-pdistributor":"Save As Preferred Distributor's"
         }
 
+    },
+    "product-list":{
+        "product-listPage":{
+            "aCart":"Add to Cart",
+            "bNow":"Buy Now"
+        }
+    },
+    "cart":{
+        "cartPage":{
+            "aNProduct":"Add New Product",
+            "continue":"Continue"
+        }
+    },
+    "distributor-detail":{
+        "distributor-detailPage":{
+            "save-pdistributor":"Save As Preferred Distributor's",
+            "selected-distributor":"You have selected {{param}}"
+
+        }
+    },
+    "commonText":{
+        "back":"Back"
     }
+
 }
