@@ -56,6 +56,9 @@
     --padding-bottom:0px !important;
       height: 35px;
     --background:white;
+    ion-label {
+        font-size: 12px;
+    }
   }
   ion-icon {
     padding: 0;

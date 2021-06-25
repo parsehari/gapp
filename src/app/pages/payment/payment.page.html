@@ -1,36 +1,20 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon icon-only name="cart"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-header heading=" " [showMenuButton]="true" [showSubHeader]="true" [showSearch]="true" [showCart]="true">
+</app-header>
 <ion-content>
-  <div class="header-section" (click)="goBack()">
-    <ion-grid>
-      <ion-row class="header-bottom">
-        <ion-col size="1" class="ion-no-padding">
-          <ion-icon name="chevron-back-outline"></ion-icon>
-        </ion-col>
-        <ion-col size="11" class="ion-no-padding">
-          <ion-label>
-            Back</ion-label>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
-
-  <ion-card *ngFor="let item of [1,2]">
+  <ion-card >
     <ion-item detail>
       <ion-avatar slot="start">
-       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSppkoKsaYMuIoNLDH7O8ePOacLPG1mKXtEng&usqp=CAU">
+        <img src="assets/images/Icon_UPI.png">
       </ion-avatar>
       <ion-label>UPI</ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-card >
+    <ion-item detail>
+      <ion-avatar slot="start">
+       <img src="assets/images/Group_323.png">
+      </ion-avatar>
+      <ion-label>Cash On Delivery</ion-label>
     </ion-item>
   </ion-card>
 </ion-content>

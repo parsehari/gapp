@@ -32,4 +32,14 @@
 }
 ion-avatar{
     border:1px solid black;
+    padding: 10px;
 }
+ion-card{
+    background-color: white;
+ }
+ ion-item{
+     --ion-background-color: transparent !important;
+     --detail-icon-color: #F36633;
+     --detail-icon-font-size:24px;
+     --detail-icon-opacity:1;
+ }
