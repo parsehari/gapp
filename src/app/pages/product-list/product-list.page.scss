@@ -62,6 +62,14 @@ ion-col {
   border-bottom: 1px solid #A90B1B;
 }
 
+.line {
+  min-height: 1px !important;
+  min-width: 25px !important;
+  height: 1px !important;
+  width: 25px !important;
+  background-color: white !important;
+}
+
 .content {
   width: 0;
   height: 0;

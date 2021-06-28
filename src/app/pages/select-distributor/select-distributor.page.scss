@@ -3,29 +3,27 @@
     margin-top: 10px !important;
 }
 table{
-    font-size: 12px;
+    font-size: 14px;
 }
 tr:nth-child(even) {background-color: rgb(227, 227, 227)}
 tr {
     background-color: rgb(240, 240, 240);
 }
 thead th {
-    padding: 18px 10px 15px 10px;
+    padding: 18px 0px 18px 0px;
     color: #F36633;
 }
 thead tr {
     background-color: white !important;
 }
-  th, td {
-    padding: 5px;
+th,td{
     text-align: center;
-  }
+}
   tfoot td {
-      padding: 15px 10px 15px 10px;
+      padding: 15px 0px 15px 0px;
   }
   
   .section-margin{
-      margin-top: 30px;
       width: 100%;
   }
   .action-section{
@@ -46,4 +44,5 @@ thead tr {
 color: #F36633;
     
 }
+
 
