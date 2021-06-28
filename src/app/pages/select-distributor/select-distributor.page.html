@@ -15,10 +15,20 @@
       <tr *ngFor="let item of [1,2,3,4]">
         <td>Synfiorix</td>
         <td>
-            <ion-icon class="icon-color" name="remove-circle-outline"></ion-icon>
-            <ion-label style="min-width: 30px ;display: block;">609</ion-label>
-            <ion-icon class="icon-color"  name="add-circle-outline"></ion-icon>
-
+          <ion-row>
+            <ion-col>
+               <div class="ion-text-center">
+                <ion-icon  slot="icon-only" name="remove-circle-outline"></ion-icon>
+               </div>
+               <div class="ion-text-center">
+                <ion-label >609</ion-label>
+              </div>
+               <div class="ion-text-center">
+                <ion-icon  slot="icon-only" name="add-circle-outline"></ion-icon>
+               </div>
+              
+            </ion-col>
+          </ion-row>
         </td>
         <td>{{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}</td>
         <td>{{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}</td>
