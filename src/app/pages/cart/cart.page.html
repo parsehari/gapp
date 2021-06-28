@@ -1,6 +1,7 @@
 <app-header heading=" " [showMenuButton]="true" [showSubHeader]="true" [showSearch]="false" [showCart]="true">
 </app-header>
 <ion-content>
+  <div class="cardTop">
   <ion-card *ngFor="let item of [1,2,3]">
     <ion-grid>
       <ion-row>
@@ -53,5 +54,6 @@
       </ion-row>
       </ion-grid>
   </ion-card>
+</div>
 </ion-content>
 <app-footer  [isFirstOutline]=true [isSecondOutline]=false [firstTitle]="'cart.cartPage.aNProduct'" [secondTitle]="'cart.cartPage.continue'" (firstEvent)="addNewProduct()" (secondEvent)="continueClicked()"></app-footer>

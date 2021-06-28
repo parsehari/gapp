@@ -1,89 +1,99 @@
 <ion-content>
-  
-    <div class="cardContent">
-      Order Summary
-    </div>
+  <ion-row class="cardContent"> 
+        <ion-col size="10">
+           Order Summary
+        </ion-col>
+        <ion-col size="2" (click)="dismissModel()">
+          <ion-icon icon-only name="close"></ion-icon>
+        </ion-col>
+  </ion-row>
   <div>
-    <ion-row class="orderClass">
+    <ion-row class="distName">
       <ion-col>
         Distributor: Distributor name
       </ion-col>
     </ion-row>
-    </div>
+  </div>
     
     <ion-card>
       <ion-row class="cardContentDetail">
-        <ion-col>
+        <ion-col size="6">
           Synflorix
-          <div>
-            10123
+          <div class="priceCs">
+            {{1233| currency:'INR'}}
           </div>
         </ion-col>
-        <ion-col>
-          123345
+        <ion-col size="2">
+          12
         </ion-col>
-        <ion-col>
-          234234
+        <ion-col size="4">
+          {{123345| currency:'INR'}}
         </ion-col>
       </ion-row>
       <ion-row class="cardContentDetail">
-        <ion-col>
-          GST
+        <ion-col size="6">
+          Cervarix
+          <div class="priceCs">
+            {{342| currency:'INR'}}
+          </div>
         </ion-col>
-        <ion-col>
-          123345
+        <ion-col size="2">
+          123
         </ion-col>
-        <ion-col>
-          234234
+        <ion-col size="4">
+          {{123345| currency:'INR'}}
         </ion-col>
       </ion-row>
       <ion-row class="cardContentDetailGST">
-        <ion-col>
-          GST Discount
+        <ion-col size="6">
+          Infarix
+          <div class="priceCs">
+            {{456| currency:'INR'}}
+          </div>
         </ion-col>
-        <ion-col>
-          123345
+        <ion-col size="2">
+          123
         </ion-col>
-        <ion-col>
-          234234
+        <ion-col size="4">
+          {{123345| currency:'INR'}}
         </ion-col>
       </ion-row>
     </ion-card>
     <div>
       <ion-row class="orderClass">
-        <ion-col>
+        <ion-col size="8">
           Sub Total
         </ion-col>
-        <ion-col>
-          123345
-        </ion-col>
-        <ion-col>
-          234234
+        <ion-col size="4">
+          {{123345| currency:'INR':'symbol-narrow':'4.2-2'}}
         </ion-col>
       </ion-row>
       <ion-row class="orderClass">
-        <ion-col>
+        <ion-col size="8">
           GST
         </ion-col>
-        <ion-col>
-          123345
-        </ion-col>
-        <ion-col>
-          234234
+        <ion-col size="4">
+          {{123345| currency:'INR':'symbol-narrow':'4.2-2'}}
         </ion-col>
       </ion-row>
       <ion-row class="orderClass">
-        <ion-col>
+        <ion-col size="8">
           GST Discount
         </ion-col>
-        <ion-col>
-          123345
-        </ion-col>
-        <ion-col>
-          234234
+        <ion-col size="4">
+          {{123345| currency:'INR':'symbol-narrow':'4.2-2'}}
         </ion-col>
       </ion-row>
-      
+      </div>
+      <div class="cardContent">
+        <ion-row>
+        <ion-col size="8">
+          Net Price
+        </ion-col>
+        <ion-col size="4">
+          {{123345| currency:'INR':'symbol-narrow':'4.2-2'}}
+        </ion-col>
+      </ion-row>
       </div>
 </ion-content>
 

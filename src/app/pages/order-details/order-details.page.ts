@@ -21,7 +21,8 @@ export class OrderDetailsPage implements OnInit {
 
   async viewDetails() {
     const model = await this.modelCtrl.create({
-      component: OrderViewModalPage
+      component: OrderViewModalPage,
+      cssClass: 'my-custom-modal-css'
     })
     return await model.present();
 

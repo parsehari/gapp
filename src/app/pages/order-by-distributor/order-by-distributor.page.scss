@@ -1,20 +1,19 @@
-.header-section
-{
-    background-color: rgb(206, 206, 206);
+.header-bottom {
+  justify-content: center;
+  font-size: 12px;
 }
-.header-bottom{
-    justify-content: center;
-    font-size: 12px;
+
+ion-card {
+  background-color: var(--ion-gsk-white-color);
 }
-ion-card{
-    background-color: white;
- }
- ion-item{
-     --ion-background-color: transparent !important;
-     --detail-icon-color: #F36633;
-     --detail-icon-font-size:24px;
-     --detail-icon-opacity:1;
- }
- ion-avatar{
-     padding: 5px;
- }
+
+ion-item {
+  --ion-background-color: transparent !important;
+  --detail-icon-color: var(--ion-gsk-orange-color);
+  --detail-icon-font-size: 24px;
+  --detail-icon-opacity: 1;
+}
+
+ion-avatar {
+  padding: 5px;
+}

@@ -25,6 +25,8 @@ export class HeaderComponent implements OnInit {
   @Input() showPaymentNote: boolean = false;
   @Input() showSearch: boolean = false;
   @Input() showCart: boolean = false;
+  @Input() issettingIcon: boolean = false;
+
   @Output() notes: EventEmitter<null> = new EventEmitter();
   @Output() information: EventEmitter<null> = new EventEmitter();
   @Output() notifications: EventEmitter<null> = new EventEmitter();

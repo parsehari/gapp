@@ -1,8 +1,8 @@
-<app-header heading=" " [showMenuButton]="true" [showSubHeader]="true" [showSearch]="true" [showCart]="true">
+<app-header heading=" " [showMenuButton]="true" [showSubHeader]="true" [showSearch]="true" [issettingIcon]="false" [showCart]="true">
 </app-header>
 <ion-content>
   <ion-card *ngFor="let item of [1,2,3]">
-    <ion-item detail>
+    <ion-item detail lines="none">
       <ion-avatar slot="start">
        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSppkoKsaYMuIoNLDH7O8ePOacLPG1mKXtEng&usqp=CAU">
       </ion-avatar>

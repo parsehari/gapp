@@ -2,7 +2,7 @@
 </app-header>
 <ion-content>
     <ion-card *ngFor="let item of [1,2,3,4]"  [ngStyle]="{'background-color':bgColor}" (press)="onPress($event)" (click)="goToDetail()" >
-    <ion-item detail >
+    <ion-item detail lines="none">
       <ion-avatar slot="start">
         <ion-img src=""></ion-img>
       </ion-avatar>

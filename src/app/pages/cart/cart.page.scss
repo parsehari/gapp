@@ -1,44 +1,61 @@
+ion-grid {
+  background-color: transparent;
+}
 
-ion-grid{
-    background-color: transparent;
+ion-card {
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-top: 0px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
-ion-card{
-    background-color: white;
-    border-radius: 10px;
+
+.cardTop {
+  margin-top: 10px;
 }
-.quantity{
-    font-size: 10px;
-    align-self: center;
-   
-}
-.text-margin{
-    margin-top: 5px;
-}
+
 .quantity {
-    margin-top: -35px !important;
-    min-height: 50px !important;
-}
-.product-quantity{
-    font-size: 24px;
-    color: #F36633;
+  font-size: 10px;
+  align-self: center;
 
 }
-.quantity{
-    font-size: 15px;
-    align-self: center;
-   
+
+.text-margin {
+  margin-top: 5px;
 }
-.text-margin{
-    margin-top: 5px;
+
+.quantity {
+  margin-top: -35px !important;
+  min-height: 50px !important;
 }
-.event-section{
-    padding: 5px 30px 0px 30px;
-    background-color: white;
+
+.product-quantity {
+  font-size: 24px;
+  color: #F36633;
+
 }
-.price-text{
-    font-size: 18px;
-    font-weight: bold;
+
+.quantity {
+  font-size: 15px;
+  align-self: center;
+
 }
-.vaccine-text{
-    font-size: 14px;
+
+.text-margin {
+  margin-top: 5px;
+}
+
+.event-section {
+  padding: 5px 30px 0px 30px;
+  background-color: white;
+}
+
+.price-text {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.vaccine-text {
+  font-size: 14px;
 }

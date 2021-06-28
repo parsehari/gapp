@@ -14,11 +14,14 @@
 }
 
 .orderClass {
-  padding: 7px 0px 0px 11px;
+  padding: 7px 0px 0px 8px;
+}
+
+.distName {
+  padding: 7px 0px 0px 9px;
   border-bottom-style: dashed;
   border-bottom-color: var(--ion-color-gsk-gray);
   border-bottom-width: thin;
-
 }
 
 .viewdetail {
@@ -62,4 +65,20 @@ ion-card {
   font-size: 14px;
   background: var(--ion-gsk-white-color);
   padding-bottom: 5px;
+}
+
+.cardContent {
+  //padding: 10px 0px 5px 15px;
+  color: var(--ion-gsk-orange-color);
+  font-size: 18px;
+  font-weight: Medium;
+  background: var(--ion-gsk-white-color);
+  border-top-style: solid;
+  border-top-width: thin;
+}
+
+.priceCs {
+  font-size: 14px;
+  color: var(--ion-color-gsk-gray);
+
 }

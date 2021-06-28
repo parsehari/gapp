@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-order-view-modal',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderViewModalPage implements OnInit {
 
-  constructor() { }
+  constructor(private modalController: ModalController) { }
 
   ngOnInit() {
   }
 
+  dismissModel() {
+    this.modalController.dismiss({
+      'dismissed': true
+    });
+  }
 }

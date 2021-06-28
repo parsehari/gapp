@@ -80,13 +80,15 @@ ion-item {
 
 ion-button {
   --background: var(--ion-gsk-lineargradient-color);
+  --border-radius: 20px;
 }
 
 .imgCenter {
   text-align: center;
 }
-ion-avatar{
- border:1px solid black;
+
+ion-avatar {
+  border: 1px solid black;
 }
 
 .flex {
@@ -191,4 +193,13 @@ ion-avatar{
 
 .bold {
   font-weight: bold;
+}
+
+.my-custom-modal-css .modal-wrapper {
+  top: 80px;
+  left: 21px;
+  width: 333px;
+  height: 518px;
+  border-radius: 10px;
+  opacity: 1;
 }
