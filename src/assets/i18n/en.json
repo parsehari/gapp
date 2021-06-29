@@ -20,7 +20,8 @@
     },
     "otp": {
         "otpPage":{
-            "message":"We have sent you an SMS on '9822012345' with 4 digit verification code.",
+            "message":"We have sent you an SMS on", 
+            "remainMsg":"with 4 digit verification code.",
             "otp": "ENTER OTP",
             "resend":"Re-send",
             "backTologin":"Did not receive the code?",

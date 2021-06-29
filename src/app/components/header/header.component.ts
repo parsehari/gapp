@@ -1,8 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
-// import { StorageService } from 'src/app/services/storage.service';
-// import { UtilityService } from 'src/app/services/utility.service';
-// import { CommonService } from 'src/app/services/common.service';
 import { Router } from '@angular/router';
 
 
@@ -36,28 +33,23 @@ export class HeaderComponent implements OnInit {
   badgeCount: any;
   esopLogo: any;
   companyLogo: any;
+  searchBarSize: any;
+  settingIconSize: any;
   constructor(public alertController: AlertController,
-    //  private storageService: StorageService,
-    // private utilityService: UtilityService, 
-    // public commonService: CommonService, 
     public router: Router,
     public modalController: ModalController) {
-    // let loginData = this.storageService.getLoginData();
-    // this.esopLogo = utilityService.decrypt(loginData['ownLogoURL']);
-    // this.companyLogo = utilityService.decrypt(loginData['cmpLogoURL']);
-
   }
 
   ngOnInit() {
-    console.log("subheader ", this.showSubHeader);
-    // console.log("badge count ");
-    // this.storageService.getNotificationBadge().subscribe(badge => {
-    //   console.log("badge count ", badge);
-
-    //   this.badgeCount = badge;
-    // })
-    // this.badgeCount = this.storageService.getBadge();
+    if (this.issettingIcon) {
+      this.searchBarSize = '10';
+      this.settingIconSize = '2';
+    } else {
+      this.searchBarSize = '12';
+      this.settingIconSize = '0';
+    }
   }
+
   displayNotes() {
     if (this.showNotes)
       this.notes.emit();
@@ -69,10 +61,6 @@ export class HeaderComponent implements OnInit {
   }
 
   showNotifications() {
-    // // this.notifications.emit();
-    // if (this.commonService.isOnline()) {
-    //   this.router.navigate(['/notification']);
-    // }
   }
 
   showPaymentModes() {

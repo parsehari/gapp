@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { MenuController } from "@ionic/angular";
 import { Subscription } from "rxjs";
 
@@ -30,14 +30,15 @@ export class OtpPage implements OnInit {
   counter = 1800;
   tick = 1000;
 
+  loginData: any;
   constructor(
     public menu: MenuController,
     private router: Router,
+    private activatedroute: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    // this.countDown = timer(0, this.tick)
-    //   .subscribe(() => --this.counter)
+    this.loginData = this.activatedroute.snapshot.paramMap.get('loginData');
   }
 
   battleInit() {

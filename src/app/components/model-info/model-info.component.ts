@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-model-info',
@@ -8,10 +8,13 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./model-info.component.scss'],
 })
 export class ModelInfoComponent implements OnInit {
+  loginData: any;
+  constructor(private modalController: ModalController, private route: Router, private navparams: NavParams) { }
 
-  constructor(private modalController: ModalController, private route: Router) { }
-
-  ngOnInit() { }
+  ngOnInit() {
+    console.log("this.navparams.data.pdfPath ", this.navparams.data.loginInput);
+    this.loginData = this.navparams.data.loginInput;
+  }
 
   dismissModel() {
     this.modalController.dismiss({
@@ -20,6 +23,6 @@ export class ModelInfoComponent implements OnInit {
   }
   goToProductList() {
     this.dismissModel();
-    this.route.navigate(["/otp"]);
+    this.route.navigate(["/otp", { loginData: this.loginData }]);
   }
 }
