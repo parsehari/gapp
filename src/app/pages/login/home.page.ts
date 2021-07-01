@@ -14,7 +14,10 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  public loginInput: string;
+  //public loginInput: string = '9650058176';
+  public loginInput: string = 'mohdyasar87@gmail.com';
+  public inputType: string = 'email';
+  public loginType: string;
 
   constructor(private modelCtrl: ModalController, private menu: MenuController, private route: Router,
     private commonService: CommonService, private apiService: ApiService, private storageService: StorageService) {
@@ -23,6 +26,10 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  inputVal(type: any) {
+    this.loginType = type;
   }
 
   doLogin() {
@@ -34,15 +41,20 @@ export class HomePage implements OnInit {
     this.apiService.setLoginHeader();
     var data = {
       "EmailId": "",
-      "MobileNo": this.loginInput
+      "MobileNo": ""
+    }
+    if (this.inputType == 'email') {
+      data.EmailId = this.loginInput;
+      data.MobileNo = ""
+    } else {
+      data.EmailId = "";
+      data.MobileNo = this.loginInput;
     }
     this.apiService.postDataService(this.apiService.loginAPI, data)
       .subscribe((resp: any) => {
         console.log("response ", resp);
-        this.commonService.hideLoader();
         this.processLoginSuccess(resp);
       }, (err) => {
-        this.commonService.hideLoader();
         this.processLoginError(err);
       });
   }
@@ -51,7 +63,8 @@ export class HomePage implements OnInit {
     const model = await this.modelCtrl.create({
       component: ModelInfoComponent,
       componentProps: {
-        "loginInput": this.loginInput
+        "loginInput": this.loginInput,
+        "loginType": this.inputType
       }
     })
     return await model.present();
@@ -59,12 +72,13 @@ export class HomePage implements OnInit {
 
   processLoginSuccess(data: any) {
     console.log("success data ", data);
+    this.commonService.hideLoader();
     if (data.hcpCode) {
       this.storageService.setHcpCode(data.hcpCode);
       if (!data.tncFlag)
         this.showTermsAndConditions();
       else
-        this.route.navigate(["/otp", { loginData: this.loginInput }]);
+        this.route.navigate(["/otp", { loginData: this.loginInput, type: this.inputType }]);
     } else {
       this.commonService.showToast(data.message);
     }
@@ -72,6 +86,10 @@ export class HomePage implements OnInit {
 
   processLoginError(error: any) {
     console.log("error ", error);
+    this.commonService.hideLoader();
+    if (error.status == 400) {
+      this.commonService.showToast("Mobile No must be numeric and 10 digits");
+    }
     // this.commonService.showToast(error.errors.MobileNo[0]);
   }
 

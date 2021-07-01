@@ -13,11 +13,13 @@ import { StorageService } from 'src/app/services/storage.service';
 export class ModelInfoComponent implements OnInit {
   loginData: any;
   termsConditionText: any;
+  loginType: any;
   constructor(private modalController: ModalController, private apiService: ApiService, private route: Router, private navparams: NavParams, private storageService: StorageService, private commonService: CommonService) { }
 
   ngOnInit() {
     console.log("this.navparams.data.pdfPath ", this.navparams.data.loginInput);
     this.loginData = this.navparams.data.loginInput;
+    this.loginType = this.navparams.data.loginType;
     this.getTerms();
   }
 
@@ -46,7 +48,7 @@ export class ModelInfoComponent implements OnInit {
 
   processTncSuccess(data: any) {
     this.dismissModel();
-    this.route.navigate(["/otp", { loginData: this.loginData }]);
+    this.route.navigate(["/otp", { loginData: this.loginData, type: this.loginType }]);
   }
 
   processTncError(error: any) {

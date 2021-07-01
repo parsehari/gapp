@@ -108,6 +108,7 @@ export class ApiService {
   public GetTncDetails = "GetTncDetails";
   public insertTnC = "InsertTnC";
   public SendOTP = "SendOTP";
+  public validateOtp = "VerifyOTP"
 
   constructor(private httpClient: HttpClient, public router: Router, private alertController: AlertController, private translate: TranslateService) {
 
