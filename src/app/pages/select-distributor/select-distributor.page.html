@@ -1,4 +1,4 @@
-<app-header heading="Select Distributor" [showMenuButton]="true" [showSubHeader]="true" [showSearch]="true" [showCart]="true">
+<app-header heading="Select Distributor" [showMenuButton]="true" [showSubHeader]="true" [showSearch]=false [showCart]="true">
 </app-header>
 <ion-content>
   <table  class="section-margin">
@@ -63,4 +63,4 @@
     </tfoot>
   </table>
 </ion-content>
-<app-footer  [isFirstOutline]=true [isSecondOutline]=false [firstTitle]="'sdistributor.sdistributorPage.continue'" [secondTitle]="'sdistributor.sdistributorPage.cancel'" [showInfo]=true [infoText]="distributor" [infoLabel]="'sdistributor.sdistributorPage.selected-distributor'"></app-footer>
+<app-footer (firstEvent)="continueClicked();" (secondEvent)="cancel();" [isFirstOutline]=true [isSecondOutline]=false [firstTitle]="'sdistributor.sdistributorPage.continue'" [secondTitle]="'sdistributor.sdistributorPage.cancel'" [showInfo]=true [infoText]="distributor" [infoLabel]="'sdistributor.sdistributorPage.selected-distributor'"></app-footer>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 
 @Component({
@@ -8,12 +9,15 @@ import { MenuController } from '@ionic/angular';
 })
 export class DistributorDetailsPage implements OnInit {
 
-  constructor(private menu : MenuController) { }
+  constructor(private menu: MenuController, private router: Router) { }
 
   ngOnInit() {
     this.menu.enable(true)
   }
-  goBack(){
-    
+  goBack() {
+
+  }
+  saveDistributor() {
+    this.router.navigate(['product-list']);
   }
 }

@@ -58,4 +58,4 @@
         </ion-grid>          
   </ion-card>
 </ion-content>
-<app-footer  [isFirstOutline]=false [moreEvent]=false [firstTitle]="'Save As Preferred Distributor'" ></app-footer>
+<app-footer  [isFirstOutline]=false [moreEvent]=false [firstTitle]="'Save As Preferred Distributor'" (firstEvent)="saveDistributor();"></app-footer>

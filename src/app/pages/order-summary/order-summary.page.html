@@ -1,5 +1,5 @@
 <app-header
-  heading=" "
+  heading="Order Summary"
   [showMenuButton]="true"
   [showSubHeader]="true"
   [showSearch]="false"
@@ -125,5 +125,5 @@
   </ion-row>
 </div>
 </ion-content>
-<app-footer  [isFirstOutline]=true [isSecondOutline]=false [firstTitle]="'orderSummary.orderSummaryPage.aNProduct'" [secondTitle]="'orderSummary.orderSummaryPage.continue'" ></app-footer>
+<app-footer  [isFirstOutline]=true [isSecondOutline]=false [firstTitle]="'orderSummary.orderSummaryPage.aNProduct'" [secondTitle]="'orderSummary.orderSummaryPage.continue'" (firstEvent)="addNewProduct();" (secondEvent)="continue();"></app-footer>
 

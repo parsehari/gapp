@@ -114,9 +114,6 @@ export class OtpPage implements OnInit {
   }
 
   validateOTP() {
-    // this.router.navigate(["/preferred-distributor"]);
-    // return;
-
     let finalOTP: Number;
     console.log(
       "1,2,3,4--" +
@@ -150,24 +147,18 @@ export class OtpPage implements OnInit {
 
     console.log("finalOTP", finalOTP);
     this.commonService.showLoader("Please wait");
-    // const encryptedOTP = this.helperService.encrypt(
-    //   "data",
-    //   JSON.stringify(finalOTP)
-    // );
-
-    // console.log("encryptedOTP", encryptedOTP);
     let data = {
       "HcpCode": this.storageService.getHcpCode(),
-      "OTP": finalOTP
+      "OTP": finalOTP.toString()
     };
-
     this.apiService
       .postDataService(this.apiService.validateOtp, data)
       .subscribe(
-        (response) => {
-          console.log("validateOtp Response-", response);
-          //  this.processValidateOTPResponse(response);
+        (response: any) => {
           this.commonService.hideLoader();
+          console.log("validateOtp Response-", response);
+          this.apiService.setUserData(response.token);
+          this.router.navigate(["/preferred-distributor"]);
         },
         (err) => {
           console.log("error in page ", err);

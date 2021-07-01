@@ -15,7 +15,7 @@
 <ng-container *ngIf="showSubHeader">
 <ion-toolbar class="sub-header-toolbar" >
   <ion-row class="title-header">
-    <ion-col>
+    <ion-col (click)="goBack();">
       <ion-icon name="chevron-back-outline" class="backButtonicon"></ion-icon>
       <ion-label color="gsk-white">Back</ion-label>
     </ion-col>
