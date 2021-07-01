@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'payment',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -37,11 +37,11 @@ const routes: Routes = [
   },
   {
     path: 'order-by-distributor',
-    loadChildren: () => import('./pages/order-by-distributor/order-by-distributor.module').then( m => m.OrderByDistributorPageModule)
+    loadChildren: () => import('./pages/order-by-distributor/order-by-distributor.module').then(m => m.OrderByDistributorPageModule)
   },
   {
     path: 'payment',
-    loadChildren: () => import('./pages/payment/payment.module').then( m => m.PaymentPageModule)
+    loadChildren: () => import('./pages/payment/payment.module').then(m => m.PaymentPageModule)
   },
   {
     path: 'my-orders',

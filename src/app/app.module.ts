@@ -13,6 +13,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { IonicGestureConfig } from './utils/IonicGestureConfig';
 
 
+import { from } from 'rxjs';
+
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
