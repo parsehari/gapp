@@ -55,6 +55,10 @@ const routes: Routes = [
     path: 'order-view-modal',
     loadChildren: () => import('./pages/order-view-modal/order-view-modal.module').then(m => m.OrderViewModalPageModule)
   },
+  {
+    path: 'order-summary',
+    loadChildren: () => import('./pages/order-summary/order-summary.module').then( m => m.OrderSummaryPageModule)
+  },
   // {
   //   path: 'distributor-details',
   //   loadChildren: () => import('./pages/distributor-details/distributor-details.module').then( m => m.DistributorDetailsPageModule)

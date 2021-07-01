@@ -5,12 +5,13 @@ import { IonicModule } from '@ionic/angular';
 import { ExpandableComponent } from '../expandable/expandable.component';
 import { FooterComponent } from '../footer/footer.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { TrackOrderComponent } from '../track-order/track-order.component';
 
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, ExpandableComponent,FooterComponent],
+  declarations: [HeaderComponent, ExpandableComponent,FooterComponent,TrackOrderComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -19,7 +20,8 @@ import { TranslateModule } from '@ngx-translate/core';
   exports: [
     HeaderComponent,
     ExpandableComponent,
-    FooterComponent
+    FooterComponent,
+    TrackOrderComponent
 
   ]
 })
