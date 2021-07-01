@@ -1,18 +1,57 @@
-<app-header heading=" " [showMenuButton]="true" [showSubHeader]="true" [showSearch]="false" [showCart]="true">
+<app-header
+  heading=" "
+  [showMenuButton]="true"
+  [showSubHeader]="true"
+  [showSearch]="false"
+  [showCart]="true"
+>
 </app-header>
 <ion-content>
-  <ion-card >
-    <ion-item detail>
+  <div class="t-o-pcontainer">
+    <div class="t-d-line"></div>
+    <ion-row class="t-o-container">
+      <ion-col>
+        <div class="o-placecircel">
+          <span class="center">
+            <ion-icon class="t-o-icon-size" name="checkmark-outline"></ion-icon
+              ></span>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="o-scircel">
+          <span class="center">
+            <ion-icon class="t-o-icon-size" name="checkmark-outline"></ion-icon
+          ></span>
+                </div>
+      </ion-col>
+      <ion-col>
+        <div class="o-pcircel">
+          <span class="inner-center">
+            </span>        </div>
+        
+
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="o-info-container">
+    <div class="t-o-container">
+      <ion-label class="o-placelabel">Order Placed</ion-label>
+      <ion-label class="o-slabel">Order Summary</ion-label>
+      <ion-label class="o-plabel">Payment</ion-label>
+    </div>
+  </div>
+  <ion-card>
+    <ion-item detail lines="none">
       <ion-avatar slot="start">
-        <img src="assets/images/Icon_UPI.png">
+          <img  src="assets/images/upi.png"/>
       </ion-avatar>
       <ion-label>UPI</ion-label>
     </ion-item>
   </ion-card>
-  <ion-card >
-    <ion-item detail>
+  <ion-card>
+    <ion-item detail lines="none">
       <ion-avatar slot="start">
-       <img src="assets/images/Group_323.png">
+        <img src="assets/images/cod.png" />
       </ion-avatar>
       <ion-label>Cash On Delivery</ion-label>
     </ion-item>

@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'payment',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -54,6 +54,10 @@ const routes: Routes = [
   {
     path: 'order-view-modal',
     loadChildren: () => import('./pages/order-view-modal/order-view-modal.module').then(m => m.OrderViewModalPageModule)
+  },
+  {
+    path: 'order-summary',
+    loadChildren: () => import('./pages/order-summary/order-summary.module').then( m => m.OrderSummaryPageModule)
   },
   // {
   //   path: 'distributor-details',

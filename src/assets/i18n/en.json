@@ -77,6 +77,12 @@
     },
     "commonText":{
         "back":"Back"
+    },
+    "orderSummary":{
+      "orderSummaryPage":{
+          "aNProduct":"Add New Product",
+          "continue":"Continue"
+      }
     }
 
 }

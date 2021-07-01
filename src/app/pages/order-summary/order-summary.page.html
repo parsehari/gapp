@@ -1,0 +1,129 @@
+<app-header
+  heading=" "
+  [showMenuButton]="true"
+  [showSubHeader]="true"
+  [showSearch]="false"
+  [showCart]="true"
+>
+</app-header>
+
+<ion-content>
+<ion-item class="d-theme" lines="none">
+    <ion-icon slot="start" name="person-outline"></ion-icon>
+    <ion-label style="color: #F36633;">Distributor 2</ion-label>
+</ion-item>
+<ion-grid class="o-theme">
+  <ion-row>
+    <ion-col><div class="ion-text-left">
+      <ion-button fill="clear" class="btn-summary">
+        <ion-label class="order-text">Order Summary</ion-label>
+      </ion-button>
+    </div></ion-col>
+    <ion-col><div class="ion-text-right">
+      <ion-button fill="clear" >
+        <ion-label class="r-text"><u>Remove all</u></ion-label>
+      </ion-button>
+    </div></ion-col>
+  </ion-row>
+</ion-grid>
+  <ion-grid class="product-details" *ngFor="let item of [1,2,3]">
+    <ion-row style="align-items: center;height: 60px;">
+      <ion-col size="4">
+       <p>Synflorix</p>
+       <p class="font-subtitle">{{456 | currency:'INR'}}
+      </p>
+      </ion-col>
+      <ion-col size="3">
+        <ion-row>
+          <ion-col>
+            <div class="ion-text-right">
+              <ion-icon class="product-quantity" name="remove-circle-outline"></ion-icon>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="ion-text-center text-margin">
+              <ion-label class="quantity">87</ion-label>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="ion-text-left">
+              <ion-icon class="product-quantity" name="add-circle-outline"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+       </ion-col>
+       <ion-col size="3">
+        <div class="ion-text-right">
+          {{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}
+        </div>
+            </ion-col>
+       <ion-col size="2">
+  <div class="ion-text-right">
+   <ion-icon  name="trash-outline"></ion-icon>
+  </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+<div class="gst-section">
+  <ion-row class="bottom-section">
+    <ion-col>
+      <div class="ion-text-left">
+        GST Total
+      </div>
+      </ion-col>
+      <ion-col>
+      <div class="ion-text-right">
+        {{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row class="bottom-section">
+    <ion-col>
+      <div class="ion-text-left">
+        GST 
+      </div>
+      </ion-col>
+      <ion-col>
+      <div class="ion-text-right">
+        {{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row class="bottom-section">
+    <ion-col>
+      <div class="ion-text-left">
+        GST Discount
+      </div>
+      </ion-col>
+      <ion-col>
+      <div class="ion-text-right">
+        {{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}
+      </div>
+    </ion-col>
+  </ion-row>
+  
+</div>
+<div class="netprice-theme">
+  <ion-row class="netprice">
+    <ion-col>
+      <div class="ion-text-left">
+        Net Price
+      </div>
+      </ion-col>
+      <ion-col>
+      <div class="ion-text-right font-twenty">
+        {{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row class="netprice">
+    <ion-col>
+      <div class="ion-text-center ">
+       <ion-label class="c-radius">You will save {{45678 | currency:'INR':'symbol-narrow':'4.2-2'}} in this order</ion-label>
+      </div>
+      </ion-col>
+  </ion-row>
+</div>
+</ion-content>
+<app-footer  [isFirstOutline]=true [isSecondOutline]=false [firstTitle]="'orderSummary.orderSummaryPage.aNProduct'" [secondTitle]="'orderSummary.orderSummaryPage.continue'" ></app-footer>
+
