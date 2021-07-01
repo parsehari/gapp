@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MenuController } from "@ionic/angular";
 import { Subscription } from "rxjs";
+import { ApiService } from "src/app/services/api.service";
+import { CommonService } from "src/app/services/common.service";
 
 // import { HelperService } from "src/app/helper.service";
 // import { ApiService } from "src/app/Service/api/api.service";
@@ -34,12 +36,41 @@ export class OtpPage implements OnInit {
   constructor(
     public menu: MenuController,
     private router: Router,
-    private activatedroute: ActivatedRoute
+    private activatedroute: ActivatedRoute,
+    private apiService: ApiService,
+    private commonService: CommonService
+
   ) { }
 
   ngOnInit() {
     this.loginData = this.activatedroute.snapshot.paramMap.get('loginData');
+    this.getOTP()
   }
+
+  getOTP() {
+    var data = {
+      "EmailId": "",
+      "MobileNo": this.loginData
+    }
+    this.apiService.postDataService(this.apiService.SendOTP, data)
+      .subscribe((resp: any) => {
+        console.log("response ", resp);
+        this.commonService.hideLoader();
+        this.processOTPSuccess(resp);
+      }, (err) => {
+        this.commonService.hideLoader();
+        this.processOTPError(err);
+      });
+  }
+
+  processOTPSuccess(data) {
+    this.commonService.showToast(data.message);
+  }
+
+  processOTPError(error) {
+
+  }
+
 
   battleInit() {
     if (this.timeLeft == -1) {
@@ -69,70 +100,70 @@ export class OtpPage implements OnInit {
       return 0;
     }
   }
-
-  validateOTP() {
-    this.router.navigate(["/preferred-distributor"]);
-    return;
-
-    let finalOTP: Number;
-    console.log(
-      "1,2,3,4--" +
-      this.otpOne +
-      ", " +
-      this.otpTwo +
-      ", " +
-      this.otpThree +
-      ", " +
-      this.otpFour
-    );
-    if (
-      this.otpOne === "" ||
-      this.otpTwo === "" ||
-      this.otpThree === "" ||
-      this.otpFour === ""
-    ) {
-      this.commonService.showToast("Please enter valid OTP");
+  /*
+    validateOTP() {
+      this.router.navigate(["/preferred-distributor"]);
       return;
-    } else
-      finalOTP = Number.parseInt(
+  
+      let finalOTP: Number;
+      console.log(
+        "1,2,3,4--" +
         this.otpOne +
-        "" +
+        ", " +
         this.otpTwo +
-        "" +
+        ", " +
         this.otpThree +
-        "" +
-        this.otpFour +
-        ""
+        ", " +
+        this.otpFour
       );
-
-    console.log("finalOTP", finalOTP);
-    this.commonService.showLoader("Please wait");
-    // const encryptedOTP = this.helperService.encrypt(
-    //   "data",
-    //   JSON.stringify(finalOTP)
-    // );
-
-    // console.log("encryptedOTP", encryptedOTP);
-    let data = {
-      otp: finalOTP,
-      userName: this.mobileNumber,
-    };
-
-    this.apiService
-      .postDataService(this.apiService.validateOtp, data)
-      .subscribe(
-        (response) => {
-          console.log("validateOtp Response-", JSON.parse(response.toString()));
-          this.processValidateOTPResponse(JSON.parse(response.toString()));
-          this.commonService.hideLoader();
-        },
-        (err) => {
-          console.log("error in page ", err);
-          this.commonService.hideLoader();
-          if (err.status == 400) this.commonService.showToast(err.message);
-        }
-      );
-  }
+      if (
+        this.otpOne === "" ||
+        this.otpTwo === "" ||
+        this.otpThree === "" ||
+        this.otpFour === ""
+      ) {
+        this.commonService.showToast("Please enter valid OTP");
+        return;
+      } else
+        finalOTP = Number.parseInt(
+          this.otpOne +
+          "" +
+          this.otpTwo +
+          "" +
+          this.otpThree +
+          "" +
+          this.otpFour +
+          ""
+        );
+  
+      console.log("finalOTP", finalOTP);
+      this.commonService.showLoader("Please wait");
+      // const encryptedOTP = this.helperService.encrypt(
+      //   "data",
+      //   JSON.stringify(finalOTP)
+      // );
+  
+      // console.log("encryptedOTP", encryptedOTP);
+      let data = {
+        otp: finalOTP,
+        userName: this.mobileNumber,
+      };
+  
+      this.apiService
+        .postDataService(this.apiService.validateOtp, data)
+        .subscribe(
+          (response) => {
+            console.log("validateOtp Response-", JSON.parse(response.toString()));
+            this.processValidateOTPResponse(JSON.parse(response.toString()));
+            this.commonService.hideLoader();
+          },
+          (err) => {
+            console.log("error in page ", err);
+            this.commonService.hideLoader();
+            if (err.status == 400) this.commonService.showToast(err.message);
+          }
+        );
+    }
 
   processValidateOTPResponse(response) {
     this.commonService.hideLoader();
@@ -222,5 +253,5 @@ export class OtpPage implements OnInit {
       this.commonService.showToast(
         "Error while sending OTP. Please try after sometime."
       );
-  }
+  }*/
 }

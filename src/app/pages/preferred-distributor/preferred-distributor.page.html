@@ -1,4 +1,4 @@
-<app-header heading=" " [showMenuButton]="true" [showSubHeader]="true" [showSearch]="true" [showCart]="true">
+<app-header heading="Preferred Distributor's" [showMenuButton]="true" [showSubHeader]="true" [showSearch]="true" [showCart]="true">
 </app-header>
 <ion-content>
     <ion-card *ngFor="let item of [1,2,3,4]"  [ngStyle]="{'background-color':bgColor}" (press)="onPress($event)" (click)="goToDetail()" >
