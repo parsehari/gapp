@@ -56,18 +56,18 @@
         <ion-col size="4">
           <ion-row>
             <ion-col>
-              <div class="ion-text-right">
-                <ion-icon class="product-quantity" name="remove-circle-outline"></ion-icon>
+              <div class="ion-text-right" (click)="modifyQuantity('remove')">
+                <ion-icon class="product-quantity" name="remove-circle-outline" ></ion-icon>
               </div>
             </ion-col>
             <ion-col>
               <div class="ion-text-center text-margin">
-                <ion-label class="quantity">87</ion-label>
+                <ion-label class="quantity">{{quantity}}</ion-label>
               </div>
             </ion-col>
             <ion-col>
-              <div class="ion-text-left">
-                <ion-icon class="product-quantity" name="add-circle-outline"></ion-icon>
+              <div class="ion-text-left" (click)="modifyQuantity('add')">
+                <ion-icon class="product-quantity" name="add-circle-outline" ></ion-icon>
               </div>
             </ion-col>
           </ion-row>

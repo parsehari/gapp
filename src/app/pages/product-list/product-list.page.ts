@@ -8,7 +8,7 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./product-list.page.scss'],
 })
 export class ProductListPage implements OnInit {
-
+  quantity=0;
   constructor(private menu : MenuController,private route :Router) { }
 
   ngOnInit() {
@@ -23,5 +23,13 @@ export class ProductListPage implements OnInit {
   }
   buyNow(){
     this.route.navigate(['/select-distributor']);
+  }
+  modifyQuantity(event){
+   if(event === 'add'){
+       this.quantity ++ ;
+   }else{
+    if(this.quantity != 0) 
+    this.quantity -- ;
+   }
   }
 }

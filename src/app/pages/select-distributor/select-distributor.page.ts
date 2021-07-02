@@ -8,6 +8,7 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./select-distributor.page.scss'],
 })
 export class SelectDistributorPage implements OnInit {
+  quantity=0;
   distributor: any = 'Distributor 2';
   constructor(private route: Router, private menu: MenuController) { }
 
@@ -29,4 +30,13 @@ export class SelectDistributorPage implements OnInit {
   cancel() {
     this.route.navigate(['product-list']);
   }
+  modifyQuantity(event){
+    console.log("vnbbnvnvb")
+    if(event === 'add'){
+        this.quantity ++ ;
+    }else{
+     if(this.quantity != 0) 
+     this.quantity -- ;
+    }
+   }
 }

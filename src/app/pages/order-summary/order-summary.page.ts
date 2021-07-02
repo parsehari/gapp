@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./order-summary.page.scss'],
 })
 export class OrderSummaryPage implements OnInit {
-
+  quantity=0;
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -20,5 +20,14 @@ export class OrderSummaryPage implements OnInit {
   continue() {
     this.router.navigate(['payment']);
   }
+  modifyQuantity(event){
+    console.log("vnbbnvnvb")
+    if(event === 'add'){
+        this.quantity ++ ;
+    }else{
+     if(this.quantity != 0) 
+     this.quantity -- ;
+    }
+   }
 
 }
