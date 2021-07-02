@@ -2,8 +2,15 @@
   padding-top: 10%;
 }
 
+
 ion-menu {
   --min-width: 100%;
+}
+
+ion-item {
+  --background: var(--ion-gsk-white-color);
+  padding: 10px 10px 10px 10px;
+  --border-radius: 6px;
 }
 
 .menuTitle {
