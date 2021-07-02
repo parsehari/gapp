@@ -1,23 +1,102 @@
-<div class="t-o-pcontainer">
-  <div class="t-d-line"></div>
-  <ion-row class="t-o-container">
-    <ion-col>
-      <div class="o-placecircel">
-        <span class="center">
-          <ion-icon class="t-o-icon-size" name="checkmark-outline"></ion-icon>
-      </span>
-      </div>
-    </ion-col>
-    <ion-col>
-      <div class="o-scircel">
-        <span class="center">
-          <ion-icon class="t-o-icon-size" name="checkmark-outline"></ion-icon>
-        </span>
-      </div>
-    </ion-col>
-    <ion-col>
-      <div class="o-pcircel">
-        <span class="inner-center"> </span>
-      </div> </ion-col>
-</ion-row>
+<div *ngIf="isOrderdetails == false">
+  <div class="t-o-pcontainer">
+    <div class="t-d-line">
+      <ion-label class="line-left"></ion-label
+      ><ion-label
+        [ngClass]="{
+          'line-rightg': isPayment == true,
+          'line-right': isPayment == false
+        }"
+      ></ion-label>
+    </div>
+    <ion-row class="t-o-container">
+      <ion-col>
+        <div class="o-placecircel">
+          <span class="center">
+            <ion-icon class="t-o-icon-size" name="checkmark-outline"></ion-icon>
+          </span>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div
+          [ngClass]="{
+            'o-scircel': isPayment == true,
+            'o-scircelw': isPayment == false
+          }"
+        >
+          <span *ngIf="isPayment == true" class="center">
+            <ion-icon class="t-o-icon-size" name="checkmark-outline"></ion-icon>
+          </span>
+          <span *ngIf="isPayment == false" class="inner-center"> </span>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div
+          [ngClass]="{
+            'o-pcircel': isPayment == true,
+            'o-pcircelsummary': isPayment == false
+          }"
+        >
+          <span *ngIf="isPayment == true" class="inner-center"> </span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="o-info-container">
+    <div class="t-o-container">
+      <ion-label class="o-placelabel">Order Placed</ion-label>
+      <ion-label class="o-slabel">Order Summary</ion-label>
+      <ion-label class="o-plabel">Payment</ion-label>
+    </div>
+  </div>
+</div>
+<div *ngIf="isOrderdetails == true">
+  <div class="t-o-d-pcontainer">
+    <div class="t-d-d-line">
+      <ion-label class="order-line"></ion-label>
+    </div>
+    <ion-row class="t-o-d-container">
+      <ion-col>
+        <div class="o-d-circel">
+          <span class="center">
+            <ion-icon class="t-o-icon-size" name="checkmark-outline"></ion-icon>
+          </span>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="o-d-s-circel">
+          <span class="center">
+            <ion-icon class="t-o-icon-size" name="checkmark-outline"></ion-icon>
+          </span>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="o-d-s-circel">
+          <span class="center">
+            <ion-icon class="t-o-icon-size" name="checkmark-outline"></ion-icon>
+          </span>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="o-d-t-circel">
+          <span class="center">
+            <ion-icon class="t-o-icon-size" name="checkmark-outline"></ion-icon>
+          </span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="o-info-d-container">
+    <div class="t-o-d-lcontainer">
+      <ion-label class="o-d-flabel"><p class="title">Ordered</p>
+      <p class="subtitle">April 29,2021, 5:30pm</p></ion-label>
+      <ion-label class="o-d-slabel">
+        <p class="title">Confirmed</p>
+      <p class="subtitle">April 29,2021, 5:30pm</p></ion-label>
+      <ion-label class="o-d-tlabel"><p class="title">Invoiced</p>
+        <p class="subtitle">April 29,2021, 5:30pm</p></ion-label>
+      <ion-label class="o-d-folabel"><p class="title">Delivered</p>
+        <p class="subtitle">April 29,2021, 5:30pm</p></ion-label>
+    </div>
+  </div>
 </div>

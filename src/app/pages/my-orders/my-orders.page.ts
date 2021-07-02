@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./my-orders.page.scss'],
 })
 export class MyOrdersPage implements OnInit {
-
+  bgColor:any;
   constructor(private router: Router) { }
 
   ngOnInit() {

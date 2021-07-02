@@ -59,10 +59,10 @@ const routes: Routes = [
     path: 'order-summary',
     loadChildren: () => import('./pages/order-summary/order-summary.module').then( m => m.OrderSummaryPageModule)
   },
-  // {
-  //   path: 'distributor-details',
-  //   loadChildren: () => import('./pages/distributor-details/distributor-details.module').then( m => m.DistributorDetailsPageModule)
-  // },
+  {
+    path: 'distributor-details',
+    loadChildren: () => import('./pages/distributor-details/distributor-details.module').then( m => m.DistributorDetailsPageModule)
+  },
 ];
 
 @NgModule({

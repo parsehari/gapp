@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-track-order',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./track-order.component.scss'],
 })
 export class TrackOrderComponent implements OnInit {
-
+ @Input() isPayment=true;
+ @Input() isOrderdetails=false;
   constructor() { }
 
   ngOnInit() {}

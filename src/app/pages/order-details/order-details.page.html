@@ -1,7 +1,9 @@
-<app-header heading="Order Details" showMenuButton="true" showSubHeader="true" showSearch="false">
+<app-header heading="Order Details" [showMenuButton]="true" [showSubHeader]="true" [showSearch]="false">
 </app-header>
 
 <ion-content>
+  <app-track-order  [isOrderdetails]="true"></app-track-order>
+
 <ion-card>
   <div class="cardContent">
     Order Id: 1231231334534534
@@ -61,7 +63,7 @@
     </ion-col>
   </ion-row>
 </ion-card>
-<div>
+<div >
   <ion-row class="orderClass">
     <ion-col>
       Net Price

@@ -12,13 +12,40 @@
 .t-d-line {
     min-width: 300px !important;
     width: 300px;
-    background-color: green;
+    background-color: #3A7013;
     min-height: 2px;
     height: 2px;
     position: absolute;
     top: 50%;
     left:50%;
     transform: translate(-50%, -50%);;
+}
+.line-left{
+    min-width: 150px !important;
+    width: 150px;
+    background-color: #3A7013;
+    min-height: 2px;
+    height: 2px;
+    position: absolute;
+    left: 0;
+}
+.line-rightg{
+    min-width: 150px !important;
+    width: 150px;
+    background-color: #3A7013;
+    min-height: 2px;
+    height: 2px;
+    position: absolute;
+    left: 150;
+}
+.line-right{
+    min-width: 150px !important;
+    width: 150px;
+    background-color: #E2E2E2;
+    min-height: 2px;
+    height: 2px;
+    position: absolute;
+    left: 150;
 }
 .t-o-container{
     min-width: 300px !important;
@@ -38,8 +65,8 @@
     width: 32px;
     height: 32px;
     border-radius: 16px;
-    border:1px solid green;
-    background-color:green ;
+    border:1px solid #3A7013;
+    background-color:#3A7013 ;
     position: relative;
     left:0px;
     text-align: center;
@@ -50,10 +77,31 @@
     width: 32px;
     height: 32px;
     border-radius: 16px;
-    border:1px solid green;
-    background-color:green ;
+    border:1px solid #3A7013;
+    background-color:#3A7013 ;
     position: relative;
     left:34px;
+}
+.o-scircelw{
+    min-width: 32px;
+    min-height: 32px;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    border:1px solid #3A7013;
+    background-color:white ;
+    position: relative;
+    left:34px;
+}
+.o-pcircelsummary{
+    min-width: 32px;
+    min-height: 32px;
+    width: 32px;
+    height: 32px;
+    background-color:white ;
+    border-radius: 16px;
+    position: relative;
+    left:68px;
 }
 .o-pcircel{
     min-width: 32px;
@@ -61,7 +109,7 @@
     width: 32px;
     height: 32px;
     border-radius: 16px;
-    border:1px solid green;
+    border:1px solid #3A7013;
     background-color:white ;
     position: relative;
     left:68px;
@@ -72,7 +120,7 @@
     width: 22px !important;
     height: 22px !important;
     border-radius: 11px;
-    background-color:green ;
+    background-color:#3A7013 ;
     position: absolute;
     left: 5px;
     top: 5px;
@@ -103,7 +151,7 @@
     left:50%;
     transform: translate(-50%, -50%);;
     position:absolute;
-    background-color: green;
+    background-color: #3A7013;
     min-width: 22px;
     min-height: 22px;
     border-radius: 11px;
@@ -132,4 +180,150 @@
     min-height: 24px;
     right: -18px;
     font-size: 14px;
+}
+
+ion-row , ion-col{
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+// order details css
+
+
+.t-o-d-pcontainer {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    height: 50px;
+    position: relative; 
+    margin-top: 10px;   
+}
+.t-d-d-line {
+    min-width: 360px !important;
+    width: 360px;
+    background-color: transparent;
+    min-height: 2px;
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);;
+}
+.order-line{
+ 
+        min-width: 270px !important;
+        width: 270px;
+        background-color: #3A7013;
+        min-height: 2px;
+        height: 2px;
+        position: absolute;
+        left: 45px;
+}
+.t-o-d-container{
+    min-width: 360px !important;
+    width: 360px;
+    background-color:transparent;
+    min-height: 32px;
+    height: 32px;
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);;
+}
+.o-d-circel{
+    min-width: 32px;
+    min-height: 32px;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    border:1px solid #3A7013;
+    background-color:#3A7013 ;
+    position: relative;
+    left:29px;
+}
+.o-d-s-circel{
+    min-width: 32px;
+    min-height: 32px;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    border:1px solid #3A7013;
+    background-color:#3A7013 ;
+    position: relative;
+    left:29px;
+    text-align: center;
+}
+.o-d-t-circel{
+    min-width: 32px;
+    min-height: 32px;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    border:1px solid #3A7013;
+    background-color:#3A7013 ;
+    position: relative;
+    left:29px;
+    text-align: center;
+}
+
+.t-o-d-lcontainer{
+    min-width: 302px !important;
+    width: 302px;
+    background-color:transparent;
+    min-height: 45px;
+    height: 45px;
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);;
+}
+.o-d-flabel {
+    position: absolute;
+    width: 88px;
+    min-width: 88px;
+    min-height: 24px;
+    left: -28px;
+    font-size: 14px;
+}
+.o-d-slabel {
+    position: absolute;
+    width: 88px;
+    min-width: 88px;
+    min-height: 24px;
+    left: 62px;
+    font-size: 14px;
+}
+.o-d-tlabel {
+    position: absolute;
+    width: 88px;
+    min-width: 88px;
+    min-height: 24px;
+    left: 152px;
+    font-size: 14px;
+}
+.o-d-folabel {
+    position: absolute;
+    width: 88px;
+    min-width: 88px;
+    min-height: 24px;
+    left: 242px;
+    font-size: 14px;
+}
+.o-info-d-container{
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    height: 45px;
+    position: relative;
+    
+}
+.subtitle{
+    font-size: 10px;
+    color: #A5A5A5;
+}
+.title{
+    font-size: 14px;
+    color: black; 
 }
