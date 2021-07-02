@@ -60,6 +60,7 @@ ion-title {
 .bgClr {
   --background: var(--ion-gsk-white-color);
   --icon-color: var(--ion-gsk-orange-color);
+  --border-radius: 6px;
 }
 
 $width-320-screen: "only screen and (max-width : 320px)";
