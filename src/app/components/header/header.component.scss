@@ -57,6 +57,10 @@ ion-title {
   color: var(--ion-gsk-orange-color);
 }
 
+.bgClr {
+  --background: var(--ion-gsk-white-color);
+}
+
 $width-320-screen: "only screen and (max-width : 320px)";
 $width-375-screen: "only screen and (max-width : 375px) and (min-width : 321px)";
 $width-411-screen: "only screen and (max-width : 411px) and (min-width : 376px)";

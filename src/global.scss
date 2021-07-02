@@ -35,6 +35,10 @@
   opacity: 1 !important;
 }
 
+ion-card {
+  --background: var(--ion-gsk-white-color);
+}
+
 ion-toolbar {
   top: 0px;
   left: 0px;
