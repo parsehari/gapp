@@ -11,6 +11,10 @@ ion-item {
   --background: var(--ion-gsk-white-color);
 }
 
+.ion-no-border {
+  border: none;
+  background-color: var(--ion-gsk-white-color);
+}
 
 .pdnTop {
   padding-top: 5%;
