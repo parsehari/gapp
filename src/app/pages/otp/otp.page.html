@@ -33,18 +33,24 @@
                                           </ion-grid>
                                       </ion-col>
                                   </ion-row>
-                                  <ion-label class="back-label-css clickable"><b>Your code will  be valid for {{timeLeft}} seconds</b>
+                                  <ion-label class="back-label-css"><b>Your code will  be valid for {{timeLeft}} seconds</b>
                                   </ion-label>
-                                  <ion-label class="back-label-css clickable" (click)="back()"><b>{{'otp.otpPage.backTologin' | translate}}</b>
-                                  </ion-label>
-                                  <ion-label class="back-label-css clickable" (click)="reSendOTP()"><b>{{'otp.otpPage.resend' | translate}}</b></ion-label>
-                                  
-                              </ion-col>
+                                </ion-col>
                           </div>
                   </div>
               </div>
           </ion-col>
       </ion-row>
+      <ion-row>
+          <ion-col class="textCenter">
+            <ion-label  (click)="back()"><b>{{'otp.otpPage.backTologin' | translate}}</b>
+            </ion-label>
+            <div class="resend">
+                <ion-label (click)="getOTP()">{{'otp.otpPage.resend' | translate}}</ion-label>
+            </div>
+          </ion-col>
+        
+    </ion-row>
   </ion-grid>
 </ion-content>
 <ion-footer class="ion-no-border">

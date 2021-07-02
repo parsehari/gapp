@@ -98,9 +98,6 @@ export class OtpPage implements OnInit {
     this.menu.enable(false);
   }
   ionViewDidEnter() {
-    // this.storage.get("loginId").then((loginId) => {
-    //   this.mobileNumber = loginId;
-    // });
   }
 
   otpController(event, next, prev) {
@@ -114,7 +111,7 @@ export class OtpPage implements OnInit {
   }
 
   validateOTP() {
-    
+
     let finalOTP: Number;
     console.log(
       "1,2,3,4--" +
@@ -204,31 +201,6 @@ export class OtpPage implements OnInit {
   
     back() {
       this.router.navigate(["/login"]);
-    }
-  
-    reSendOTP() {
-      this.commonService.showLoader("Please wait");
-      let data = {
-        serviceType: "test",
-        serviceDTO: {
-          userName: this.mobileNumber,
-        },
-      };
-  
-      this.apiService
-        .authenticationService(this.apiService.sendOtp, data)
-        .subscribe(
-          (response) => {
-            console.log("sendOtp Response-", response);
-            this.processSuccessResponse(JSON.parse(response.toString()));
-            this.commonService.hideLoader();
-          },
-          (err) => {
-            console.log("error in page ", err);
-            this.commonService.hideLoader();
-            if (err.status == 400) this.commonService.showToast(err.message);
-          }
-        );
     }
   
     processSuccessResponse(response) {

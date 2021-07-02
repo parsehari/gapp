@@ -109,18 +109,33 @@ ion-button {
 
 .content-label-css {
   display: flex;
-  font-weight: 200;
-  font-size: 20px;
+  font-weight: Regular;
+  font-size: 23px;
   margin: 5px;
   text-align: center;
+}
+
+
+.textCenter {
+  text-align: center;
+  font-size: 17px;
+  font-weight: medium;
+}
+
+.resend {
+  margin-top: 15px;
+  font-size: 17px;
+  text-decoration: underline;
+  color: var(--ion-gsk-orange-color);
 }
 
 .back-label-css {
   display: flex;
   justify-content: center;
-  font-weight: 400;
-  font-size: 12px;
+  font-weight: Regular;
+  font-size: 14px;
   margin: 5px;
+  color: var(--ion-gsk-textGrey);
 }
 
 .otp-container {
