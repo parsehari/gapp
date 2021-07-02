@@ -33,9 +33,7 @@ export class HomePage implements OnInit {
   }
 
   doLogin() {
-
-
-   this.commonService.showLoader();
+    this.commonService.showLoader();
     if (!this.loginInput) {
       this.commonService.showToast("Enter registered Mobile No. or Email Id");
       return;
@@ -59,7 +57,6 @@ export class HomePage implements OnInit {
       }, (err) => {
         this.processLoginError(err);
       });
-      
   }
 
   async showTermsAndConditions() {

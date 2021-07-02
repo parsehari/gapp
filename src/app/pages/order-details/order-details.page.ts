@@ -8,7 +8,6 @@ import { OrderViewModalPage } from 'src/app/pages/order-view-modal/order-view-mo
   styleUrls: ['./order-details.page.scss'],
 })
 export class OrderDetailsPage implements OnInit {
-
   constructor(private modelCtrl: ModalController, private menu: MenuController) {
   }
 
@@ -27,6 +26,4 @@ export class OrderDetailsPage implements OnInit {
     return await model.present();
 
   }
-
-
 }

@@ -111,7 +111,6 @@ export class OtpPage implements OnInit {
   }
 
   validateOTP() {
-
     let finalOTP: Number;
     console.log(
       "1,2,3,4--" +
@@ -164,7 +163,6 @@ export class OtpPage implements OnInit {
           if (err.status == 400) this.commonService.showToast(err.message);
         }
       );
-
   }
   /*
     processValidateOTPResponse(response) {

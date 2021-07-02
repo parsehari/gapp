@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./cart.page.scss'],
 })
 export class CartPage implements OnInit {
-
+  quantity=0;
   constructor(private route: Router) { }
 
   ngOnInit() {
@@ -24,5 +24,15 @@ export class CartPage implements OnInit {
   addNewProduct(){
     this.route.navigate(['/product-list'])
   }
-
+  modifyQuantity(event){
+    console.log("vnbbnvnvb")
+    if(event === 'add'){
+        this.quantity ++ ;
+    }else{
+     if(this.quantity != 0) 
+     this.quantity -- ;
+    }
+   }
+   
+   
 }
