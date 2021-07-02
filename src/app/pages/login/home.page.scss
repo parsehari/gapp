@@ -2,6 +2,15 @@
   text-align: center;
 }
 
+ion-content {
+  background-color: var(--ion-gsk-white-color);
+  --background: none;
+}
+
+ion-item {
+  --background: var(--ion-gsk-white-color);
+}
+
 
 .pdnTop {
   padding-top: 5%;
