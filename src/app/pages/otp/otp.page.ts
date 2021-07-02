@@ -76,7 +76,7 @@ export class OtpPage implements OnInit {
 
   processOTPSuccess(data) {
     this.commonService.hideLoader();
-    this.commonService.showToast(data.message);
+    this.commonService.showToast(data.message + ' OTP ->' + data.success);
   }
 
   processOTPError(error) {
