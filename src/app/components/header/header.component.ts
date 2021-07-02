@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { CommonService } from 'src/app/services/common.service';
 
 
 @Component({
@@ -37,7 +38,9 @@ export class HeaderComponent implements OnInit {
   settingIconSize: any;
   constructor(public alertController: AlertController,
     public router: Router,
-    public modalController: ModalController) {
+    public modalController: ModalController,
+    private commonService: CommonService
+  ) {
   }
 
   ngOnInit() {
@@ -71,6 +74,11 @@ export class HeaderComponent implements OnInit {
     this.modalController.dismiss({
       'dismissed': true
     });
+  }
+
+  goBack() {
+    console.log('previous ', this.commonService.previousUrl);
+    this.router.navigate([this.commonService.previousUrl]);
   }
 
 }

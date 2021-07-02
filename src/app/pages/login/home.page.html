@@ -23,18 +23,18 @@
       </ion-row>
       <ion-row>
         <ion-col offset=1 size=10>
-        <ion-input [(ngModel)]="loginInput" placeholder="{{'login.loginPage.enterUserDetails' | translate}}" class="plcText"></ion-input>
+        <ion-input [type]="inputType" [(ngModel)]="loginInput" placeholder="{{'login.loginPage.enterUserDetails' | translate}}" class="plcText"></ion-input>
       </ion-col>
     </ion-row>
    <div class="pdnTop">
-      <ion-radio-group value="mobile">
+      <ion-radio-group [(ngModel)]="inputType" (ionChange)="inputVal($event.detail.value)">
         <div class="msgDiv">
           {{'login.loginPage.otpText' | translate}}
         </div>
         <ion-row>
          <ion-col offset="1">
            <ion-item lines="none">
-              <ion-radio slot="start" mode="md" item-left value="mobile"></ion-radio>
+              <ion-radio slot="start" mode="md" item-left value="number"></ion-radio>
               <ion-label>{{'login.loginPage.mobile' | translate}}</ion-label>
          </ion-item>
        </ion-col>

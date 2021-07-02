@@ -108,6 +108,7 @@ export class ApiService {
   public GetTncDetails = "GetTncDetails";
   public insertTnC = "InsertTnC";
   public SendOTP = "SendOTP";
+  public validateOtp = "VerifyOTP"
 
   constructor(private httpClient: HttpClient, public router: Router, private alertController: AlertController, private translate: TranslateService) {
 
@@ -366,15 +367,15 @@ reject(err);
    * @param token token from api request
    * @param type type of the token ex.bearer
    */
-  setUserData(token: any, type: any) {
+  setUserData(token: any) {
     if (this.nativeCall) {
       // this.advanceHttp.setHeader('*', 'Authorization', type + ' ' + token);
       // this.advanceHttp.setHeader(this.baseURL, 'Content-Type', 'application/x-www-form-urlencoded');
     } else {
       this.httpOptions = {
         headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': type + ' ' + token,
+          'Content-Type': 'application/json',
+          'Token': token,
           'apikey': 'YTAxZTU2NWMtZDM5NS00M2Q3LTkwYzgtYmZiOTFmMzc0OTk3nM391W7QykFhd0OEO3Il6r-VXfP1lDOad7Jlq8FiprIe'
         })
       };

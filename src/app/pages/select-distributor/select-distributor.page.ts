@@ -22,10 +22,11 @@ export class SelectDistributorPage implements OnInit {
   selectDistributor(event) {
 
   }
-  goBack() {
-    this.route.navigate(['/login']);
+
+  continueClicked() {
+    this.route.navigate(['/order-summary']);
   }
-  continueClicked(){
-    this.route.navigate(['/payment'])
+  cancel() {
+    this.route.navigate(['product-list']);
   }
 }
