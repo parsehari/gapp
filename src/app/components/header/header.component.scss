@@ -21,13 +21,6 @@ ion-col.note-icon.ios {
   font-size: 15px;
 }
 
-.title-props {
-  //   padding-left: 5% !important;
-  //   padding-right: 25% !important;
-  margin-left: -20px;
-  //   margin-right: 38px;
-}
-
 .notification-icon {
   font-size: 24px;
 }
@@ -41,8 +34,7 @@ ion-col.note-icon.ios {
 }
 
 ion-title {
-  padding-right: 80px;
-  padding-left: 80px;
+  text-align: left;
 }
 
 .gsk-logo {
@@ -108,15 +100,13 @@ $width-414-screen: "only screen and (max-width : 414px) and (min-width : 412px)"
 }
 
 @media #{$width-414-screen} {
-  ion-title {
+  // ion-title {
+  //   padding-left: 0px;
+  //   max-width: 342px;
+  // }
 
-    padding-left: 30px;
-    max-width: 342px;
-  }
-
-  .title-ios {
-
-    padding-left: 82px;
-    max-width: 423px;
-  }
+  // .title-ios {
+  //   padding-left: 0px;
+  //   max-width: 423px;
+  // }
 }
