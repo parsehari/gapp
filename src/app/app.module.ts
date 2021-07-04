@@ -14,6 +14,7 @@ import { IonicGestureConfig } from './utils/IonicGestureConfig';
 
 
 import { from } from 'rxjs';
+import { CurrencySymbolPipe } from './pipes/currency-symbol.pipe';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -21,7 +22,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, CurrencySymbolPipe],
   entryComponents: [],
   imports: [
     BrowserModule,

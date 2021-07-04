@@ -70,6 +70,7 @@ export class HeaderComponent implements OnInit {
     if (this.showPaymentNote)
       this.paymentModes.emit();
   }
+
   dismissModal() {
     this.modalController.dismiss({
       'dismissed': true
@@ -79,6 +80,10 @@ export class HeaderComponent implements OnInit {
   goBack() {
     console.log('previous ', this.commonService.previousUrl);
     this.router.navigate([this.commonService.previousUrl]);
+  }
+
+  goToCart() {
+    this.router.navigate(['cart']);
   }
 
 }

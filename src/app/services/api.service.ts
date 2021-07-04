@@ -6,6 +6,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { StorageService } from './storage.service';
 
 
 
@@ -100,17 +101,19 @@ export class ApiService {
   /**
    * Application server base url
    */
-  private baseURL = 'https://dev.api.gsk.com/Pharmatech/Vaxikart/Login/';
+  private baseURL = 'https://dev.api.gsk.com/Pharmatech/Vaxikart/';
+
   /**
    * All API endpoints are defined below
    */
-  public loginAPI = 'VerifyUserTnC';
-  public GetTncDetails = "GetTncDetails";
-  public insertTnC = "InsertTnC";
-  public SendOTP = "SendOTP";
-  public validateOtp = "VerifyOTP"
+  public loginAPI = 'Login/VerifyUserTnC';
+  public GetTncDetails = "Login/GetTncDetails";
+  public insertTnC = "Login/InsertTnC";
+  public SendOTP = "Login/SendOTP";
+  public validateOtp = "Login/VerifyOTP";
+  public getCartAPI = "Product/GetCart";
 
-  constructor(private httpClient: HttpClient, public router: Router, private alertController: AlertController, private translate: TranslateService) {
+  constructor(private httpClient: HttpClient, private storageService: StorageService, public router: Router, private alertController: AlertController, private translate: TranslateService) {
 
   }
 
@@ -374,8 +377,9 @@ reject(err);
     } else {
       this.httpOptions = {
         headers: new HttpHeaders({
-          'Content-Type': 'application/json',
+          //'Content-Type': 'application/json',
           'Token': token,
+          'HcpCode': this.storageService.getHcpCode(),
           'apikey': 'YTAxZTU2NWMtZDM5NS00M2Q3LTkwYzgtYmZiOTFmMzc0OTk3nM391W7QykFhd0OEO3Il6r-VXfP1lDOad7Jlq8FiprIe'
         })
       };
