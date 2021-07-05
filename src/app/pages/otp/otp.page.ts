@@ -1,14 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MenuController } from "@ionic/angular";
-import { Subscription } from "rxjs";
+import { timer } from "rxjs";
 import { ApiService } from "src/app/services/api.service";
 import { CommonService } from "src/app/services/common.service";
 import { StorageService } from "src/app/services/storage.service";
-
-// import { HelperService } from "src/app/helper.service";
-// import { ApiService } from "src/app/Service/api/api.service";
-// import { CommonService } from "src/app/service/common/common.service";
 
 @Component({
   selector: "app-otp",
@@ -26,13 +22,8 @@ export class OtpPage implements OnInit {
     speed: 400,
     autoplay: true,
   };
-  timeLeft: any = 180;
-  mobileNumber;
-
-  countDown: Subscription;
-  counter = 1800;
-  tick = 1000;
-
+  mobileNumber: any;
+  btnDisabled: any = true;
   loginData: any;
   loginType: any;
   constructor(
@@ -48,7 +39,16 @@ export class OtpPage implements OnInit {
   ngOnInit() {
     this.loginData = this.activatedroute.snapshot.paramMap.get('loginData');
     this.loginType = this.activatedroute.snapshot.paramMap.get('type');
-    this.getOTP()
+    this.setTimer();
+    this.getOTP();
+  }
+
+  ngOnDestroy() {
+    this.countDown = null;
+  }
+
+  setTimer() {
+    this.countDown = timer(0, this.tick).subscribe(() => --this.counter);
   }
 
   getOTP() {
@@ -84,15 +84,6 @@ export class OtpPage implements OnInit {
   }
 
 
-  battleInit() {
-    if (this.timeLeft == -1) {
-
-    } else {
-      this.timeLeft = this.timeLeft + ' seconds remaining';
-      this.timeLeft--;
-    }
-    console.log("this time ", this.timeLeft);
-  }
 
   ionViewWillEnter() {
     this.menu.enable(false);
@@ -164,69 +155,75 @@ export class OtpPage implements OnInit {
         }
       );
   }
+  resendOTP(event) {
+    if (event.action == "done") {
+      this.btnDisabled = false;
+    }
+  }
   /*
-    processValidateOTPResponse(response) {
-      this.commonService.hideLoader();
-      if (response["resultData"] != undefined &&
-        response["resultData"] != "undefined" &&
-        response["resultData"] != {}) {
-  
-        if (response["resultData"]["status"] == 403)
-          this.commonService.showToast(response["resultData"]["msg"]);
-        else if (response["resultData"]["status"] == 200) {
-          this.storage.get("loginData").then((loginData) => {
-            console.log("OTP loginData", loginData);
-            this.commonService.setFacilityId(
-              loginData["serviceDTO"]["facilityAdmin"]["facilityId"]
-            );
-  
-            this.commonService.setUserName(loginData["serviceDTO"]["userName"]);
-            this.router.navigate(["/homePage"]);
-          });
-        }
-  
-      } else if (response["responseCode"] == 401)
-        this.commonService.showToast("Unauthorized user");
-      else
-        this.commonService.showToast(
-          "Error while validating OTP. Please try after sometime."
-        );
-    }
-  
-    onSubmit() {
-      this.router.navigate(["/homePage"]);
-    }
-  
-    back() {
-      this.router.navigate(["/login"]);
-    }
-  
-    processSuccessResponse(response) {
-      this.commonService.hideLoader();
-      if (response["responseCode"] == 200) {
-        if (
-          response["serviceDTO"] != undefined &&
-          response["serviceDTO"] != "undefined" &&
-          response["serviceDTO"] != {}
-        ) {
-          this.apiService.setUserData(response["serviceDTO"]["authToken"]);
-          this.commonService.setFacilityId(
-            response["serviceDTO"]["facilityAdmin"]["facilityId"]
-          );
-          this.commonService.setLoginId(
-            response["serviceDTO"]["facilityAdmin"]["loginId"]
-          );
-          this.commonService.setUserName(response["serviceDTO"]["userName"]);
-          this.router.navigate(["/otp"]);
-        } else
-          this.commonService.showToast(
-            "Error while sending OTP. Please try after sometime."
-          );
-      } else if (response["responseCode"] == 401)
-        this.commonService.showToast("Unauthorized user");
-      else
-        this.commonService.showToast(
-          "Error while sending OTP. Please try after sometime."
-        );
-    }*/
+   processValidateOTPResponse(response) {
+     this.commonService.hideLoader();
+     if (response["resultData"] != undefined &&
+       response["resultData"] != "undefined" &&
+       response["resultData"] != {}) {
+ 
+       if (response["resultData"]["status"] == 403)
+         this.commonService.showToast(response["resultData"]["msg"]);
+       else if (response["resultData"]["status"] == 200) {
+         this.storage.get("loginData").then((loginData) => {
+           console.log("OTP loginData", loginData);
+           this.commonService.setFacilityId(
+             loginData["serviceDTO"]["facilityAdmin"]["facilityId"]
+           );
+ 
+           this.commonService.setUserName(loginData["serviceDTO"]["userName"]);
+           this.router.navigate(["/homePage"]);
+         });
+       }
+ 
+     } else if (response["responseCode"] == 401)
+       this.commonService.showToast("Unauthorized user");
+     else
+       this.commonService.showToast(
+         "Error while validating OTP. Please try after sometime."
+       );
+   }
+ 
+   onSubmit() {
+     this.router.navigate(["/homePage"]);
+   }
+ 
+   back() {
+     this.router.navigate(["/login"]);
+   }
+ 
+   processSuccessResponse(response) {
+     this.commonService.hideLoader();
+     if (response["responseCode"] == 200) {
+       if (
+         response["serviceDTO"] != undefined &&
+         response["serviceDTO"] != "undefined" &&
+         response["serviceDTO"] != {}
+       ) {
+         this.apiService.setUserData(response["serviceDTO"]["authToken"]);
+         this.commonService.setFacilityId(
+           response["serviceDTO"]["facilityAdmin"]["facilityId"]
+         );
+         this.commonService.setLoginId(
+           response["serviceDTO"]["facilityAdmin"]["loginId"]
+         );
+         this.commonService.setUserName(response["serviceDTO"]["userName"]);
+         this.router.navigate(["/otp"]);
+       } else
+         this.commonService.showToast(
+           "Error while sending OTP. Please try after sometime."
+         );
+     } else if (response["responseCode"] == 401)
+       this.commonService.showToast("Unauthorized user");
+     else
+       this.commonService.showToast(
+         "Error while sending OTP. Please try after sometime."
+       );
+   }*/
 }
+

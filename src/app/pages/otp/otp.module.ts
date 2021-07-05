@@ -9,6 +9,7 @@ import { OtpPageRoutingModule } from './otp-routing.module';
 import { OtpPage } from './otp.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/components/shared/shared.module';
+import { CountdownModule } from 'ngx-countdown';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { SharedModule } from 'src/app/components/shared/shared.module';
     IonicModule,
     OtpPageRoutingModule,
     TranslateModule.forChild(),
-    SharedModule
+    SharedModule,
+    CountdownModule
   ],
   declarations: [OtpPage]
 })

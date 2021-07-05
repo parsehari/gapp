@@ -112,6 +112,7 @@ export class ApiService {
   public SendOTP = "Login/SendOTP";
   public validateOtp = "Login/VerifyOTP";
   public getCartAPI = "Product/GetCart";
+  public getGSTdetail = "Product/GetGSTDetail";
 
   constructor(private httpClient: HttpClient, private storageService: StorageService, public router: Router, private alertController: AlertController, private translate: TranslateService) {
 
@@ -126,7 +127,10 @@ export class ApiService {
    * @param myObject object to pass api
    * @param setHeaderContent any header params set for api
    */
-  getDataService(url: string) {
+  getDataService(url: string, type?: any) {
+    if (type == 'gstDetail') {
+      this.httpOptions.headers = this.httpOptions.headers.set('productcodes', 'prod1,prod2');
+    }
     return this.httpClient.get(this.baseURL + url, this.httpOptions);
   }
 

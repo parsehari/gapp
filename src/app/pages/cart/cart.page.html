@@ -1,7 +1,7 @@
 <app-header heading="Cart" [showMenuButton]="true" [showSubHeader]="true" [showSearch]="false" [showCart]="true">
 </app-header>
 <ion-content>
-  <div class="cardTop">
+  <div *ngIf="cartProducts.length; else noCartMessage" class="cardTop">
   <ion-card *ngFor="let cartItem of cartProducts">
     <ion-grid>
       <ion-row>
@@ -55,5 +55,14 @@
       </ion-grid>
   </ion-card>
 </div>
+<ng-template #noCartMessage>
+  <ion-row>
+    <ion-col class="msgDiv">
+      <div> 
+          No cart item
+      </div>
+    </ion-col>
+    </ion-row>
+</ng-template>
 </ion-content>
 <app-footer  [isFirstOutline]=true [isSecondOutline]=false [firstTitle]="'cart.cartPage.aNProduct'" [secondTitle]="'cart.cartPage.continue'" (firstEvent)="addNewProduct()" (secondEvent)="continueClicked()"></app-footer>

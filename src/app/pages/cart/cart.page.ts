@@ -10,7 +10,7 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class CartPage implements OnInit {
   quantity = 0;
-  cartProducts: any;
+  cartProducts: any = [];
   constructor(private route: Router, private apiService: ApiService, private commonService: CommonService) { }
 
   ngOnInit() {
