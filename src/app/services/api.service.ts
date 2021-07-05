@@ -136,7 +136,7 @@ export class ApiService {
    * @param myObject object to pass api
    * @param setHeaderContent any header params set for api
    */
-  getDataService(url: string, type?: any) {
+  getDataService(url: string, type?: any):Observable<any> {
     if (type == 'gstDetail') {
       this.httpOptions.headers = this.httpOptions.headers.set('productcodes', 'prod1,prod2');
     }
@@ -387,6 +387,7 @@ reject(err);
    * @param type type of the token ex.bearer
    */
   setUserData(token: any) {
+    this.acces_token = token;
     if (this.nativeCall) {
       // this.advanceHttp.setHeader('*', 'Authorization', type + ' ' + token);
       // this.advanceHttp.setHeader(this.baseURL, 'Content-Type', 'application/x-www-form-urlencoded');
@@ -422,8 +423,8 @@ reject(err);
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'apikey': 'YTAxZTU2NWMtZDM5NS00M2Q3LTkwYzgtYmZiOTFmMzc0OTk3nM391W7QykFhd0OEO3Il6r-VXfP1lDOad7Jlq8FiprIe',
-        'HcpCode': 'hcp2',
-        'Token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiRE9DVE9SIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy92ZXJzaW9uIjoiVjEiLCJuYmYiOjE2MjUzODM3NDYsImV4cCI6MTYyNTQ3MDE0NiwiaWF0IjoxNjI1MzgzNzQ2fQ.xR3sN3C1NX8BnNOs005bjOBvejXUGV-JkU2cC2UPjfE'
+        'HcpCode': this.storageService.getHcpCode(),
+        'Token':this.acces_token
       })
     };
   }

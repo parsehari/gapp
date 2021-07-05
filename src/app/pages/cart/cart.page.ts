@@ -51,5 +51,7 @@ export class CartPage implements OnInit {
     }
   }
 
-
+  getImageURL(productImage):any{
+   return this.commonService.getImageURLFromBase64(productImage);
+  }
 }

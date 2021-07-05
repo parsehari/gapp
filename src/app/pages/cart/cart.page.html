@@ -8,7 +8,7 @@
         <ion-col size="8" >
           <ion-row>
             <ion-col>
-              <img style="width: 100px;height: 49px;" src="{{cartItem.productImage}}">
+              <img style="width: 100px;height: 49px;" [src]="getImageURL(cartItem.productImage)">
             </ion-col>
           </ion-row>
           <ion-row>
