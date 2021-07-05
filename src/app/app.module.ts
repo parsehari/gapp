@@ -11,20 +11,19 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { IonicGestureConfig } from './utils/IonicGestureConfig';
-
-
-import { from } from 'rxjs';
-
+import { CountdownModule } from 'ngx-countdown';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
+    CountdownModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,

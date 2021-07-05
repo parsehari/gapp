@@ -13,8 +13,9 @@
                   <div class="card-container">
                           <div class="ion-padding-start ion-padding-end">
                               <ion-col>
-                                  <ion-label class="content-label-css">{{'otp.otpPage.message' | translate}} '{{loginData}}' {{'otp.otpPage.remainMsg' | translate}}
-                                  </ion-label>
+                                  <div>
+                                  <div class="content-label-css">{{'otp.otpPage.message' | translate}} </div> <div class="content-label-lgn">'{{loginData}}'</div> <div class="content-label-txt"> {{'otp.otpPage.remainMsg' | translate}}</div>
+                                </div>
                                   <ion-row text-center>
                                       <ion-col size="6" offset="3">
                                           <ion-grid class="otp-container">
@@ -33,7 +34,8 @@
                                           </ion-grid>
                                       </ion-col>
                                   </ion-row>
-                                  <ion-label class="back-label-css"><b>Your code will  be valid for {{timeLeft}} seconds</b>
+                                  
+                                  <ion-label class="back-label-css"><b>Your code will  be valid for <countdown #cd [config]="{leftTime: 180 , format: 'm:s'}" (event)="resendOTP($event)"></countdown> minutes</b>
                                   </ion-label>
                                 </ion-col>
                           </div>
@@ -45,8 +47,9 @@
           <ion-col class="textCenter">
             <ion-label  (click)="back()"><b>{{'otp.otpPage.backTologin' | translate}}</b>
             </ion-label>
-            <div class="resend">
-                <ion-label (click)="getOTP()">{{'otp.otpPage.resend' | translate}}</ion-label>
+            <div class="resend" >
+                <ion-button class="otpButton" fill="clear" [(disabled)] = "btnDisabled" (click)="getOTP()">{{'otp.otpPage.resend' | translate}}</ion-button>
+               
             </div>
           </ion-col>
         

@@ -6,7 +6,7 @@
     <ion-title  color="gsk-white">
       {{heading}}
     </ion-title>
-    <ion-buttons slot="end"  *ngIf="showCart">
+    <ion-buttons slot="end"  *ngIf="showCart" (click)="goToCart();">
       <ion-icon class="cartSize" icon-only name="cart-outline"></ion-icon>
     </ion-buttons>
     

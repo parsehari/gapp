@@ -2,8 +2,8 @@
     "sideMenu":{
         "placeOrder": "Place Order",
         "obyD":"Order By Distributor",
-        "mPreD":"My Preferred Distributor",
-        "myOrder":"My Order",
+        "mPreD":"My Preferred Distributors",
+        "myOrder":"My Orders",
         "logout": "Logout"
     },
     "login": {
