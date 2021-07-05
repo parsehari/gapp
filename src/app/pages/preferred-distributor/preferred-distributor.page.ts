@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { PreferredDistributorModel } from 'src/app/Model/pdistributor.model';
+import { ApiService } from 'src/app/services/api.service';
+import { CommonService } from 'src/app/services/common.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-preferred-distributor',
@@ -8,13 +12,23 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./preferred-distributor.page.scss'],
 })
 export class PreferredDistributorPage implements OnInit {
- // bgColor='#B8DEFD'
-  bgColor='white'
-
-  constructor(private route:Router, private menu : MenuController) { }
+  pDistributorList: PreferredDistributorModel[];
+  selDistributor=[];
+  constructor(private route:Router, private menu : MenuController,private apiService:ApiService,private storage:StorageService,
+   private commonService:CommonService) { }
   
   ngOnInit() {
      this.menu.enable(true);
+     this.commonService.showLoader();
+     this.apiService.setDistributorHeader();
+     this.apiService.getDataService(this.apiService.getDistributorURL).subscribe((response)=>{
+      this.pDistributorList = response.gskDistributorList;
+      this.commonService.hideLoader();
+     }),
+     (error)=>{
+        this.commonService.hideLoader()
+        this.commonService.showToast(error);
+     }
   }
   goBack(){
 
@@ -22,18 +36,68 @@ export class PreferredDistributorPage implements OnInit {
   searchInputValueChange(event){
 
   }
-  onPress(event) {
-   if(this.bgColor === '#B8DEFD'){
-      this.bgColor = 'white';
-   }else{
-      this.bgColor = '#B8DEFD'
+  onPress(stockCode) {
+   var count = 0; 
+   var isSelected=false;
+   this.pDistributorList.map((ele)=>{
+      if(ele.isPreferred){
+        count++;
+     }
+     if(ele.stockistCerpCode === stockCode && ele.isPreferred){
+      ele.isPreferred = false;
+      isSelected = true;
+      this.selDistributor = this.selDistributor.filter((ele)=>{
+         return ele != stockCode
+      })
+      return;
    }
-  }
+   })
+   if(isSelected){
+      return;
+   }
+ if(count < 3){
+    this.pDistributorList.map((ele)=>{
+       if(ele.stockistCerpCode === stockCode){
+           ele.isPreferred = true;
+           this.selDistributor.push(ele.stockistCerpCode);
+       }
+     })
+ }else{
+    this.commonService.presentOneButtonAlert('GSK','You can not select more then three preferred distributor','OK');
+ }   
+}
 
-  goToDetail(){
-     this.route.navigate(['/distributor-details']);
+  goToDetail(index){
+     this.route.navigate(['/distributor-details',{data:JSON.stringify(this.pDistributorList[index])}]);
   }
   savePressed(){
-     this.route.navigate(['/product-list'])
+     if(this.selDistributor.length == 0){
+      this.commonService.presentOneButtonAlert('GSK','Please select at least one distributor','OK');
+
+     }else{
+      var dict = this.setJsonForPreferredDistributor();
+      console.log("Dict :", dict);
+      this.commonService.showLoader();
+      this.apiService.postDataService(this.apiService.insertDistributorURL,dict).subscribe(
+         (response)=>{
+          console.log("response :", response);
+          this.commonService.hideLoader();
+          this.route.navigate(['/product-list'])
+         },
+         (error)=>{
+           this.commonService.hideLoader();
+           this.commonService.showToast(error)
+         }
+      )
+     }
+  }
+  setJsonForPreferredDistributor():any{
+     var jsonDict = {
+      "HcpCode": 'hcp2',
+      "Stockiest1": this.selDistributor[0],
+      "Stockiest2": this.selDistributor[1],
+      "Stockiest3": this.selDistributor[2]
+     }
+     return jsonDict;
   }
 }

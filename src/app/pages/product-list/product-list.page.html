@@ -1,7 +1,7 @@
 <app-header heading="Vaccines" [showMenuButton]="true" [showSubHeader]="false" [showSearch]="true" [showCart]=true>
 </app-header>
 <ion-content>
-  <ion-card *ngFor="let item of [1,2,3]">
+  <ion-card *ngFor="let product of productList">
     <ion-grid class="card-section">
       <ion-row class="ion-no-padding"class="ion-no-margin" >
         <ion-col size="4">
@@ -9,7 +9,7 @@
             <ion-grid class="offer-item">
               <ion-row style="align-items: center;">
                 <ion-col size="4">
-                  <div class="line"></div>
+                  <div class="line-left"></div>
                 </ion-col>
                 <ion-col size="4">
                   <div class="ion-text-center">
@@ -17,7 +17,7 @@
                   </div>
                 </ion-col>
                 <ion-col size="4">
-                  <div class="line"></div>
+                  <div class="line-right"></div>
                   </ion-col>
               </ion-row>
               <ion-row >
@@ -40,7 +40,7 @@
         </ion-col >
         <ion-col class="img-padding" size="8">
           <div class="ion-text-center">
-            <img src="/assets/images/vaccine.jpeg">
+            <img [src]="getImageURL(product.productImage)">
           </div>
         </ion-col>
       </ion-row>
@@ -48,25 +48,24 @@
         <ion-col size="8">
           <div class="ion-text-left">
             <ion-label >
-              <h2 class="text-color">Oral poliovirus vaccine </h2>
-              <p class="text-color">Polio</p>
+              <h2 class="text-color">{{product.productDescription}} </h2>
             </ion-label>
           </div>
         </ion-col>
         <ion-col size="4">
           <ion-row>
             <ion-col>
-              <div class="ion-text-right" (click)="modifyQuantity('remove')">
+              <div class="ion-text-right" (click)="modifyQuantity('remove',product.productCode)">
                 <ion-icon class="product-quantity" name="remove-circle-outline" ></ion-icon>
               </div>
             </ion-col>
             <ion-col>
               <div class="ion-text-center text-margin">
-                <ion-label class="quantity">{{quantity}}</ion-label>
+                <ion-label class="quantity">{{product.quantity}}</ion-label>
               </div>
             </ion-col>
             <ion-col>
-              <div class="ion-text-left" (click)="modifyQuantity('add')">
+              <div class="ion-text-left" (click)="modifyQuantity('add',product.productCode)">
                 <ion-icon class="product-quantity" name="add-circle-outline" ></ion-icon>
               </div>
             </ion-col>

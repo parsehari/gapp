@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { AlertModelComponent } from 'src/app/components/alert-model/alert-model.component';
 import { ModelInfoComponent } from 'src/app/components/model-info/model-info.component';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from 'src/app/services/common.service';
@@ -15,16 +16,28 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class HomePage implements OnInit {
   //public loginInput: string = '9650058176';
-  public loginInput: string = 'mohdyasar87@gmail.com';
+  public loginInput: string = 'test@gmail.com';
   public inputType: string = 'email';
   public loginType: string;
+  isPrivacyPolicy=true;
 
   constructor(private modelCtrl: ModalController, private menu: MenuController, private route: Router,
-    private commonService: CommonService, private apiService: ApiService, private storageService: StorageService) {
+    private commonService: CommonService, private apiService: ApiService,
+     private storageService: StorageService,
+     private model:ModalController) {
     this.menu.enable(false);
-
+    if(this.isPrivacyPolicy){
+      this.presentModal();
+      this.isPrivacyPolicy=false;
+    }
   }
-
+  async presentModal() {
+    const modal = await this.model.create({
+      component: AlertModelComponent,
+      cssClass: 'alert-custom-class'
+    });
+    return await modal.present();
+  }
   ngOnInit() {
   }
 

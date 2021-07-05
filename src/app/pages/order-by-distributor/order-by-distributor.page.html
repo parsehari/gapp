@@ -1,12 +1,12 @@
 <app-header heading="Order By Distributor" [showMenuButton]="true" [showSubHeader]="true" [showSearch]="true" [issettingIcon]="false" [showCart]="true">
 </app-header>
 <ion-content>
-  <ion-card *ngFor="let item of [1,2,3]">
+  <ion-card *ngFor="let distributor of pDistributorList">
     <ion-item detail lines="none">
       <ion-avatar slot="start">
        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSppkoKsaYMuIoNLDH7O8ePOacLPG1mKXtEng&usqp=CAU">
       </ion-avatar>
-      <ion-label>Vijay Pharmacy PVT.</ion-label>
+      <ion-label>{{distributor.stkName}}</ion-label>
     </ion-item>
   </ion-card>
 </ion-content>

@@ -19,14 +19,13 @@ export class AppComponent {
 
 
   }
-
   loadMenu() {
     this.appPages = [
       { title: this.translate.instant("sideMenu.placeOrder"), url: 'product-list', icon: 'mail' },
       { title: this.translate.instant("sideMenu.obyD"), url: 'order-by-distributor', icon: 'paper-plane' },
       { title: this.translate.instant("sideMenu.mPreD"), url: 'preferred-distributor', icon: 'heart' },
       { title: this.translate.instant("sideMenu.myOrder"), url: 'my-orders', icon: 'archive' },
-      { title: this.translate.instant("sideMenu.logout"), url: 'login', icon: 'trash' }
+      { title: this.translate.instant("sideMenu.logout"), url: 'login', icon: 'log-out' }
     ];
 
   }

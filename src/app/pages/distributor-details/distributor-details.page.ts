@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { PreferredDistributorModel } from 'src/app/Model/pdistributor.model';
 
 @Component({
   selector: 'app-distributor-details',
@@ -8,8 +9,17 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./distributor-details.page.scss'],
 })
 export class DistributorDetailsPage implements OnInit {
-
-  constructor(private menu: MenuController, private router: Router) { }
+  distributor:PreferredDistributorModel;
+  constructor(private menu: MenuController, private router: Router,private route:ActivatedRoute) { 
+   
+  // this.distributor = JSON.parse(this.route.snapshot.params())
+  this.route.params.subscribe(params => {
+    if(params['data']){
+      this.distributor = JSON.parse(params['data']);
+      console.log("distributor :", this.distributor);
+    }    
+  })
+}
 
   ngOnInit() {
     this.menu.enable(true)

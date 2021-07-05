@@ -1,13 +1,13 @@
 <app-header heading="Preferred Distributor's" [showMenuButton]="true" [showSubHeader]="true" [showSearch]="true" [showCart]="true">
 </app-header>
 <ion-content>
-    <ion-card *ngFor="let item of [1,2,3,4]"  [ngStyle]="{'background-color':bgColor}" (press)="onPress($event)" (click)="goToDetail()" >
-    <ion-item detail lines="none">
+    <ion-card *ngFor="let distributor of pDistributorList; let i = index"  [ngStyle]="{'background-color':distributor.isPreferred?'#B8DEFD':'white'}"  (click)="goToDetail(i)" >
+    <ion-item detail lines="none" (press)="onPress(distributor.stockistCerpCode)">
       <ion-avatar slot="start">
         <ion-img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyJkQmcLKxLATdMA4rIC0SIzu2CiH5Xk48Kw&usqp=CAU"></ion-img>
       </ion-avatar>
         <ion-label class="card-label">
-          <p class="card-title">Vijay Pharma Pvt.</p>
+          <p class="card-title">{{distributor.stkName}}</p>
           <p >
             <ion-label class="left-content"><ion-icon class="icon-color" slot="start" name="location-outline"></ion-icon>&nbsp; Mumbai</ion-label>
             <ion-label class="right-content"><ion-icon class="icon-color" slot="start" name="navigate-outline"></ion-icon>&nbsp;Dadar</ion-label>

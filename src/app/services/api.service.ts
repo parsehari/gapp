@@ -100,7 +100,8 @@ export class ApiService {
   /**
    * Application server base url
    */
-  private baseURL = 'https://dev.api.gsk.com/Pharmatech/Vaxikart/Login/';
+  //private baseURL = 'https://dev.api.gsk.com/Pharmatech/Vaxikart/Login/';
+  private baseURL = 'https://dev.api.gsk.com/Pharmatech/Vaxikart/';
   /**
    * All API endpoints are defined below
    */
@@ -109,7 +110,11 @@ export class ApiService {
   public insertTnC = "InsertTnC";
   public SendOTP = "SendOTP";
   public validateOtp = "VerifyOTP"
-
+  // distributor api
+  public getDistributorURL = "Distributor/GetDistributorList";
+  public getProductURL = 'Product/GetProductList';
+  public insertDistributorURL = 'Distributor/InsertDistributorPreference';
+  public saveCartURL = 'Product/SaveCart';
   constructor(private httpClient: HttpClient, public router: Router, private alertController: AlertController, private translate: TranslateService) {
 
   }
@@ -123,7 +128,7 @@ export class ApiService {
    * @param myObject object to pass api
    * @param setHeaderContent any header params set for api
    */
-  getDataService(url: string) {
+  getDataService(url: string):Observable<any> {
     return this.httpClient.get(this.baseURL + url, this.httpOptions);
   }
 
@@ -137,6 +142,9 @@ export class ApiService {
    * @param setHeaderContent any header params set for api
    */
   postDataService(url: string, data: any) {
+    console.log("url :",url);
+    console.log("base url :",this.baseURL);
+    console.log("data :",data);
     return this.httpClient.post(this.baseURL + url, data, this.httpOptions);
   }
   /**
@@ -392,6 +400,18 @@ reject(err);
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'apikey': 'YTAxZTU2NWMtZDM5NS00M2Q3LTkwYzgtYmZiOTFmMzc0OTk3nM391W7QykFhd0OEO3Il6r-VXfP1lDOad7Jlq8FiprIe'
+      })
+    };
+  }
+
+  //************************ / SET HEADER FOR PREFERRED DISTRIBUTOR *************************
+  setDistributorHeader() {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'apikey': 'YTAxZTU2NWMtZDM5NS00M2Q3LTkwYzgtYmZiOTFmMzc0OTk3nM391W7QykFhd0OEO3Il6r-VXfP1lDOad7Jlq8FiprIe',
+        'HcpCode': 'hcp2',
+        'Token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiRE9DVE9SIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy92ZXJzaW9uIjoiVjEiLCJuYmYiOjE2MjUzODM3NDYsImV4cCI6MTYyNTQ3MDE0NiwiaWF0IjoxNjI1MzgzNzQ2fQ.xR3sN3C1NX8BnNOs005bjOBvejXUGV-JkU2cC2UPjfE'
       })
     };
   }

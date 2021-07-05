@@ -3,6 +3,7 @@ import { LoadingController, ToastController, PopoverController } from '@ionic/an
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Injectable({
@@ -29,7 +30,8 @@ export class CommonService {
     public alertController: AlertController,
     public popoverController: PopoverController,
     public translateService: TranslateService,
-    public router: Router
+    public router: Router,
+    private sanitizer:DomSanitizer
   ) {
 
     this.currentUrl = router.url;
@@ -185,6 +187,9 @@ export class CommonService {
     this.toast = this.toastController.dismiss();
   }
 
-
+  getImageURLFromBase64(imageData):any{
+    var imageSource = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${imageData}`);
+    return imageSource;
+  }
 
 }

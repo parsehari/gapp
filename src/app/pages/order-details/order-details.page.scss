@@ -80,7 +80,8 @@ ion-card {
   margin-left: 0px;
   margin-right: 0px;
   margin-bottom: 0px;
-  border-radius: inherit;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius:0 !important;
 }
 
 .cardContent {
@@ -92,8 +93,11 @@ ion-card {
   border-bottom-color: var(--ion-color-gsk-gray);
   border-bottom-width: thin;
   background: var(--ion-gsk-white-color);
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius:0 !important;
+ 
 }
 
 .cardContentDetail {

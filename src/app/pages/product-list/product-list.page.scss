@@ -20,7 +20,7 @@ ion-card {
   margin-top: 3px;
 }
 
-ion-col {
+ion-row, ion-col {
   padding: 0 !important;
   margin: 0 !important;
 }
@@ -59,14 +59,25 @@ ion-col {
   height: 63px;
   background-color: #A90B1B;
   border-bottom: 1px solid #A90B1B;
+  padding: 0 !important;;
 }
-
-.line {
+.line-left {
   min-height: 1px !important;
-  min-width: 25px !important;
+  min-width: 100% !important;
   height: 1px !important;
-  width: 25px !important;
+  width: 100% !important;
   background-color: white !important;
+  position: relative;
+  left: 2px;
+}
+.line-right {
+  min-height: 1px !important;
+  min-width: 100% !important;
+  height: 1px !important;
+  width: 100% !important;
+  background-color: white !important;
+  position: relative;
+  right: 2px;
 }
 
 .content {
