@@ -23,6 +23,7 @@ export class PreferredDistributorPage implements OnInit {
      this.apiService.setDistributorHeader();
      this.apiService.getDataService(this.apiService.getDistributorURL).subscribe((response)=>{
       this.pDistributorList = response.gskDistributorList;
+      console.log("this.pDistributorList :",this.pDistributorList);
       this.commonService.hideLoader();
      }),
      (error)=>{
@@ -92,12 +93,15 @@ export class PreferredDistributorPage implements OnInit {
      }
   }
   setJsonForPreferredDistributor():any{
-     var jsonDict = {
-      "HcpCode": 'hcp2',
-      "Stockiest1": this.selDistributor[0],
-      "Stockiest2": this.selDistributor[1],
-      "Stockiest3": this.selDistributor[2]
+   var jsonDict = {
+      "HcpCode": this.storage.getHcpCode(),
      }
+     var count : number = 1;
+   this.selDistributor.map((ele)=>{
+      
+      jsonDict['Stockiest'+ count] = ele;
+      count++;
+   })
      return jsonDict;
   }
 }

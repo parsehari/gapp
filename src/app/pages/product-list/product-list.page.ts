@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { CartModel } from 'src/app/Model/cart.model';
+import { DiscountProduct } from 'src/app/Model/discount-product.model';
+import { Discount } from 'src/app/Model/discount.model';
 import { Product } from 'src/app/Model/product.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from 'src/app/services/common.service';
@@ -12,6 +15,8 @@ import { CommonService } from 'src/app/services/common.service';
 export class ProductListPage implements OnInit {
   productList:Product[];
   quantity=0;
+  discountInfo : Discount;
+  dViaProduct: DiscountProduct[] = [];
   constructor(private menu : MenuController,private route :Router,
     private apiService:ApiService,
     private commonService:CommonService,
@@ -25,10 +30,12 @@ export class ProductListPage implements OnInit {
       (response)=>{
         console.log("response :",response);
         this.productList = response.gskProdList;
-        this.commonService.hideLoader();
         this.productList.map((ele)=>{
-          ele.quantity = 0;
+          ele.quantity = 0;          
         })
+        setTimeout(() => {
+          this.getDiscount();
+        }, 200);
       },
       (error)=>{
         this.commonService.hideLoader()
@@ -36,7 +43,54 @@ export class ProductListPage implements OnInit {
       }
     )
   }
+ getDiscount(){
+   this.apiService.getDataService(this.apiService.getDiscount).subscribe(
+     (response)=>{
+       console.log("get Discount data :",JSON.stringify(response));
+       this.discountInfo = response;
+       console.log("get Discount data from list:",JSON.stringify(this.discountInfo));
+       this.commonService.hideLoader();
+       this.setDiscountData();
+     },
+     (error)=>{
+       this.commonService.hideLoader();
+       this.commonService.showToast(error);
+     }
+   )
+ }
 
+ setDiscountData(){
+   this.productList.map(
+     (ele)=>{
+       var discountItem = new DiscountProduct();
+       discountItem.isPercentDiscount=false;
+       discountItem.isDiscount=false;
+       this.discountInfo.gskDisPercentList.map(
+         (innerEle)=>{
+           if(ele.productCode === innerEle.gskProductCode){
+             discountItem.isPercentDiscount = true;
+             discountItem.isDiscount = true;
+             discountItem.pDiscount = innerEle;
+           }
+         }
+       )
+       if(discountItem.isPercentDiscount == false){
+        this.discountInfo.gskDisPerUnitPerProdList.map(
+          (innerEle)=>{
+           if(innerEle != null){
+            if(ele.productCode === innerEle.gskProductCode){
+              discountItem.isDiscount = true;
+              discountItem.uDiscount = innerEle.gskDisPerUnitList;
+            }
+           }
+          }
+        )
+       }
+       discountItem.productCode = ele.productCode;
+       this.dViaProduct.push(discountItem);
+     }
+   )
+ }
   searchInputValueChange(event){
   console.log("change",event);
   }
@@ -51,8 +105,21 @@ export class ProductListPage implements OnInit {
     if(cartData.length == 0){
       this.commonService.presentOneButtonAlert('GSK','Please select product.','OK');
     }else{
+
+      let cartList:CartModel[] = [];
+      cartData.map(
+        (ele)=>{
+          var cartProd = new CartModel();
+          cartProd.productCode = ele.productCode;
+          cartProd.productDescription = ele.productDescription;
+          cartProd.productImage = ele.productImage;
+          cartProd.quantity = ele.quantity;
+          cartProd.mrp = parseFloat(ele.ptr);
+          cartList.push(cartProd);
+        }
+      )
       var cartJson = {
-        "Gsk_CartList":cartData
+        "Gsk_CartList":cartList
       }
       this.commonService.showLoader();
       this.apiService.postDataService(this.apiService.saveCartURL,cartJson).subscribe(

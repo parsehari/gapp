@@ -9,12 +9,11 @@
         <ion-label class="card-label">
           <p class="card-title">{{distributor.stkName}}</p>
           <p >
-            <ion-label class="left-content"><ion-icon class="icon-color" slot="start" name="location-outline"></ion-icon>&nbsp; Mumbai</ion-label>
-            <ion-label class="right-content"><ion-icon class="icon-color" slot="start" name="navigate-outline"></ion-icon>&nbsp;Dadar</ion-label>
+            <ion-label class="left-content"><ion-icon class="icon-color" slot="start" name="location-outline"></ion-icon>&nbsp; {{distributor.stkState}}</ion-label>
+            <ion-label class="right-content"><ion-icon class="icon-color" slot="start" name="navigate-outline"></ion-icon>&nbsp;{{distributor.stkArea}}</ion-label>
           </p>
         </ion-label>
       </ion-item>
     </ion-card>
 </ion-content>
-
 <app-footer  [isFirstOutline]=false [moreEvent]=false [firstTitle]="'pdistributor.pdistributorPage.save-pdistributor'" (firstEvent)="savePressed()"></app-footer>

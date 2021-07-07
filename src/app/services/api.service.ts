@@ -122,7 +122,9 @@ export class ApiService {
   public getProductURL = 'Product/GetProductList';
   public insertDistributorURL = 'Distributor/InsertDistributorPreference';
   public saveCartURL = 'Product/SaveCart';
-
+  public getDiscount = 'Product/GetDiscountList';
+  public getPDistributorPrice = 'Distributor/GetPriceWrtPrefDistributor';
+  public removeItemURL = 'Product/RemoveCartProduct';
   constructor(private httpClient: HttpClient, private storageService: StorageService, public router: Router, private alertController: AlertController, private translate: TranslateService) {
 
   }
