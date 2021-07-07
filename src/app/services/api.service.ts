@@ -116,6 +116,7 @@ export class ApiService {
   public validateOtp = "Login/VerifyOTP";
   public getCartAPI = "Product/GetCart";
   public getGSTdetail = "Product/GetGSTDetail";
+  public myOrders = "Order/GetAllOrdersByHCP";
 
   // distributor api
   public getDistributorURL = "Distributor/GetDistributorList";
@@ -139,8 +140,8 @@ export class ApiService {
    * @param setHeaderContent any header params set for api
    */
   getDataService(url: string, type?: any): Observable<any> {
-    if (type == 'gstDetail') {
-      this.httpOptions.headers = this.httpOptions.headers.set('productcodes', 'prod1,prod2');
+    if (type) {
+      this.httpOptions.headers = this.httpOptions.headers.set('productcodes', type);
     }
     return this.httpClient.get(this.baseURL + url, this.httpOptions);
   }

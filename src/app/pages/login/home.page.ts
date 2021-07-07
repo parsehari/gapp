@@ -16,19 +16,19 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class HomePage implements OnInit {
   //public loginInput: string = '9650058176';
-  public loginInput: string = 'test@gmail.com';
-  public inputType: string = 'email';
+  public loginInput: string = '9022109940';
+  public inputType: string = 'number';
   public loginType: string;
-  isPrivacyPolicy=true;
+  isPrivacyPolicy = true;
 
   constructor(private modelCtrl: ModalController, private menu: MenuController, private route: Router,
     private commonService: CommonService, private apiService: ApiService,
-     private storageService: StorageService,
-     private model:ModalController) {
+    private storageService: StorageService,
+    private model: ModalController) {
     this.menu.enable(false);
-    if(this.isPrivacyPolicy){
+    if (this.isPrivacyPolicy) {
       this.presentModal();
-      this.isPrivacyPolicy=false;
+      this.isPrivacyPolicy = false;
     }
   }
   async presentModal() {

@@ -27,39 +27,39 @@
     </div></ion-col>
   </ion-row>
 </ion-grid>
-  <ion-grid class="product-details" *ngFor="let item of [1,2,3]">
+  <ion-grid class="product-details" *ngFor="let product of products">
     <ion-row style="align-items: center;height: 60px;">
       <ion-col size="4">
-       <p>Synflorix</p>
-       <p class="font-subtitle">{{456 | currency:'INR'}}
+       <p>{{product.productDescription}}</p>
+       <p class="font-subtitle">{{product.mrp | currency:'INR'}}
       </p>
       </ion-col>
       <ion-col size="3">
         <ion-row>
           <ion-col>
-            <div class="ion-text-right" (click)="modifyQuantity('remove')">
+            <div class="ion-text-right" (click)="modifyQuantity('remove',product.productCode,i)">
               <ion-icon class="product-quantity" name="remove-circle-outline"></ion-icon>
             </div>
           </ion-col>
           <ion-col>
             <div class="ion-text-center text-margin">
-              <ion-label class="quantity">{{quantity}}</ion-label>
+              <ion-label class="quantity">{{product.quantity}}</ion-label>
             </div>
           </ion-col>
           <ion-col>
-            <div class="ion-text-left" (click)="modifyQuantity('add')">
-              <ion-icon class="product-quantity" name="add-circle-outline"></ion-icon>
+            <div class="ion-text-left" (click)="modifyQuantity('add',product.productCode,i)">
+              <ion-icon class="product-quantity" name="add-circle-outline" ></ion-icon>
             </div>
           </ion-col>
         </ion-row>
        </ion-col>
        <ion-col size="3">
         <div class="ion-text-right">
-          {{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}
+          {{product.mrp*product.quantity | currency:'INR'}}
         </div>
             </ion-col>
        <ion-col size="2">
-  <div class="ion-text-right">
+  <div class="ion-text-right" (click)="deleteItem(product.productCode,i)">
    <ion-icon  name="trash-outline"></ion-icon>
   </div>
       </ion-col>
@@ -69,12 +69,12 @@
   <ion-row class="bottom-section">
     <ion-col>
       <div class="ion-text-left">
-        GST Total
+        Sub Total
       </div>
       </ion-col>
       <ion-col>
       <div class="ion-text-right">
-        {{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}
+        {{productSubTotal | currency:'INR'}}
       </div>
     </ion-col>
   </ion-row>
@@ -86,19 +86,19 @@
       </ion-col>
       <ion-col>
       <div class="ion-text-right">
-        {{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}
+        {{gstTotal | currency:'INR'}}
       </div>
     </ion-col>
   </ion-row>
   <ion-row class="bottom-section">
     <ion-col>
       <div class="ion-text-left">
-        GST Discount
+        GSK Discount
       </div>
       </ion-col>
       <ion-col>
       <div class="ion-text-right">
-        {{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}
+        {{gskDiscount | currency:'INR'}}
       </div>
     </ion-col>
   </ion-row>
@@ -113,14 +113,14 @@
       </ion-col>
       <ion-col>
       <div class="ion-text-right font-twenty">
-        {{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}
+        {{netPrice | currency:'INR'}}
       </div>
     </ion-col>
   </ion-row>
   <ion-row class="netprice">
     <ion-col>
       <div class="ion-text-center ">
-       <ion-label class="c-radius">You will save {{45678 | currency:'INR':'symbol-narrow':'4.2-2'}} in this order</ion-label>
+       <ion-label class="c-radius">You will save {{savingValue | currency:'INR'}} in this order</ion-label>
       </div>
       </ion-col>
   </ion-row>

@@ -7,108 +7,111 @@ import { Discount } from 'src/app/Model/discount.model';
 import { Product } from 'src/app/Model/product.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from 'src/app/services/common.service';
+import { StorageService } from 'src/app/services/storage.service';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.page.html',
   styleUrls: ['./product-list.page.scss'],
 })
 export class ProductListPage implements OnInit {
-  productList:Product[];
-  quantity=0;
-  discountInfo : Discount;
+  productList: Product[];
+  quantity = 0;
+  discountInfo: Discount;
   dViaProduct: DiscountProduct[] = [];
-  constructor(private menu : MenuController,private route :Router,
-    private apiService:ApiService,
-    private commonService:CommonService,
-    ) { }
+  constructor(private menu: MenuController, private route: Router,
+    private apiService: ApiService,
+    private commonService: CommonService,
+    private storageService: StorageService
+  ) { }
 
   ngOnInit() {
     this.menu.enable(true);
     this.commonService.showLoader()
     this.apiService.setDistributorHeader();
     this.apiService.getDataService(this.apiService.getProductURL).subscribe(
-      (response)=>{
-        console.log("response :",response);
+      (response) => {
+        console.log("response :", response);
         this.productList = response.gskProdList;
-        this.productList.map((ele)=>{
-          ele.quantity = 0;          
+        this.productList.map((ele) => {
+          ele.quantity = 0;
         })
         setTimeout(() => {
           this.getDiscount();
         }, 200);
       },
-      (error)=>{
+      (error) => {
         this.commonService.hideLoader()
         this.commonService.showToast(error)
       }
     )
   }
- getDiscount(){
-   this.apiService.getDataService(this.apiService.getDiscount).subscribe(
-     (response)=>{
-       console.log("get Discount data :",JSON.stringify(response));
-       this.discountInfo = response;
-       console.log("get Discount data from list:",JSON.stringify(this.discountInfo));
-       this.commonService.hideLoader();
-       this.setDiscountData();
-     },
-     (error)=>{
-       this.commonService.hideLoader();
-       this.commonService.showToast(error);
-     }
-   )
- }
+  getDiscount() {
+    this.apiService.getDataService(this.apiService.getDiscount).subscribe(
+      (response) => {
+        console.log("get Discount data :", JSON.stringify(response));
+        this.discountInfo = response;
+        console.log("get Discount data from list:", JSON.stringify(this.discountInfo));
+        this.commonService.hideLoader();
+        this.storageService.setProductDiscount(response);
+        this.setDiscountData();
+      },
+      (error) => {
+        this.commonService.hideLoader();
+        this.commonService.showToast(error);
+      }
+    )
+  }
 
- setDiscountData(){
-   this.productList.map(
-     (ele)=>{
-       var discountItem = new DiscountProduct();
-       discountItem.isPercentDiscount=false;
-       discountItem.isDiscount=false;
-       this.discountInfo.gskDisPercentList.map(
-         (innerEle)=>{
-           if(ele.productCode === innerEle.gskProductCode){
-             discountItem.isPercentDiscount = true;
-             discountItem.isDiscount = true;
-             discountItem.pDiscount = innerEle;
-           }
-         }
-       )
-       if(discountItem.isPercentDiscount == false){
-        this.discountInfo.gskDisPerUnitPerProdList.map(
-          (innerEle)=>{
-           if(innerEle != null){
-            if(ele.productCode === innerEle.gskProductCode){
+  setDiscountData() {
+    this.productList.map(
+      (ele) => {
+        var discountItem = new DiscountProduct();
+        discountItem.isPercentDiscount = false;
+        discountItem.isDiscount = false;
+        this.discountInfo.gskDisPercentList.map(
+          (innerEle) => {
+            if (ele.productCode === innerEle.gskProductCode) {
+              discountItem.isPercentDiscount = true;
               discountItem.isDiscount = true;
-              discountItem.uDiscount = innerEle.gskDisPerUnitList;
+              discountItem.pDiscount = innerEle;
             }
-           }
           }
         )
-       }
-       discountItem.productCode = ele.productCode;
-       this.dViaProduct.push(discountItem);
-     }
-   )
- }
-  searchInputValueChange(event){
-  console.log("change",event);
+        if (discountItem.isPercentDiscount == false) {
+          this.discountInfo.gskDisPerUnitPerProdList.map(
+            (innerEle) => {
+              if (innerEle != null) {
+                if (ele.productCode === innerEle.gskProductCode) {
+                  discountItem.isDiscount = true;
+                  discountItem.uDiscount = innerEle.gskDisPerUnitList;
+                }
+              }
+            }
+          )
+        }
+        discountItem.productCode = ele.productCode;
+        this.dViaProduct.push(discountItem);
+      }
+    )
   }
-  addToCart(){
-    var cartData = this.productList.filter((ele)=>{
-      if(ele.quantity > 0){
+  searchInputValueChange(event) {
+    console.log("change", event);
+  }
+  addToCart() {
+    var cartData = this.productList.filter((ele) => {
+      if (ele.quantity > 0) {
         return true;
-      }else{
+      } else {
         return false;
       }
     })
-    if(cartData.length == 0){
-      this.commonService.presentOneButtonAlert('GSK','Please select product.','OK');
-    }else{
+    if (cartData.length == 0) {
+      this.commonService.presentOneButtonAlert('GSK', 'Please select product.', 'OK');
+    } else {
 
-      let cartList:CartModel[] = [];
+      let cartList: CartModel[] = [];
       cartData.map(
-        (ele)=>{
+        (ele) => {
           var cartProd = new CartModel();
           cartProd.productCode = ele.productCode;
           cartProd.productDescription = ele.productDescription;
@@ -119,42 +122,42 @@ export class ProductListPage implements OnInit {
         }
       )
       var cartJson = {
-        "Gsk_CartList":cartList
+        "Gsk_CartList": cartList
       }
       this.commonService.showLoader();
-      this.apiService.postDataService(this.apiService.saveCartURL,cartJson).subscribe(
-        (response)=>{
+      this.apiService.postDataService(this.apiService.saveCartURL, cartJson).subscribe(
+        (response) => {
           console.log("save cart data :", response);
           this.commonService.hideLoader();
           this.route.navigate(['/cart']);
         },
-        (error)=>{
+        (error) => {
           this.commonService.showToast(error);
           this.commonService.hideLoader()
-          console.log("error :",error);
+          console.log("error :", error);
         }
       )
     }
   }
-  buyNow(){
+  buyNow() {
     this.route.navigate(['/select-distributor']);
   }
 
-  modifyQuantity(event,productCode){
-   this.productList.map((ele)=>{
-     if(ele.productCode === productCode){
-      if(event === 'add'){
-        ele.quantity ++ ;
-      }else{
-        if(ele.quantity != 0) 
-         ele.quantity -- ;
+  modifyQuantity(event, productCode) {
+    this.productList.map((ele) => {
+      if (ele.productCode === productCode) {
+        if (event === 'add') {
+          ele.quantity++;
+        } else {
+          if (ele.quantity != 0)
+            ele.quantity--;
         }
       }
     })
   }
-  
-  getImageURL(imageSource){
+
+  getImageURL(imageSource) {
     return this.commonService.getImageURLFromBase64(imageSource);
   }
-  
+
 }
