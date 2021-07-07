@@ -10,7 +10,7 @@ export class PreferredDistributorModel {
   public  stkName: string;
   public  stkPin: string;
   public  stkState: string;
+  public  stkEmail: string;
   public stockistCerpCode: string;
   public isPreferred?:boolean=false;
-
 }

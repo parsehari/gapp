@@ -1,11 +1,11 @@
 <app-header heading="Vaccines" [showMenuButton]="true" [showSubHeader]="false" [showSearch]="true" [showCart]=true>
 </app-header>
 <ion-content>
-  <ion-card *ngFor="let product of productList">
+  <ion-card *ngFor="let product of productList;let i = index">
     <ion-grid class="card-section">
       <ion-row class="ion-no-padding"class="ion-no-margin" >
         <ion-col size="4">
-          <div class="offer-content">
+          <div  class="offer-content">
             <ion-grid class="offer-item">
               <ion-row style="align-items: center;">
                 <ion-col size="4">
@@ -20,23 +20,42 @@
                   <div class="line-right"></div>
                   </ion-col>
               </ion-row>
-              <ion-row >
+              <ion-row *ngIf="dViaProduct.length !=0 && dViaProduct[i]?.isDiscount">
                 <ion-col >
                   <div class="ion-text-center">
-                    <ion-label style="font-size: 10px;color: white;">BUY 2 & GET 2</ion-label>
+                   <table>
+                   <thead>
+                     <tr>
+                       <th>Unit</th>
+                       <th>Discount</th>
+                     </tr>
+                   </thead>
+                   <tbody *ngIf="dViaProduct[i].isPercentDiscount">
+                     <tr>
+                     <td>1</td>
+                     <td>{{dViaProduct[i].pDiscount.disPercent}}</td>
+                     </tr>
+                   </tbody>
+                   <tbody *ngIf="!dViaProduct[i].isPercentDiscount">
+                    <tr *ngFor="let item of dViaProduct[i].uDiscount;let j=index;">
+                    <td>{{item.minQty}}</td>
+                    <td>{{item.disAmtPerUnit}}</td>
+                    </tr>
+                  </tbody>
+                  </table>
                   </div>
                 </ion-col>
               </ion-row>
-              <ion-row >
-                <ion-col >
-                  <div class="ion-text-center" style="padding-top: 5px;">
-                    <ion-label style="font-size: 20px;border: 1px solid white;padding: 2px;margin-top: 8px;">FREE</ion-label>
+              <ion-row *ngIf="dViaProduct.length !=0 && !dViaProduct[i]?.isDiscount">
+                <ion-col>
+                  <div class="ion-text-center">
+                    <ion-label> Offer not available</ion-label>
                   </div>
                 </ion-col>
               </ion-row>
             </ion-grid>
           </div>
-          <div class="content"></div>
+          <div  class="content"></div>
         </ion-col >
         <ion-col class="img-padding" size="8">
           <div class="ion-text-center">
