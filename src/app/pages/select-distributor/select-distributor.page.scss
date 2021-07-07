@@ -5,6 +5,28 @@
 table{
     font-size: 14px;
 }
+.color-green {
+    background-color: green;
+    height: 60px !important;
+    min-height: 60px !important;
+    position: relative;
+    margin: 1px;
+  
+}
+.center-data{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: white;
+}
+.color-red{
+    background-color:red;
+    height: 60px !important;
+    min-height: 60px !important;
+    position: relative;  
+    margin: 1px;  
+}
 tr:nth-child(even) {background-color: rgb(227, 227, 227)}
 tr {
     background-color: rgb(240, 240, 240);

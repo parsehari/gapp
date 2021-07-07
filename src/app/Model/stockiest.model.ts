@@ -5,4 +5,6 @@ public prt: number;
 public salebleQty: number;
 public stockiest1: string;
 public stokiestRate: number;
+public totalDisplayPrice?:number;
+public unitDisplayPrice?:number;
 }

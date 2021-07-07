@@ -12,52 +12,59 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of [1,2,3,4]">
-        <td>Synfiorix</td>
+      <tr *ngFor="let item of cartWithPDistributor;let i=index;">
+        <td>{{item.unitCart.productDescription}}</td>
         <td>
           <ion-row>
             <ion-col>
-               <div class="ion-text-center" (click)="modifyQuantity('remove')">
+               <div class="ion-text-center" (click)="modifyQuantity('remove',i)">
                 <ion-icon class="icon-color"  slot="icon-only" name="remove-circle-outline"></ion-icon>
                </div>
                <div class="ion-text-center">
-                <ion-label >{{quantity}}</ion-label>
+                <ion-label >{{item.unitCart.quantity}}</ion-label>
               </div>
-               <div class="ion-text-center" (click)="modifyQuantity('add')">
+               <div class="ion-text-center" (click)="modifyQuantity('add',i)">
                 <ion-icon class="icon-color" slot="icon-only" name="add-circle-outline"></ion-icon>
                </div>
-              
             </ion-col>
           </ion-row>
         </td>
-        <td>{{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}</td>
-        <td>{{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}</td>
-        <td>{{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}</td>
+        <td  ><div [ngClass]="{'color-green':item.stockiestOne?.salebleQty >= item.unitCart.quantity,
+          'color-red':item.stockiestOne?.salebleQty < item.unitCart.quantity 
+        }"><ion-label class="center-data">{{item.stockiestOne?.totalDisplayPrice ? (item.stockiestOne?.totalDisplayPrice | currency:'INR':'symbol-narrow':'1.0-0'):'N/A'}}</ion-label></div></td>
+        <td  ><div [ngClass]="{'color-green':item.stockiestTwo?.salebleQty >= item.unitCart.quantity,
+          'color-red':item.stockiestTwo?.salebleQty < item.unitCart.quantity 
+        }"><ion-label class="center-data">{{item.stockiestTwo?.totalDisplayPrice? (item.stockiestTwo?.totalDisplayPrice | currency:'INR':'symbol-narrow':'1.0-0'):'N/A'}}</ion-label></div></td>
+        <td  ><div [ngClass]="{'color-green':item.stockiestThree?.salebleQty >= item.unitCart.quantity,
+          'color-red':item.stockiestThree?.salebleQty < item.unitCart.quantity 
+        }"><ion-label class="center-data">{{item.stockiestThree?.totalDisplayPrice ? (item.stockiestThree?.totalDisplayPrice | currency:'INR':'symbol-narrow':'1.0-0'):'N/A'}}</ion-label> </div></td>
       </tr>
     </tbody>
     <tfoot>
       <tr>
         <td style="color: #F36633;">{{'sdistributor.sdistributorPage.total' | translate}}</td>
         <td>
-          <ion-label>50</ion-label>
+          <ion-label>{{getTotalForQuantity()}}</ion-label>
         </td>
-        <td>{{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}</td>
-        <td>{{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}</td>
-        <td>{{45678 | currency:'INR':'symbol-narrow':'4.2-2'}}</td>
+        <td>{{getTotalForPrice(0) | currency:'INR':'symbol-narrow':'1.0-0'}}</td>
+        <td>{{getTotalForPrice(1) | currency:'INR':'symbol-narrow':'1.0-0'}}</td>
+        <td>{{getTotalForPrice(2) | currency:'INR':'symbol-narrow':'1.0-0'}}</td>
       </tr>
       <tr>
         <td [colSpan]="2">{{'sdistributor.sdistributorPage.sdistributor' | translate }}</td>
-        <td>
-          <ion-checkbox type="checkbox" name="distributor" value="first" (ionChange)="selectDistributor($event)">
-          </ion-checkbox>
-        </td>
-        <td>
-          <ion-checkbox type="checkbox" name="distributor" value="second" (ionChange)="selectDistributor($event)">
-          </ion-checkbox>
-        </td>
-        <td>
-          <ion-checkbox type="checkbox" name="distributor" value="third" (ionChange)="selectDistributor($event)">
-          </ion-checkbox>
+        <td [colSpan]="3">
+          <ion-radio-group value="dis1" (ionChange)="selectDistributor($event)">
+            <ion-row>
+              <ion-col>
+                <div class="ion-text-center"><ion-radio  value="dis1"></ion-radio>
+              </div>
+            </ion-col>
+              <ion-col><div class="ion-text-center"><ion-radio  value="dis2"></ion-radio>
+              </div></ion-col>
+              <ion-col><div class="ion-text-center"><ion-radio  value="dis3"></ion-radio>
+              </div></ion-col>
+            </ion-row>
+          </ion-radio-group>
         </td>
       </tr>
     </tfoot>

@@ -159,6 +159,7 @@ export class ApiService {
     console.log("url :", url);
     console.log("base url :", this.baseURL);
     console.log("data :", data);
+    console.log("http option :", this.httpOptions);
     return this.httpClient.post(this.baseURL + url, data, this.httpOptions);
   }
   /**

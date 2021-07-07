@@ -20,14 +20,19 @@ export class CartPage implements OnInit {
   }
 
   getCartItem() {
+    this.commonService.showLoader();
     this.apiService.getDataService(this.apiService.getCartAPI).subscribe((resp: any) => {
       console.log("response cart ", resp);
-      if (resp.getProdList)
+      if (resp.getProdList){
         this.cartProducts = resp.getProdList;
-      else
+        this.commonService.hideLoader();
+      }else{
         this.commonService.showToast(resp.message);
+      }
     }, (err) => {
       console.log("error in cart", err);
+      this.commonService.hideLoader()
+      this.commonService.showToast(err);
     });
   }
 
