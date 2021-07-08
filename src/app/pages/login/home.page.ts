@@ -15,20 +15,20 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  //public loginInput: string = '9650058176';
-  public loginInput: string = 'test@gmail.com';
-  public inputType: string = 'email';
+  public loginInput: string = '9022109940';
+  //public loginInput: string = 'harshada.v.wabgaonkar@gsk.com';
+  public inputType: string = 'number';
   public loginType: string;
-  isPrivacyPolicy=true;
+  isPrivacyPolicy = true;
 
   constructor(private modelCtrl: ModalController, private menu: MenuController, private route: Router,
     private commonService: CommonService, private apiService: ApiService,
-     private storageService: StorageService,
-     private model:ModalController) {
+    private storageService: StorageService,
+    private model: ModalController) {
     this.menu.enable(false);
-    if(this.isPrivacyPolicy){
+    if (this.isPrivacyPolicy) {
       this.presentModal();
-      this.isPrivacyPolicy=false;
+      this.isPrivacyPolicy = false;
     }
   }
   async presentModal() {
@@ -88,10 +88,13 @@ export class HomePage implements OnInit {
     this.commonService.hideLoader();
     if (data.hcpCode) {
       this.storageService.setHcpCode(data.hcpCode);
-      if (!data.tncFlag)
-        this.showTermsAndConditions();
-      else
+      console.log('varify ', data.tncFlag);
+      if (data.tncFlag == "true") {
         this.route.navigate(["/otp", { loginData: this.loginInput, type: this.inputType }]);
+      }
+      else {
+        this.showTermsAndConditions();
+      }
     } else {
       this.commonService.showToast(data.message);
     }

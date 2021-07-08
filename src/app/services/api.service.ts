@@ -103,7 +103,7 @@ export class ApiService {
    */
   //private baseURL = 'https://dev.api.gsk.com/Pharmatech/Vaxikart/Login/';
 
-  
+
   private baseURL = 'https://dev.api.gsk.com/Pharmatech/Vaxikart/';
 
   /**
@@ -116,6 +116,9 @@ export class ApiService {
   public validateOtp = "Login/VerifyOTP";
   public getCartAPI = "Product/GetCart";
   public getGSTdetail = "Product/GetGSTDetail";
+  public myOrders = "Order/GetAllOrdersByHCP";
+  public saveOrder = "Order/SaveOrderData";
+  public getOrderDetail = "Order/GetOrderDetailByOrderNo";
 
   // distributor api
   public getDistributorURL = "Distributor/GetDistributorList";
@@ -140,9 +143,9 @@ export class ApiService {
    * @param myObject object to pass api
    * @param setHeaderContent any header params set for api
    */
-  getDataService(url: string, type?: any):Observable<any> {
-    if (type == 'gstDetail') {
-      this.httpOptions.headers = this.httpOptions.headers.set('productcodes', 'prod1,prod2');
+  getDataService(url: string, type?: any): Observable<any> {
+    if (type) {
+      this.httpOptions.headers = this.httpOptions.headers.set('productcodes', type);
     }
     return this.httpClient.get(this.baseURL + url, this.httpOptions);
   }
@@ -156,11 +159,11 @@ export class ApiService {
    * @param data object to pass api
    * @param setHeaderContent any header params set for api
    */
-  postDataService(url: string, data: any):Observable<any> {
-    console.log("url :",url);
-    console.log("base url :",this.baseURL);
-    console.log("data :",data);
-    console.log("http option :",this.httpOptions);
+  postDataService(url: string, data: any): Observable<any> {
+    console.log("url :", url);
+    console.log("base url :", this.baseURL);
+    console.log("data :", data);
+    console.log("http option :", this.httpOptions);
     return this.httpClient.post(this.baseURL + url, data, this.httpOptions);
   }
   /**
@@ -429,7 +432,7 @@ reject(err);
         'Content-Type': 'application/json',
         'apikey': 'YTAxZTU2NWMtZDM5NS00M2Q3LTkwYzgtYmZiOTFmMzc0OTk3nM391W7QykFhd0OEO3Il6r-VXfP1lDOad7Jlq8FiprIe',
         'HcpCode': this.storageService.getHcpCode(),
-        'Token':this.acces_token
+        'Token': this.acces_token
       })
     };
   }

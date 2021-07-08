@@ -2,13 +2,13 @@
 </app-header>
 
 <ion-content>
-  <ion-card *ngFor="let item of [1,2,3,4]"  [ngStyle]="{'background-color':bgColor}"  (click)="goToDetail()" >
+  <ion-card *ngFor="let orders of myOrders;let i = index"  [ngStyle]="{'background-color':bgColor}"  (click)="goToDetail(orders.gskOrderNo)" >
     <ion-item detail lines="none">
         <ion-icon slot="start"  name="person" class="card-icon"></ion-icon>
         <ion-label class="card-label">
-          <p class="card-title">Synflorix lorem ipsum dolor sit asem</p>
+          <p class="card-title">{{orders.gskOrderNo}}</p>
           <p>
-            <ion-label class="left-content">Delivered on 21/12/23</ion-label>
+            <ion-label class="left-content">Delivered on {{orders.gskOrderDate | date}}</ion-label>
           </p>
         </ion-label>
       </ion-item>
