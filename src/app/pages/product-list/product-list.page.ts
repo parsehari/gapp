@@ -21,7 +21,8 @@ export class ProductListPage implements OnInit {
   dProductList: ProductByDistributor[];
   quantity = 0;
   discountInfo: Discount;
-  fromView: string;
+  fromView: string='product-list';
+  fromEvent:string='aCart';
   dViaProduct: DiscountProduct[] = [];
   constructor(private menu : MenuController,private router :Router,
     private apiService:ApiService,
@@ -182,7 +183,11 @@ export class ProductListPage implements OnInit {
         (response) => {
           console.log("save cart data :", response);
           this.commonService.hideLoader();
-          this.router.navigate(['/cart']);
+          if(this.fromView == 'distributor'){
+            this.router.navigate(['/cart',{stockiest:JSON.stringify( this.distributor),fromView:this.fromView,fromEvent:this.fromEvent}]);
+          }else{
+            this.router.navigate(['/cart',{fromView:this.fromView,fromEvent:this.fromEvent}]);
+          }
         },
         (error) => {
           this.commonService.showToast(error);
@@ -216,11 +221,11 @@ export class ProductListPage implements OnInit {
         }
       );
       if(this.fromView === 'distributor'){
-        this.fromView = 'buyNow'
-        this.router.navigate(['/order-summary',{stockiest:JSON.stringify( this.distributor),cartInfo:JSON.stringify(cartList),fromView:this.fromView}]);
+        this.fromEvent = 'buyNow'
+        this.router.navigate(['/order-summary',{stockiest:JSON.stringify( this.distributor),cartInfo:JSON.stringify(cartList),fromView:this.fromView,fromEvent:this.fromEvent}]);
       }else{
-        this.fromView = 'buyNow'
-        this.router.navigate(['/select-distributor',{cartInfo:JSON.stringify(cartList),fromView:this.fromView}]);
+        this.fromEvent = 'buyNow'
+        this.router.navigate(['/select-distributor',{param:JSON.stringify(cartList),fromView:this.fromView,fromEvent:this.fromEvent}]);
       }
     }
   }

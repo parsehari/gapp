@@ -21,7 +21,8 @@ export class SelectDistributorPage implements OnInit {
   cartWithPDistributor : CartWithStockiest[]=[];
   stockiestPrice : StockiestPrice;
   sDInfoLabel = 'sdistributor.sdistributorPage.selected-distributor-info'
-  fromView = 'cart'
+  fromView = 'product-list'
+  fromEvent:string='aCart';
   constructor(private router: Router, private menu: MenuController,
     private route : ActivatedRoute,
     private apiService:ApiService
@@ -35,6 +36,9 @@ export class SelectDistributorPage implements OnInit {
           if(param['fromView']){
             this.fromView = param['fromView'];
             console.log("***********fron view**************",this.fromView);
+          }if(param['fromEvent']){
+            this.fromEvent = param['fromEvent'];
+            console.log("***********fromEvent**************",this.fromView);
           }
         }
     )
@@ -177,7 +181,7 @@ export class SelectDistributorPage implements OnInit {
     return total;
   }
   continueClicked() {
-    this.router.navigate(['/order-summary',{stockiest:this.sDistributor,cartInfo:this.cartWithPDistributor,fromView:this.fromView}]);
+    this.router.navigate(['/order-summary',{stockiest:this.sDistributor,cartInfo:this.cartWithPDistributor,fromView:this.fromView,fromEvent:this.fromEvent}]);
   }
   cancel() {
     this.router.navigate(['product-list']);
