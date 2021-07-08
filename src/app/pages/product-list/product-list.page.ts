@@ -30,8 +30,10 @@ export class ProductListPage implements OnInit {
       this.route.params.subscribe(
         (param)=>{
          if(param){
-           this.distributor = JSON.parse(param['distributor']);
-           this.fromView = param['fromView'];
+           if(param['distributor']){
+            this.distributor = JSON.parse(param['distributor']);
+            this.fromView = param['fromView'];
+           }
          }
         }
       )
@@ -47,6 +49,7 @@ export class ProductListPage implements OnInit {
            this.commonService.hideLoader();
            console.log("product distributor :",response)
            this.dProductList = response.distributorList;
+           this.commonService.hideLoader();
            this.setProductData();
            this.getDiscount();
          },
@@ -59,13 +62,12 @@ export class ProductListPage implements OnInit {
       this.apiService.getDataService(this.apiService.getProductURL).subscribe(
         (response)=>{
           console.log("response :",response);
+          this.commonService.hideLoader()
           this.productList = response.gskProdList;
           this.productList.map((ele)=>{
             ele.quantity = 0;          
           })
-          setTimeout(() => {
             this.getDiscount();
-          }, 200);
         },
         (error)=>{
           this.commonService.hideLoader()
@@ -83,6 +85,8 @@ export class ProductListPage implements OnInit {
         prod.productDescription = ele.productDescription;
         prod.productImage = ele.productImage;
         prod.quantity = 0;
+        prod.stockistCerpCode = ele.stockistCerpCode;
+        prod.stokiestRate = ele.stokiestRate;
         if(ele.stokiestRate > 0){
           prod.ptr = ele.stokiestRate.toString();
         }else{
@@ -93,6 +97,7 @@ export class ProductListPage implements OnInit {
     )
   }
  getDiscount(){
+   this.commonService.showLoader();
    this.apiService.getDataService(this.apiService.getDiscount).subscribe(
      (response)=>{
        console.log("get Discount data :",JSON.stringify(response));
@@ -186,7 +191,31 @@ export class ProductListPage implements OnInit {
     }
   }
   buyNow(){
-    this.router.navigate(['/select-distributor']);
+    var cartData = this.productList.filter((ele)=>{
+      if(ele.quantity > 0){
+        return true;
+      }else{
+        return false;
+      }
+    })
+    if(cartData.length == 0){
+      this.commonService.presentOneButtonAlert('GSK','Please select product.','OK');
+    }else{
+      this.fromView = 'buyNow'
+      let cartList:CartModel[] = [];
+      cartData.map(
+        (ele)=>{
+          var cartProd = new CartModel();
+          cartProd.productCode = ele.productCode;
+          cartProd.productDescription = ele.productDescription;
+          cartProd.productImage = ele.productImage;
+          cartProd.quantity = ele.quantity;
+          cartProd.mrp = parseFloat(ele.ptr);
+          cartList.push(cartProd);
+        }
+      );
+      this.router.navigate(['/select-distributor',{param:JSON.stringify(cartList),fromView:this.fromView}])
+    }
   }
 
   modifyQuantity(event,productCode){

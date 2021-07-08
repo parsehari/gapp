@@ -1,10 +1,11 @@
 export class Stockiest {
 public preference: string;
 public productCode: string;
-public prt: number;
+public ptr?: number;
 public salebleQty: number;
-public stockiest1: string;
+public stockiest: string;
 public stokiestRate: number;
 public totalDisplayPrice?:number;
 public unitDisplayPrice?:number;
+public stkName? : string;
 }

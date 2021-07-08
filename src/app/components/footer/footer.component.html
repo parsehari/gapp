@@ -2,7 +2,7 @@
 <ion-footer>
  <ion-item *ngIf="showInfo" class="info-section">
    <ion-icon   slot="start" name="information-circle"></ion-icon>
-   <ion-label >{{infoLabel | translate : {param:infoText} }}</ion-label>
+   <ion-label >{{infoLabel | translate : {param:infoText?.stkName ? infoText?.stkName : ''} }}</ion-label>
  </ion-item>
   <div class="event-section footer-section">
     <ion-row *ngIf="moreEvent">

@@ -14,12 +14,14 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./select-distributor.page.scss'],
 })
 export class SelectDistributorPage implements OnInit {
-  stockiestId : string;
+  sDistributor : Stockiest;
   selectedIndex=0;
   distributor: any = 'Distributor 2';
   cartData: CartModel[];
   cartWithPDistributor : CartWithStockiest[]=[];
   stockiestPrice : StockiestPrice;
+  sDInfoLabel = 'sdistributor.sdistributorPage.selected-distributor-info'
+  fromView = 'cart'
   constructor(private router: Router, private menu: MenuController,
     private route : ActivatedRoute,
     private apiService:ApiService
@@ -29,6 +31,10 @@ export class SelectDistributorPage implements OnInit {
           if(param['param']){
             this.cartData = JSON.parse(param['param']);
             console.log("cart data :", this.cartData);
+          }
+          if(param['fromView']){
+            this.fromView = param['fromView'];
+            console.log("***********fron view**************",this.fromView);
           }
         }
       )    
@@ -49,7 +55,6 @@ export class SelectDistributorPage implements OnInit {
   }
 
   setPDistributorData(){
-    this.stockiestId = this.stockiestPrice.distributor1_List[0].stockiest1;
     this.cartData.map(
       (ele)=>{
         var cartWithStockiest = new CartWithStockiest();
@@ -60,7 +65,7 @@ export class SelectDistributorPage implements OnInit {
                if(innerEle.stokiestRate >0){
                  innerEle.unitDisplayPrice = innerEle.stokiestRate;
                }else{
-                 innerEle.unitDisplayPrice = innerEle.prt;
+                 innerEle.unitDisplayPrice = innerEle.ptr;
                }
                innerEle.totalDisplayPrice = innerEle.unitDisplayPrice*ele.quantity;
                cartWithStockiest.stockiestOne= innerEle;
@@ -73,7 +78,7 @@ export class SelectDistributorPage implements OnInit {
               if(innerEle.stokiestRate >0){
                 innerEle.unitDisplayPrice = innerEle.stokiestRate;
               }else{
-                innerEle.unitDisplayPrice = innerEle.prt;
+                innerEle.unitDisplayPrice = innerEle.ptr;
               }
               innerEle.totalDisplayPrice = innerEle.unitDisplayPrice*ele.quantity;
 
@@ -87,7 +92,7 @@ export class SelectDistributorPage implements OnInit {
               if(innerEle.stokiestRate >0){
                 innerEle.unitDisplayPrice = innerEle.stokiestRate;
               }else{
-                innerEle.unitDisplayPrice = innerEle.prt;
+                innerEle.unitDisplayPrice = innerEle.ptr;
               }
               innerEle.totalDisplayPrice = innerEle.unitDisplayPrice*ele.quantity;
 
@@ -106,6 +111,20 @@ export class SelectDistributorPage implements OnInit {
 
   selectDistributor(event) {
    console.log("select radio :",event);
+
+   let index = parseInt(event.detail.value);
+   switch(index){
+     case 0:
+       this.sDistributor = this.stockiestPrice.distributor1_List[0] as Stockiest;
+       break;
+       case 1:
+       this.sDistributor = this.stockiestPrice.distributor2_List[0] as Stockiest;
+       break;
+       case 2:
+       this.sDistributor = this.stockiestPrice.distributor3_List[0] as Stockiest;
+       break;
+   }
+   this.sDInfoLabel = 'sdistributor.sdistributorPage.selected-distributor'
   }
   getTotalForPrice(index):number{
     var totalOne =0;
@@ -158,7 +177,7 @@ export class SelectDistributorPage implements OnInit {
     return total;
   }
   continueClicked() {
-    this.router.navigate(['/order-summary',{stockiest:this.stockiestId,cartInfo:this.cartWithPDistributor,fromView:'cart'}]);
+    this.router.navigate(['/order-summary',{stockiest:this.sDistributor,cartInfo:this.cartWithPDistributor,fromView:this.fromView}]);
   }
   cancel() {
     this.router.navigate(['product-list']);
@@ -180,5 +199,11 @@ export class SelectDistributorPage implements OnInit {
     if(this.cartWithPDistributor[index].stockiestOne?.unitDisplayPrice){
         this.cartWithPDistributor[index].stockiestOne.totalDisplayPrice = this.cartWithPDistributor[index].stockiestOne?.unitDisplayPrice * this.cartWithPDistributor[index].unitCart?.quantity;
     }
+    if(this.cartWithPDistributor[index].stockiestTwo?.unitDisplayPrice){
+      this.cartWithPDistributor[index].stockiestTwo.totalDisplayPrice = this.cartWithPDistributor[index].stockiestTwo?.unitDisplayPrice * this.cartWithPDistributor[index].unitCart?.quantity;
+  }
+  if(this.cartWithPDistributor[index].stockiestThree?.unitDisplayPrice){
+    this.cartWithPDistributor[index].stockiestThree.totalDisplayPrice = this.cartWithPDistributor[index].stockiestThree?.unitDisplayPrice * this.cartWithPDistributor[index].unitCart?.quantity;
+}
    }
 }

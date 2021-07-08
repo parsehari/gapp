@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
+import { Stockiest } from 'src/app/Model/stockiest.model';
 
 @Component({
   selector: 'app-footer',
@@ -16,8 +17,8 @@ export class FooterComponent implements OnInit {
   @Output() firstEvent = new EventEmitter();
   @Output() secondEvent = new EventEmitter();
   @Input() showInfo: boolean = false;
-  @Input() infoText: string;
-  @Input() infoLabel: string;
+  @Input() infoText: Stockiest;
+  @Input() infoLabel: string ;
   constructor() { }
 
   ngOnInit() { }
@@ -27,5 +28,16 @@ export class FooterComponent implements OnInit {
   actionSecondTapped() {
     this.secondEvent.emit()
   }
+ /* ngOnChanges(changes: SimpleChange) {
+    for (const propName in changes) {
+      if (changes.hasOwnProperty('infoText')) {
+        switch (propName) {
+          case 'infoText': {
+            this.infoLabel = "You have selected"
+          }
+        }
+      }
+    }
+  }*/
 
 }

@@ -57,21 +57,26 @@
           </div>
           <div  class="content"></div>
         </ion-col >
-        <ion-col class="img-padding" size="8">
+        <ion-col class="img-padding">
           <div class="ion-text-center">
             <img [src]="getImageURL(product.productImage)">
           </div>
         </ion-col>
+        <ion-col *ngIf="product?.stockistCerpCode" class="img-padding" size="2">
+          <div class="ion-text-right">
+            <ion-label>{{product.ptr | currency:'INR':'symbol-narrow':'1.0-0'}}</ion-label>
+          </div>
+        </ion-col>
       </ion-row>
       <ion-row class="content-section">
-        <ion-col size="8">
+        <ion-col size="9">
           <div class="ion-text-left">
             <ion-label >
               <h2 class="text-color">{{product.productDescription}} </h2>
             </ion-label>
           </div>
         </ion-col>
-        <ion-col size="4">
+        <ion-col size="3">
           <ion-row>
             <ion-col>
               <div class="ion-text-right" (click)="modifyQuantity('remove',product.productCode)">
