@@ -216,7 +216,7 @@ export class ProductListPage implements OnInit {
           cartList.push(cartProd);
         }
       );
-      this.router.navigate(['/select-distributor',{param:JSON.stringify(cartList),fromView:this.fromView}])
+      this.router.navigate(['/order-summary',{stockiest:JSON.stringify( this.distributor),cartInfo:JSON.stringify(cartList),fromView:this.fromView}]);
     }
   }
 
