@@ -1,8 +1,9 @@
 .event-section{
-    padding: 5px 10px 0px 10px;
+    padding: 5px 5px 0px 5px;
 }
 .button-left {
-    min-width: 130px !important;
+    min-width: 155px !important;
+    width: 155px !important; 
     min-height: 50px !important;
    height: 50px !important;
    text-transform: none;
@@ -16,11 +17,13 @@
     }
 }
 .button-right {
-    min-width: 130px !important;
+    min-width: 155px !important;
+    width: 155px !important;
     min-height: 50px !important;
    height: 50px !important;
    text-transform: none;
-
+   --border-color:white;
+   --border-width:2px;
     --background:white;
     ion-label{
         color: #E84E0E;

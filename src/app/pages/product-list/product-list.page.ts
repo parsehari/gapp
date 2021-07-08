@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { CartModel } from 'src/app/Model/cart.model';
 import { DiscountProduct } from 'src/app/Model/discount-product.model';
 import { Discount } from 'src/app/Model/discount.model';
+import { PreferredDistributorModel } from 'src/app/Model/pdistributor.model';
+import { ProductByDistributor } from 'src/app/Model/product-distributor.model';
 import { Product } from 'src/app/Model/product.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from 'src/app/services/common.service';
@@ -14,34 +16,81 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./product-list.page.scss'],
 })
 export class ProductListPage implements OnInit {
-  productList: Product[];
+  productList: Product[] = [];
+  distributor: PreferredDistributorModel;
+  dProductList: ProductByDistributor[];
   quantity = 0;
   discountInfo: Discount;
+  fromView: string;
   dViaProduct: DiscountProduct[] = [];
-  constructor(private menu: MenuController, private route: Router,
+  constructor(private menu: MenuController, private router: Router,
     private apiService: ApiService,
     private commonService: CommonService,
+    private route: ActivatedRoute,
     private storageService: StorageService
-  ) { }
+  ) {
+    this.route.params.subscribe(
+      (param) => {
+        if (param) {
+          this.distributor = JSON.parse(param['distributor']);
+          this.fromView = param['fromView'];
+        }
+      }
+    )
+  }
 
   ngOnInit() {
     this.menu.enable(true);
     this.commonService.showLoader()
     this.apiService.setDistributorHeader();
-    this.apiService.getDataService(this.apiService.getProductURL).subscribe(
-      (response) => {
-        console.log("response :", response);
-        this.productList = response.gskProdList;
-        this.productList.map((ele) => {
-          ele.quantity = 0;
-        })
-        setTimeout(() => {
+    if (this.fromView === 'distributor') {
+      this.apiService.postDataService(this.apiService.getDistributorProduct, { StockistCerpCode: this.distributor.stockistCerpCode }).subscribe(
+        (response: any) => {
+          this.commonService.hideLoader();
+          console.log("product distributor :", response)
+          this.dProductList = response.distributorList;
+          this.setProductData();
           this.getDiscount();
-        }, 200);
-      },
-      (error) => {
-        this.commonService.hideLoader()
-        this.commonService.showToast(error)
+        },
+        (error) => {
+          this.commonService.hideLoader();
+          this.commonService.showToast(error);
+        }
+      )
+    } else {
+      this.apiService.getDataService(this.apiService.getProductURL).subscribe(
+        (response) => {
+          console.log("response :", response);
+          this.productList = response.gskProdList;
+          this.productList.map((ele) => {
+            ele.quantity = 0;
+          })
+          setTimeout(() => {
+            this.getDiscount();
+          }, 200);
+        },
+        (error) => {
+          this.commonService.hideLoader()
+          this.commonService.showToast(error)
+        }
+      )
+    }
+  }
+
+  setProductData() {
+    this.dProductList.map(
+      (ele) => {
+        var prod = new Product();
+        prod.productCode = ele.prodCode;
+        prod.productDescription = ele.productDescription;
+        prod.productImage = ele.productImage;
+        prod.quantity = 0;
+        if (ele.stokiestRate > 0) {
+          prod.ptr = ele.stokiestRate.toString();
+        } else {
+          prod.ptr = ele.ptr.toString();
+        }
+        this.productList.push(prod);
       }
     )
   }
@@ -129,7 +178,7 @@ export class ProductListPage implements OnInit {
         (response) => {
           console.log("save cart data :", response);
           this.commonService.hideLoader();
-          this.route.navigate(['/cart']);
+          this.router.navigate(['/cart']);
         },
         (error) => {
           this.commonService.showToast(error);
@@ -140,7 +189,7 @@ export class ProductListPage implements OnInit {
     }
   }
   buyNow() {
-    this.route.navigate(['/select-distributor']);
+    this.router.navigate(['/select-distributor']);
   }
 
   modifyQuantity(event, productCode) {
