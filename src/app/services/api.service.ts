@@ -118,6 +118,7 @@ export class ApiService {
   public getGSTdetail = "Product/GetGSTDetail";
   public myOrders = "Order/GetAllOrdersByHCP";
   public saveOrder = "Order/SaveOrderData";
+  public getOrderDetail = "Order/GetOrderDetailByOrderNo";
 
   // distributor api
   public getDistributorURL = "Distributor/GetDistributorList";

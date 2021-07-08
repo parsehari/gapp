@@ -21,6 +21,7 @@ export class OrderSummaryPage implements OnInit {
   discountInfo: any;
   netPrice: any;
   dViaProduct: DiscountProduct[] = [];
+  stockiestID: any;
 
   cartWithPDistributor: any;
   products: any = [];
@@ -31,6 +32,8 @@ export class OrderSummaryPage implements OnInit {
     private activatedroute: ActivatedRoute
   ) {
     this.cartWithPDistributor = this.activatedroute.snapshot.paramMap.get('cartInfo');
+    this.stockiestID = this.activatedroute.snapshot.paramMap.get('stockiest');
+    console.log("stock ", this.stockiestID);
     this.cartWithPDistributor = JSON.parse(this.cartWithPDistributor);
     this.cartWithPDistributor.forEach(element => {
       this.products.push(element.unitCart);
@@ -55,7 +58,14 @@ export class OrderSummaryPage implements OnInit {
   continue() {
     console.log("products ", this.products);
     console.log("netprice ", this.netPrice);
-    this.router.navigate(['payment', { products: JSON.stringify(this.products), netPrice: this.netPrice }]);
+    var data = {
+      gstTotal: this.gstTotal,
+      subTotal: this.subTotal,
+      productSubTotal: this.productSubTotal,
+      gskDiscount: this.gskDiscount,
+      savingValue: this.savingValue
+    }
+    this.router.navigate(['payment', { products: JSON.stringify(this.products), netPrice: this.netPrice, stockiestID: this.stockiestID, Summarydata: JSON.stringify(data) }]);
   }
   modifyQuantity(event: any, productCode: any, index: any) {
     this.products.map((ele) => {
@@ -131,7 +141,7 @@ export class OrderSummaryPage implements OnInit {
     this.gskDiscount = 0;
     this.netPrice = 0;
     this.products.map(
-      (ele) => {
+      (ele: any) => {
         var discountItem = new DiscountProduct();
         discountItem.isPercentDiscount = false;
         discountItem.isDiscount = false;
@@ -146,19 +156,21 @@ export class OrderSummaryPage implements OnInit {
               this.subTotal = (total - ((total * innerEle.disPercent) / 100));
               this.savingValue += total - this.subTotal;
               this.gskDiscount += this.subTotal;
-              console.log("innerEle.disPercent ", innerEle.disPercent);
-              console.log("gskDiscount ", this.gskDiscount);
-              console.log("ele.productCode ", ele.productCode);
               ele.total = total;
               ele.productDiscount = this.subTotal;
               ele.savingValue = this.savingValue;
               ele.gskDiscount = this.gskDiscount;
+              ele.disId = innerEle.disId;
+              ele.disPercent = innerEle.disPercent;
+              ele.disFlag = innerEle.disFlag;
             } else {
               ele.total = ele.quantity * ele.mrp;
               ele.productDiscount = this.subTotal;
               ele.savingValue = this.savingValue;
               ele.gskDiscount = this.gskDiscount;
-              console.log("inside element ", ele);
+              ele.disId = innerEle.disId ? innerEle.disId : "";
+              ele.disPercent = innerEle.disAmtPerUnit ? innerEle.disAmtPerUnit : "";
+              ele.disFlag = innerEle.disFlag ? innerEle.disFlag : "";
             }
           }
         )
@@ -174,22 +186,23 @@ export class OrderSummaryPage implements OnInit {
                     this.subTotal = (total - ((total * innerEle.disPercent) / 100));
                     this.savingValue += total - this.subTotal;
                     this.gskDiscount += this.subTotal;
-                    console.log("innerEle.disPercent ", innerEle.disPercent);
-                    console.log("gskDiscount ", this.gskDiscount);
-                    console.log("ele.productCode ", ele.productCode);
-                    console.log("savingValue ", this.savingValue);
                     ele.total = total;
                     ele.productDiscount = this.subTotal;
                     ele.savingValue = this.savingValue;
                     ele.gskDiscount = this.gskDiscount;
+                    ele.disId = innerEle.disId;
+                    ele.disPercent = innerEle.disAmtPerUnit;
+                    ele.disFlag = innerEle.disFlag;
                   }
                 } else {
-                  console.log("second inner ", ele);
                   ele.total = ele.quantity * ele.mrp;
                   ele.productDiscount = this.subTotal;
                   ele.savingValue = this.savingValue;
                   ele.gskDiscount = this.gskDiscount;
-                  console.log("inside element ", ele);
+                  ele.disId = innerEle.disId ? innerEle.disId : "";
+                  ele.disPercent = innerEle.disAmtPerUnit ? innerEle.disAmtPerUnit : "";
+                  ele.disFlag = innerEle.disFlag ? innerEle.disFlag : "";
+
                 }
               }
             }

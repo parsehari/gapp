@@ -158,6 +158,7 @@ export class SelectDistributorPage implements OnInit {
     return total;
   }
   continueClicked() {
+    console.log("stockiest ", this.stockiestId);
     this.router.navigate(['/order-summary', { stockiest: this.stockiestId, cartInfo: JSON.stringify(this.cartWithPDistributor), fromView: 'cart' }]);
   }
   cancel() {

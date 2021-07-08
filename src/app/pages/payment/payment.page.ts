@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
@@ -8,17 +9,28 @@ import { StorageService } from 'src/app/services/storage.service';
   selector: 'app-payment',
   templateUrl: './payment.page.html',
   styleUrls: ['./payment.page.scss'],
+  providers: [DatePipe]
 })
 export class PaymentPage implements OnInit {
   public cartData: any;
   public netPrice: any;
+  public stockiestID: any;
+  public orderDate: any;
+  public Summarydata: any;
+
   constructor(private activatedroute: ActivatedRoute, private commonService: CommonService,
-    private storageService: StorageService, private apiService: ApiService, private route: Router) {
+    private storageService: StorageService, private apiService: ApiService, private route: Router, private datePipe: DatePipe) {
     this.cartData = this.activatedroute.snapshot.paramMap.get('products');
     this.netPrice = this.activatedroute.snapshot.paramMap.get('netPrice');
+    this.stockiestID = this.activatedroute.snapshot.paramMap.get('stockiestID');
+    this.Summarydata = this.activatedroute.snapshot.paramMap.get('Summarydata');
     this.cartData = JSON.parse(this.cartData);
+    this.Summarydata = JSON.parse(this.Summarydata);
     console.log("cartData ", this.cartData);
     console.log("netPrice ", this.netPrice);
+    console.log("Summarydata ", this.Summarydata);
+    this.orderDate = new Date();
+    this.orderDate = this.datePipe.transform(this.orderDate, 'dd-MM-yyyy');
   }
 
   ngOnInit() {
@@ -35,15 +47,15 @@ export class PaymentPage implements OnInit {
       "Ord_Header_BO":
       {
         "hcpCode": this.storageService.getHcpCode(),
-        "StockistCerpCode": "1100045678",
-        "gskOrderDate": "21-06-2021",
-        "orderValue": this.netPrice,
-        "totalTax": "11",
-        "totalDiscount": "11",
+        "StockistCerpCode": this.stockiestID.toString(),
+        "gskOrderDate": this.orderDate.toString(),
+        "orderValue": this.netPrice.toString(),
+        "totalTax": this.Summarydata.gstTotal.toString(),
+        "totalDiscount": this.Summarydata.gskDiscount.toString(),
         "modeOfPayment": "cod",
         "payGatewayRefNo": "111",
         "payGatewayTrxnDt": "",
-        "createdOn": "",
+        "createdOn": this.orderDate.toString(),
         "createdBy": this.storageService.getHcpCode(),
         "orderStatusId": "Ordered"
       },
@@ -58,22 +70,22 @@ export class PaymentPage implements OnInit {
         "Quantity": ele.quantity.toString(),
         "RatePerUnit": ele.total.toString(),
         "ProductValue": ele.mrp.toString(),
-        "GskDiscountAmount": "10",
-        "GskDiscountPercent": "20",
-        "DisId": "Dis1",
-        "TaxPercent": "30",
-        "TaxValue": "40"
+        "GskDiscountAmount": ele.productDiscount.toString(),
+        "GskDiscountPercent": ele.disPercent.toString(),
+        "DisId": ele.disId.toString(),
+        "TaxPercent": ele.disPercent.toString(),
+        "TaxValue": ele.productDiscount.toString(),
       })
     })
     console.log("data ", data);
     this.apiService.postDataService(this.apiService.saveOrder, data).subscribe((response: any) => {
       console.log("response ", response);
-      if (response.code == "200") {
-        this.commonService.showToast(response.message);
-        this.route.navigate(['my-orders']);
-      } else {
-        this.commonService.showToast(response.message);
-      }
+      //  if (response.code == "200") {
+      this.commonService.showToast(response.message);
+      this.route.navigate(['my-orders']);
+      //  } else {
+      //   this.commonService.showToast(response.message);
+      // }
     }, (err) => {
       console.log("error ", err);
       this.commonService.showToast(err.message);

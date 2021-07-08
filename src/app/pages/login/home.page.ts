@@ -15,8 +15,8 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  //public loginInput: string = '9650058176';
   public loginInput: string = '9022109940';
+  //public loginInput: string = 'harshada.v.wabgaonkar@gsk.com';
   public inputType: string = 'number';
   public loginType: string;
   isPrivacyPolicy = true;
@@ -88,10 +88,13 @@ export class HomePage implements OnInit {
     this.commonService.hideLoader();
     if (data.hcpCode) {
       this.storageService.setHcpCode(data.hcpCode);
-      if (!data.tncFlag)
-        this.showTermsAndConditions();
-      else
+      console.log('varify ', data.tncFlag);
+      if (data.tncFlag == "true") {
         this.route.navigate(["/otp", { loginData: this.loginInput, type: this.inputType }]);
+      }
+      else {
+        this.showTermsAndConditions();
+      }
     } else {
       this.commonService.showToast(data.message);
     }

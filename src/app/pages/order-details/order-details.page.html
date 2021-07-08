@@ -3,13 +3,13 @@
 
 <ion-content>
   <app-track-order  [isOrderdetails]="true"></app-track-order>
-
+<div *ngIf="bindata">
 <ion-card>
   <div class="cardContent">
-    Order Id: 1231231334534534
+    Order Id: {{orderDetailHeader.gskOrderNo}}
   </div>
   <div class="cardContn">
-    Order Status: <span class="textGreen">Delivered</span>
+    Order Status: <span class="textGreen">{{orderDetailHeader.orderStatusId}}</span>
   </div>
 </ion-card>
 <div>
@@ -34,10 +34,10 @@
       Sub Total
     </ion-col>
     <ion-col>
-      123345
+      {{orderDetailHeader.orderValue}}
     </ion-col>
     <ion-col>
-      234234
+      {{orderDetailHeader.orderValue}}
     </ion-col>
   </ion-row>
   <ion-row class="cardContentDetail">
@@ -45,10 +45,10 @@
       GST
     </ion-col>
     <ion-col>
-      123345
+      {{orderDetailHeader.totalTax}}
     </ion-col>
     <ion-col>
-      234234
+      {{orderDetailHeader.totalTax}}
     </ion-col>
   </ion-row>
   <ion-row class="cardContentDetailGST">
@@ -56,10 +56,10 @@
       GST Discount
     </ion-col>
     <ion-col>
-      123345
+      {{orderDetailHeader.totalDiscount}}
     </ion-col>
     <ion-col>
-      234234
+      {{orderDetailHeader.totalDiscount}}
     </ion-col>
   </ion-row>
 </ion-card>
@@ -69,12 +69,13 @@
       Net Price
     </ion-col>
     <ion-col>
-      123345
+      {{orderDetailHeader.orderValue}}
     </ion-col>
     <ion-col>
-      234234
+      {{orderDetailHeader.orderValue}}
     </ion-col>
     </ion-row>
+    </div>
     </div>
 </ion-content>
 

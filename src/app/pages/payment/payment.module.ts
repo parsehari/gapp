@@ -19,4 +19,4 @@ import { SharedModule } from 'src/app/components/shared/shared.module';
   ],
   declarations: [PaymentPage]
 })
-export class PaymentPageModule {}
+export class PaymentPageModule { }

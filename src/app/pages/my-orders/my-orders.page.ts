@@ -17,15 +17,21 @@ export class MyOrdersPage implements OnInit {
     this.getMyOrders();
   }
 
-  goToDetail() {
-    this.router.navigate(["/order-details"]);
+  goToDetail(gskOrderNo) {
+    this.router.navigate(["/order-details", { orderNo: gskOrderNo }]);
   }
 
   getMyOrders() {
+    this.commonService.showLoader();
     this.apiService.getDataService(this.apiService.myOrders).subscribe((response: any) => {
-      console.log("my orders ", response);
-      this.myOrders = response;
+      this.commonService.hideLoader();
+      this.myOrders = response.gsk_Ord_Header_BO_List;
+      console.log("my orders ", this.myOrders);
+    }, (err) => {
+      console.log("error ", err);
+      this.commonService.showToast(err.message);
     })
   }
 
 }
+
