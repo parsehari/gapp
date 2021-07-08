@@ -21,7 +21,9 @@ export class OrderSummaryPage implements OnInit {
   discountInfo: any;
   netPrice: any;
   dViaProduct: DiscountProduct[] = [];
-  stockiestID: any;
+  stockiestObj: any;
+  formView: any;
+  formEvent: any;
 
   cartWithPDistributor: any;
   products: any = [];
@@ -31,24 +33,67 @@ export class OrderSummaryPage implements OnInit {
     private storageService: StorageService,
     private activatedroute: ActivatedRoute
   ) {
-    this.cartWithPDistributor = this.activatedroute.snapshot.paramMap.get('cartInfo');
-    this.stockiestID = this.activatedroute.snapshot.paramMap.get('stockiest');
-    console.log("stock ", this.stockiestID);
-    this.cartWithPDistributor = JSON.parse(this.cartWithPDistributor);
-    this.cartWithPDistributor.forEach(element => {
-      this.products.push(element.unitCart);
-    });
-    console.log("products ", this.products);
-    this.products.forEach(element => {
-      console.log("elem ", element);
-      this.productsArr.push(element.productCode);
-    });
+    this.activatedroute.params.subscribe((params) => {
+      if (params["cartInfo"]) {
+        this.cartWithPDistributor = JSON.parse(params["cartInfo"]);
+      } if (params["stockiest"]) {
+        this.stockiestObj = JSON.parse(params["stockiest"]);
+      } if (params["fromView"]) {
+        this.formView = params["fromView"];
+      } if (params["fromEvent"]) {
+        this.formEvent = params["fromEvent"];
+      }
+      if ((this.formView == "product-list" && this.formEvent == "buyNow") || (this.formView == "product-list" && this.formEvent == "aCart")) {
+        console.log("product-list buyNow");
+        this.cartWithPDistributor.forEach(element => {
+          if (element.stockiestOne) {
+            if (this.stockiestObj.stockiest === element.stockiestOne.stockiest) {
+              element.unitCart.mrp = element.stockiestOne.stokiestRate;
+            }
+          } if (element.stockiestTwo) {
+            if (this.stockiestObj.stockiest === element.stockiestTwo.stockiest) {
+              element.unitCart.mrp = element.stockiestOne.stokiestRate;
+            }
+          } if (element.stockiestThree) {
+            if (this.stockiestObj.stockiest === element.stockiestThree.stockiest) {
+              element.unitCart.mrp = element.stockiestOne.stokiestRate;
+            }
+          }
+          this.products.push(element.unitCart);
+        });
+        console.log("products ", this.products);
+        this.products.forEach(element => {
+          console.log("elem ", element);
+          this.productsArr.push(element.productCode);
+        });
+        this.callAll();
+      }
+      if ((this.formView == "distributor" && this.formEvent == "buyNow") || (this.formView == "distributor" && this.formEvent == "aCart")) {
+        console.log("buyNow aCart");
+        this.cartWithPDistributor.forEach(element => {
+          this.products.push(element);
+          this.productsArr.push(element.productCode);
+          this.callAll();
+        })
+      }
+
+      console.log("this.cartWithPDistributor ", this.cartWithPDistributor);
+      console.log("this.stockiestObj ", this.stockiestObj);
+      console.log("this.formView ", this.formView);
+      console.log("this.formEvent ", this.formEvent);
+
+    })
+
   }
 
-  ngOnInit() {
+  callAll() {
     this.getGSTDetail();
     this.calculateTotal();
     this.getDiscountList();
+  }
+
+  ngOnInit() {
+
   }
 
   addNewProduct() {
@@ -65,7 +110,7 @@ export class OrderSummaryPage implements OnInit {
       gskDiscount: this.gskDiscount,
       savingValue: this.savingValue
     }
-    this.router.navigate(['payment', { products: JSON.stringify(this.products), netPrice: this.netPrice, stockiestID: this.stockiestID, Summarydata: JSON.stringify(data) }]);
+    this.router.navigate(['payment', { products: JSON.stringify(this.products), netPrice: this.netPrice, distributorObj: JSON.stringify(this.stockiestObj), Summarydata: JSON.stringify(data) }]);
   }
   modifyQuantity(event: any, productCode: any, index: any) {
     this.products.map((ele) => {
@@ -213,7 +258,7 @@ export class OrderSummaryPage implements OnInit {
       }
     )
     console.log("gst Total ", this.gstTotal);
-    this.netPrice = ((this.productSubTotal + this.gstTotal) - this.gskDiscount);
+    this.netPrice = ((this.productSubTotal + this.gstTotal) - this.savingValue);
     //  console.log("netPrice ", this.netPrice);
   }
 

@@ -14,33 +14,33 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./select-distributor.page.scss'],
 })
 export class SelectDistributorPage implements OnInit {
-  sDistributor : Stockiest;
-  selectedIndex=0;
+  sDistributor: Stockiest;
+  selectedIndex = 0;
   distributor: any = 'Distributor 2';
   cartData: CartModel[];
-  cartWithPDistributor : CartWithStockiest[]=[];
-  stockiestPrice : StockiestPrice;
+  cartWithPDistributor: CartWithStockiest[] = [];
+  stockiestPrice: StockiestPrice;
   sDInfoLabel = 'sdistributor.sdistributorPage.selected-distributor-info'
   fromView = 'product-list'
-  fromEvent:string='aCart';
+  fromEvent: string = 'aCart';
   constructor(private router: Router, private menu: MenuController,
-    private route : ActivatedRoute,
-    private apiService:ApiService
-    ) {
-      this.route.params.subscribe(
-        (param)=>{
-          if(param['param']){
-            this.cartData = JSON.parse(param['param']);
-            console.log("cart data :", this.cartData);
-          }
-          if(param['fromView']){
-            this.fromView = param['fromView'];
-            console.log("***********fron view**************",this.fromView);
-          }if(param['fromEvent']){
-            this.fromEvent = param['fromEvent'];
-            console.log("***********fromEvent**************",this.fromView);
-          }
+    private route: ActivatedRoute,
+    private apiService: ApiService
+  ) {
+    this.route.params.subscribe(
+      (param) => {
+        if (param['param']) {
+          this.cartData = JSON.parse(param['param']);
+          console.log("cart data :", this.cartData);
         }
+        if (param['fromView']) {
+          this.fromView = param['fromView'];
+          console.log("***********fron view**************", this.fromView);
+        } if (param['fromEvent']) {
+          this.fromEvent = param['fromEvent'];
+          console.log("***********fromEvent**************", this.fromView);
+        }
+      }
     )
   }
 
@@ -58,21 +58,21 @@ export class SelectDistributorPage implements OnInit {
     )
   }
 
-  setPDistributorData(){
+  setPDistributorData() {
     this.cartData.map(
       (ele) => {
         var cartWithStockiest = new CartWithStockiest();
         cartWithStockiest.unitCart = ele;
         this.stockiestPrice.distributor1_List.map(
-          (innerEle)=>{
-            if(ele.productCode === innerEle.productCode){
-               if(innerEle.stokiestRate >0){
-                 innerEle.unitDisplayPrice = innerEle.stokiestRate;
-               }else{
-                 innerEle.unitDisplayPrice = innerEle.ptr;
-               }
-               innerEle.totalDisplayPrice = innerEle.unitDisplayPrice*ele.quantity;
-               cartWithStockiest.stockiestOne= innerEle;
+          (innerEle) => {
+            if (ele.productCode === innerEle.productCode) {
+              if (innerEle.stokiestRate > 0) {
+                innerEle.unitDisplayPrice = innerEle.stokiestRate;
+              } else {
+                innerEle.unitDisplayPrice = innerEle.ptr;
+              }
+              innerEle.totalDisplayPrice = innerEle.unitDisplayPrice * ele.quantity;
+              cartWithStockiest.stockiestOne = innerEle;
             }
           }
         )
@@ -81,7 +81,7 @@ export class SelectDistributorPage implements OnInit {
             if (ele.productCode === innerEle.productCode) {
               if (innerEle.stokiestRate > 0) {
                 innerEle.unitDisplayPrice = innerEle.stokiestRate;
-              }else{
+              } else {
                 innerEle.unitDisplayPrice = innerEle.ptr;
               }
               innerEle.totalDisplayPrice = innerEle.unitDisplayPrice * ele.quantity;
@@ -95,7 +95,7 @@ export class SelectDistributorPage implements OnInit {
             if (ele.productCode === innerEle.productCode) {
               if (innerEle.stokiestRate > 0) {
                 innerEle.unitDisplayPrice = innerEle.stokiestRate;
-              }else{
+              } else {
                 innerEle.unitDisplayPrice = innerEle.ptr;
               }
               innerEle.totalDisplayPrice = innerEle.unitDisplayPrice * ele.quantity;
@@ -114,21 +114,21 @@ export class SelectDistributorPage implements OnInit {
   }
 
   selectDistributor(event) {
-   console.log("select radio :",event);
+    console.log("select radio :", event);
 
-   let index = parseInt(event.detail.value);
-   switch(index){
-     case 0:
-       this.sDistributor = this.stockiestPrice.distributor1_List[0] as Stockiest;
-       break;
-       case 1:
-       this.sDistributor = this.stockiestPrice.distributor2_List[0] as Stockiest;
-       break;
-       case 2:
-       this.sDistributor = this.stockiestPrice.distributor3_List[0] as Stockiest;
-       break;
-   }
-   this.sDInfoLabel = 'sdistributor.sdistributorPage.selected-distributor'
+    let index = parseInt(event.detail.value);
+    switch (index) {
+      case 0:
+        this.sDistributor = this.stockiestPrice.distributor1_List[0] as Stockiest;
+        break;
+      case 1:
+        this.sDistributor = this.stockiestPrice.distributor2_List[0] as Stockiest;
+        break;
+      case 2:
+        this.sDistributor = this.stockiestPrice.distributor3_List[0] as Stockiest;
+        break;
+    }
+    this.sDInfoLabel = 'sdistributor.sdistributorPage.selected-distributor'
   }
   getTotalForPrice(index): number {
     var totalOne = 0;
@@ -181,7 +181,7 @@ export class SelectDistributorPage implements OnInit {
     return total;
   }
   continueClicked() {
-    this.router.navigate(['/order-summary',{stockiest:this.sDistributor,cartInfo:this.cartWithPDistributor,fromView:this.fromView,fromEvent:this.fromEvent}]);
+    this.router.navigate(['/order-summary', { stockiest: JSON.stringify(this.sDistributor), cartInfo: JSON.stringify(this.cartWithPDistributor), fromView: this.fromView, fromEvent: this.fromEvent }]);
   }
   cancel() {
     this.router.navigate(['product-list']);
@@ -203,11 +203,11 @@ export class SelectDistributorPage implements OnInit {
     if (this.cartWithPDistributor[index].stockiestOne?.unitDisplayPrice) {
       this.cartWithPDistributor[index].stockiestOne.totalDisplayPrice = this.cartWithPDistributor[index].stockiestOne?.unitDisplayPrice * this.cartWithPDistributor[index].unitCart?.quantity;
     }
-    if(this.cartWithPDistributor[index].stockiestTwo?.unitDisplayPrice){
+    if (this.cartWithPDistributor[index].stockiestTwo?.unitDisplayPrice) {
       this.cartWithPDistributor[index].stockiestTwo.totalDisplayPrice = this.cartWithPDistributor[index].stockiestTwo?.unitDisplayPrice * this.cartWithPDistributor[index].unitCart?.quantity;
+    }
+    if (this.cartWithPDistributor[index].stockiestThree?.unitDisplayPrice) {
+      this.cartWithPDistributor[index].stockiestThree.totalDisplayPrice = this.cartWithPDistributor[index].stockiestThree?.unitDisplayPrice * this.cartWithPDistributor[index].unitCart?.quantity;
+    }
   }
-  if(this.cartWithPDistributor[index].stockiestThree?.unitDisplayPrice){
-    this.cartWithPDistributor[index].stockiestThree.totalDisplayPrice = this.cartWithPDistributor[index].stockiestThree?.unitDisplayPrice * this.cartWithPDistributor[index].unitCart?.quantity;
-}
-   }
 }
