@@ -14,6 +14,7 @@ export class OrderDetailsPage implements OnInit {
   public orderNo: any;
   public orderDetailHeader: any;
   public bindata: boolean = false;
+  public orderInvoice: any;
   constructor(private modelCtrl: ModalController, private menu: MenuController,
     private activatedroute: ActivatedRoute,
     private apiService: ApiService,
@@ -35,10 +36,20 @@ export class OrderDetailsPage implements OnInit {
   getOrderDetails() {
     this.apiService.getDataService(this.apiService.getOrderDetail + '/' + this.orderNo).subscribe((response: any) => {
       console.log("response ", response);
-
       this.orderDetailHeader = response.ord_Header_BO;
       console.log('detail ', this.orderDetailHeader);
       this.bindata = true;
+      this.getInvoiceData()
+    }, (err) => {
+      console.log("error ", err);
+      this.commonService.showToast(err.message);
+    })
+  }
+
+  getInvoiceData() {
+    this.apiService.getDataService(this.apiService.GetInvoiceDetailByOrderNo + '/' + this.orderNo).subscribe((response: any) => {
+      console.log("response ", response);
+      this.orderInvoice = response;
     }, (err) => {
       console.log("error ", err);
       this.commonService.showToast(err.message);

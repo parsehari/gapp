@@ -57,7 +57,9 @@ export class PaymentPage implements OnInit {
         "payGatewayTrxnDt": "",
         "createdOn": this.orderDate.toString(),
         "createdBy": this.storageService.getHcpCode(),
-        "orderStatusId": "Ordered"
+        "orderStatusId": "Ordered",
+        "SubTotal": this.Summarydata.productSubTotal,
+        //"DeliveryDate":
       },
       "Order_Info_BO": []
     }

@@ -119,6 +119,7 @@ export class ApiService {
   public myOrders = "Order/GetAllOrdersByHCP";
   public saveOrder = "Order/SaveOrderData";
   public getOrderDetail = "Order/GetOrderDetailByOrderNo";
+  public GetInvoiceDetailByOrderNo = "/Order/GetInvoiceDetailByOrderNo";
 
   // distributor api
   public getDistributorURL = "Distributor/GetDistributorList";
