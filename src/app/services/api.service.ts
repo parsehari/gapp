@@ -125,6 +125,8 @@ export class ApiService {
   public getDiscount = 'Product/GetDiscountList';
   public getPDistributorPrice = 'Distributor/GetPriceWrtPrefDistributor';
   public removeItemURL = 'Product/RemoveCartProduct';
+  public getDistributorProduct = 'Distributor/GetProductWrtDistributor';
+
   constructor(private httpClient: HttpClient, private storageService: StorageService, public router: Router, private alertController: AlertController, private translate: TranslateService) {
 
   }
@@ -154,7 +156,7 @@ export class ApiService {
    * @param data object to pass api
    * @param setHeaderContent any header params set for api
    */
-  postDataService(url: string, data: any) {
+  postDataService(url: string, data: any):Observable<any> {
     console.log("url :",url);
     console.log("base url :",this.baseURL);
     console.log("data :",data);

@@ -1,3 +1,4 @@
+import { JsonpClientBackend } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
@@ -25,6 +26,7 @@ export class OrderByDistributorPage implements OnInit {
      this.pDistributorList = response.gskDistributorList;
      this.masterData = response.gskDistributorList;
      this.commonService.hideLoader();
+     console.log("pDistributor :",this.pDistributorList);
     }),
     (error)=>{
        this.commonService.hideLoader()
@@ -36,5 +38,8 @@ export class OrderByDistributorPage implements OnInit {
   }
   searchbarChanged(){
     
+  }
+  getProduct(distributor){
+   this.route.navigate(['/product-list',{distributor:JSON.stringify(distributor),fromView:'distributor'}])
   }
 }
