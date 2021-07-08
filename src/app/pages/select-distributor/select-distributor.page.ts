@@ -14,89 +14,89 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./select-distributor.page.scss'],
 })
 export class SelectDistributorPage implements OnInit {
-  stockiestId : string;
-  selectedIndex=0;
+  stockiestId: string;
+  selectedIndex = 0;
   distributor: any = 'Distributor 2';
   cartData: CartModel[];
-  cartWithPDistributor : CartWithStockiest[]=[];
-  stockiestPrice : StockiestPrice;
+  cartWithPDistributor: CartWithStockiest[] = [];
+  stockiestPrice: StockiestPrice;
   constructor(private router: Router, private menu: MenuController,
-    private route : ActivatedRoute,
-    private apiService:ApiService
-    ) {
-      this.route.params.subscribe(
-        (param)=>{
-          if(param['param']){
-            this.cartData = JSON.parse(param['param']);
-            console.log("cart data :", this.cartData);
-          }
+    private route: ActivatedRoute,
+    private apiService: ApiService
+  ) {
+    this.route.params.subscribe(
+      (param) => {
+        if (param['param']) {
+          this.cartData = JSON.parse(param['param']);
+          console.log("cart data :", this.cartData);
         }
-      )    
-    }
-
-  ngOnInit() {
-   this.apiService.getDataService(this.apiService.getPDistributorPrice).subscribe(
-     (response)=>{
-      console.log("price :",response);
-      this.stockiestPrice = response;
-      console.log("stockiestPrice :",this.stockiestPrice);
-      this.setPDistributorData();
-     },
-     (error)=>{
-      
-     }
-   )
+      }
+    )
   }
 
-  setPDistributorData(){
+  ngOnInit() {
+    this.apiService.getDataService(this.apiService.getPDistributorPrice).subscribe(
+      (response) => {
+        console.log("price :", response);
+        this.stockiestPrice = response;
+        console.log("stockiestPrice :", this.stockiestPrice);
+        this.setPDistributorData();
+      },
+      (error) => {
+
+      }
+    )
+  }
+
+  setPDistributorData() {
     this.stockiestId = this.stockiestPrice.distributor1_List[0].stockiest1;
     this.cartData.map(
-      (ele)=>{
+      (ele) => {
         var cartWithStockiest = new CartWithStockiest();
         cartWithStockiest.unitCart = ele;
         this.stockiestPrice.distributor1_List.map(
-          (innerEle)=>{
-            if(ele.productCode === innerEle.productCode){
-               if(innerEle.stokiestRate >0){
-                 innerEle.unitDisplayPrice = innerEle.stokiestRate;
-               }else{
-                 innerEle.unitDisplayPrice = innerEle.prt;
-               }
-               innerEle.totalDisplayPrice = innerEle.unitDisplayPrice*ele.quantity;
-               cartWithStockiest.stockiestOne= innerEle;
+          (innerEle) => {
+            if (ele.productCode === innerEle.productCode) {
+              if (innerEle.stokiestRate > 0) {
+                innerEle.unitDisplayPrice = innerEle.stokiestRate;
+              } else {
+                innerEle.unitDisplayPrice = innerEle.prt;
+              }
+              innerEle.totalDisplayPrice = innerEle.unitDisplayPrice * ele.quantity;
+              cartWithStockiest.stockiestOne = innerEle;
             }
           }
         )
         this.stockiestPrice.distributor2_List.map(
-         (innerEle)=>{
-           if(ele.productCode === innerEle.productCode){
-              if(innerEle.stokiestRate >0){
+          (innerEle) => {
+            if (ele.productCode === innerEle.productCode) {
+              if (innerEle.stokiestRate > 0) {
                 innerEle.unitDisplayPrice = innerEle.stokiestRate;
-              }else{
+              } else {
                 innerEle.unitDisplayPrice = innerEle.prt;
               }
-              innerEle.totalDisplayPrice = innerEle.unitDisplayPrice*ele.quantity;
+              innerEle.totalDisplayPrice = innerEle.unitDisplayPrice * ele.quantity;
 
-              cartWithStockiest.stockiestTwo= innerEle;
-           }
-         }
-       )
-       this.stockiestPrice.distributor3_List.map(
-         (innerEle)=>{
-           if(ele.productCode === innerEle.productCode){
-              if(innerEle.stokiestRate >0){
+              cartWithStockiest.stockiestTwo = innerEle;
+            }
+          }
+        )
+        this.stockiestPrice.distributor3_List.map(
+          (innerEle) => {
+            if (ele.productCode === innerEle.productCode) {
+              if (innerEle.stokiestRate > 0) {
                 innerEle.unitDisplayPrice = innerEle.stokiestRate;
-              }else{
+              } else {
                 innerEle.unitDisplayPrice = innerEle.prt;
               }
-              innerEle.totalDisplayPrice = innerEle.unitDisplayPrice*ele.quantity;
+              innerEle.totalDisplayPrice = innerEle.unitDisplayPrice * ele.quantity;
 
-              cartWithStockiest.stockiestThree= innerEle;
-           }
-         }
-       )
-       this.cartWithPDistributor.push(cartWithStockiest);
-       console.log("cartWithPDistributor :",this.cartWithPDistributor)
+              cartWithStockiest.stockiestThree = innerEle;
+            }
+          }
+        )
+        this.cartWithPDistributor.push(cartWithStockiest);
+        console.log("cartWithPDistributor :", this.cartWithPDistributor)
       }
     )
   }
@@ -105,80 +105,80 @@ export class SelectDistributorPage implements OnInit {
   }
 
   selectDistributor(event) {
-   console.log("select radio :",event);
+    console.log("select radio :", event);
   }
-  getTotalForPrice(index):number{
-    var totalOne =0;
-    var totalTwo =0;
-    var  totalThree =0;
-    
-    if(index == 0){
+  getTotalForPrice(index): number {
+    var totalOne = 0;
+    var totalTwo = 0;
+    var totalThree = 0;
+
+    if (index == 0) {
       this.cartWithPDistributor.map(
-        (ele)=>{
-          if(ele.stockiestOne?.totalDisplayPrice){
+        (ele) => {
+          if (ele.stockiestOne?.totalDisplayPrice) {
             totalOne = totalOne + ele.stockiestOne?.totalDisplayPrice;
-          }else{
-            totalOne = totalOne ;
+          } else {
+            totalOne = totalOne;
           }
         }
       )
       return totalOne;
-    }else  if(index == 1){
+    } else if (index == 1) {
       this.cartWithPDistributor.map(
-        (ele)=>{
-          if(ele.stockiestTwo?.totalDisplayPrice){
+        (ele) => {
+          if (ele.stockiestTwo?.totalDisplayPrice) {
             totalTwo = totalTwo + ele.stockiestTwo?.totalDisplayPrice;
-          }else{
-            totalTwo = totalTwo ;
+          } else {
+            totalTwo = totalTwo;
           }
         }
       )
       return totalTwo;
-    } else{
+    } else {
       this.cartWithPDistributor.map(
-        (ele)=>{
-          if(ele.stockiestThree?.totalDisplayPrice){
+        (ele) => {
+          if (ele.stockiestThree?.totalDisplayPrice) {
             totalThree = totalThree + ele.stockiestThree?.totalDisplayPrice;
-          }else{
-            totalThree = totalThree ;
+          } else {
+            totalThree = totalThree;
           }
         }
       )
       return totalThree;
     }
-    
+
   }
-  getTotalForQuantity():number{
-    var total =0;
+  getTotalForQuantity(): number {
+    var total = 0;
     this.cartWithPDistributor.map(
-      (ele)=>{
+      (ele) => {
         total += ele.unitCart.quantity;
       }
     )
     return total;
   }
   continueClicked() {
-    this.router.navigate(['/order-summary',{stockiest:this.stockiestId,cartInfo:this.cartWithPDistributor,fromView:'cart'}]);
+    this.router.navigate(['/order-summary', { stockiest: this.stockiestId, cartInfo: JSON.stringify(this.cartWithPDistributor), fromView: 'cart' }]);
   }
   cancel() {
     this.router.navigate(['product-list']);
   }
-  modifyQuantity(event,index){
-    
-    if(event === 'add'){
-      this.cartWithPDistributor[index].unitCart.quantity ++ ;
+  modifyQuantity(event, index) {
+
+    if (event === 'add') {
+      this.cartWithPDistributor[index].unitCart.quantity++;
       this.setPriceForDistributor(index);
-    }else{
-     if(this.cartWithPDistributor[index].unitCart.quantity != 1) 
-     this.cartWithPDistributor[index].unitCart.quantity --;
-     this.setPriceForDistributor(index);
+    } else {
+      if (this.cartWithPDistributor[index].unitCart.quantity != 1)
+        this.cartWithPDistributor[index].unitCart.quantity--;
+      this.setPriceForDistributor(index);
     }
-   }
+  }
 
 
-   setPriceForDistributor(index){
-    if(this.cartWithPDistributor[index].stockiestOne?.unitDisplayPrice){
-        this.cartWithPDistributor[index].stockiestOne.totalDisplayPrice = this.cartWithPDistributor[index].stockiestOne?.unitDisplayPrice * this.cartWithPDistributor[index].unitCart?.quantity;
+  setPriceForDistributor(index) {
+    if (this.cartWithPDistributor[index].stockiestOne?.unitDisplayPrice) {
+      this.cartWithPDistributor[index].stockiestOne.totalDisplayPrice = this.cartWithPDistributor[index].stockiestOne?.unitDisplayPrice * this.cartWithPDistributor[index].unitCart?.quantity;
     }
-   }
+  }
 }

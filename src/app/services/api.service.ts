@@ -117,6 +117,7 @@ export class ApiService {
   public getCartAPI = "Product/GetCart";
   public getGSTdetail = "Product/GetGSTDetail";
   public myOrders = "Order/GetAllOrdersByHCP";
+  public saveOrder = "Order/SaveOrderData";
 
   // distributor api
   public getDistributorURL = "Distributor/GetDistributorList";

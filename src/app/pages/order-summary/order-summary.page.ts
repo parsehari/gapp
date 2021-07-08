@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -21,36 +21,25 @@ export class OrderSummaryPage implements OnInit {
   discountInfo: any;
   netPrice: any;
   dViaProduct: DiscountProduct[] = [];
-  products = [{
-    craetedOn: null,
-    mrp: 300,
-    productCode: "Prod1",
-    productDescription: "SynflorixProd1",
-    productImage: 'asdasdas',
-    quantity: 2
-  }, {
-    craetedOn: null,
-    mrp: 300,
-    productCode: "Prod2",
-    productDescription: "SynflorixProd2",
-    productImage: 'asdasdas',
-    quantity: 2
-  },
-  {
-    craetedOn: null,
-    mrp: 300,
-    productCode: "Prod3",
-    productDescription: "SynflorixProd3",
-    productImage: 'asdasdas',
-    quantity: 2
-  },
-  ]
+
+  cartWithPDistributor: any;
+  products: any = [];
   productsArr: any = [];
-  constructor(private router: Router, private apiService: ApiService, private commonService: CommonService, private storageService: StorageService) {
+  constructor(private router: Router, private apiService: ApiService,
+    private commonService: CommonService,
+    private storageService: StorageService,
+    private activatedroute: ActivatedRoute
+  ) {
+    this.cartWithPDistributor = this.activatedroute.snapshot.paramMap.get('cartInfo');
+    this.cartWithPDistributor = JSON.parse(this.cartWithPDistributor);
+    this.cartWithPDistributor.forEach(element => {
+      this.products.push(element.unitCart);
+    });
+    console.log("products ", this.products);
     this.products.forEach(element => {
+      console.log("elem ", element);
       this.productsArr.push(element.productCode);
     });
-    console.log("products arr ", this.productsArr);
   }
 
   ngOnInit() {
@@ -64,7 +53,9 @@ export class OrderSummaryPage implements OnInit {
   }
 
   continue() {
-    this.router.navigate(['payment']);
+    console.log("products ", this.products);
+    console.log("netprice ", this.netPrice);
+    this.router.navigate(['payment', { products: JSON.stringify(this.products), netPrice: this.netPrice }]);
   }
   modifyQuantity(event: any, productCode: any, index: any) {
     this.products.map((ele) => {
@@ -122,7 +113,7 @@ export class OrderSummaryPage implements OnInit {
         total = parseInt(element.cgstRate) + parseInt(element.sgstRate);
         this.gstTotal += total;
       });
-      // this.calculateDiscount(this.productsArr);
+      this.setDiscount();
     })
   }
 
@@ -158,7 +149,16 @@ export class OrderSummaryPage implements OnInit {
               console.log("innerEle.disPercent ", innerEle.disPercent);
               console.log("gskDiscount ", this.gskDiscount);
               console.log("ele.productCode ", ele.productCode);
-
+              ele.total = total;
+              ele.productDiscount = this.subTotal;
+              ele.savingValue = this.savingValue;
+              ele.gskDiscount = this.gskDiscount;
+            } else {
+              ele.total = ele.quantity * ele.mrp;
+              ele.productDiscount = this.subTotal;
+              ele.savingValue = this.savingValue;
+              ele.gskDiscount = this.gskDiscount;
+              console.log("inside element ", ele);
             }
           }
         )
@@ -178,8 +178,18 @@ export class OrderSummaryPage implements OnInit {
                     console.log("gskDiscount ", this.gskDiscount);
                     console.log("ele.productCode ", ele.productCode);
                     console.log("savingValue ", this.savingValue);
-
+                    ele.total = total;
+                    ele.productDiscount = this.subTotal;
+                    ele.savingValue = this.savingValue;
+                    ele.gskDiscount = this.gskDiscount;
                   }
+                } else {
+                  console.log("second inner ", ele);
+                  ele.total = ele.quantity * ele.mrp;
+                  ele.productDiscount = this.subTotal;
+                  ele.savingValue = this.savingValue;
+                  ele.gskDiscount = this.gskDiscount;
+                  console.log("inside element ", ele);
                 }
               }
             }
@@ -189,6 +199,7 @@ export class OrderSummaryPage implements OnInit {
         this.dViaProduct.push(discountItem);
       }
     )
+    console.log("gst Total ", this.gstTotal);
     this.netPrice = ((this.productSubTotal + this.gstTotal) - this.gskDiscount);
     //  console.log("netPrice ", this.netPrice);
   }
