@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CartModel } from 'src/app/Model/cart.model';
+import { PreferredDistributorModel } from 'src/app/Model/pdistributor.model';
 import { Product } from 'src/app/Model/product.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from 'src/app/services/common.service';
@@ -13,7 +14,28 @@ import { CommonService } from 'src/app/services/common.service';
 export class CartPage implements OnInit {
   quantity = 0;
   cartProducts: CartModel[] = [];
-  constructor(private route: Router, private apiService: ApiService, private commonService: CommonService) { }
+  fromView='product-list';
+  fromEvent='aCart';
+  stockiest:PreferredDistributorModel;
+  constructor(private route: Router, 
+    private apiService: ApiService, 
+    private commonService: CommonService,
+    private aRoute : ActivatedRoute
+    ) { 
+    this.aRoute.params.subscribe(
+      (param)=>{
+        if(param['fromEvent']){
+          this.fromEvent = param['fromEvent'];
+        }
+        if(param['fromView']){
+          this.fromView = param['fromView'];
+        }
+        if(param['stockiest']){
+          this.stockiest = param['stockiest'];
+        }
+      }
+    )
+  }
 
   ngOnInit() {
     this.getCartItem();
@@ -61,7 +83,11 @@ export class CartPage implements OnInit {
       this.apiService.postDataService(this.apiService.saveCartURL,cartJson).subscribe(
         (response)=>{
           this.commonService.hideLoader();
-          this.route.navigate(['/select-distributor',{param:JSON.stringify(cartItem)}])
+          if(this.fromView === 'distributor'){
+            this.route.navigate(['/order-summary',{stockiest:JSON.stringify( this.stockiest),cartInfo:JSON.stringify(cartItem),fromView:this.fromView,fromEvent:this.fromEvent}]);
+          }else{
+            this.route.navigate(['/select-distributor',{param:JSON.stringify(cartItem)}])
+          }
         },
         (error)=>{
            this.commonService.toast(error);

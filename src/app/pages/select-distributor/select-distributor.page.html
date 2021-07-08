@@ -6,9 +6,9 @@
       <tr>
         <th>{{'sdistributor.sdistributorPage.products' | translate}}</th>
         <th>{{'sdistributor.sdistributorPage.quantity' | translate}}</th>
-        <th>Distributor 1</th>
-        <th>Distributor 2</th>
-        <th>Distributor 3</th>
+        <th>{{stockiestPrice?.distributor1_List[0]?.stkName}}</th>
+        <th>{{stockiestPrice?.distributor2_List[0]?.stkName}}</th>
+        <th>{{stockiestPrice?.distributor3_List[0]?.stkName}}</th>
       </tr>
     </thead>
     <tbody>
@@ -53,15 +53,15 @@
       <tr>
         <td [colSpan]="2">{{'sdistributor.sdistributorPage.sdistributor' | translate }}</td>
         <td [colSpan]="3">
-          <ion-radio-group value="dis1" (ionChange)="selectDistributor($event)">
+          <ion-radio-group  (ionChange)="selectDistributor($event)">
             <ion-row>
               <ion-col>
-                <div class="ion-text-center"><ion-radio  value="dis1"></ion-radio>
+                <div class="ion-text-center"><ion-radio  value="0"></ion-radio>
               </div>
             </ion-col>
-              <ion-col><div class="ion-text-center"><ion-radio  value="dis2"></ion-radio>
+              <ion-col><div class="ion-text-center"><ion-radio  value="1"></ion-radio>
               </div></ion-col>
-              <ion-col><div class="ion-text-center"><ion-radio  value="dis3"></ion-radio>
+              <ion-col><div class="ion-text-center"><ion-radio  value="2"></ion-radio>
               </div></ion-col>
             </ion-row>
           </ion-radio-group>
@@ -70,4 +70,4 @@
     </tfoot>
   </table>
 </ion-content>
-<app-footer (secondEvent)="continueClicked();" (firstEvent)="cancel();" [isFirstOutline]=true [isSecondOutline]=false [firstTitle]="'sdistributor.sdistributorPage.cancel'" [secondTitle]="'sdistributor.sdistributorPage.continue'" [showInfo]=true [infoText]="distributor" [infoLabel]="'sdistributor.sdistributorPage.selected-distributor'"></app-footer>
+<app-footer (secondEvent)="continueClicked();" (firstEvent)="cancel();" [isFirstOutline]=true [isSecondOutline]=false [firstTitle]="'sdistributor.sdistributorPage.cancel'" [secondTitle]="'sdistributor.sdistributorPage.continue'" [showInfo]=true [infoText]="sDistributor" [infoLabel]="sDInfoLabel"></app-footer>

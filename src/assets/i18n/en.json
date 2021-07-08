@@ -44,6 +44,7 @@
             "quantity":"Qty.",
             "continue":"Continue",
             "cancel":"Cancel",
+            "selected-distributor-info":"Select distributor for offer price. {{param}}",
             "selected-distributor":"You have selected {{param}}",
             "total":"Total"
 
