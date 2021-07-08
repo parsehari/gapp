@@ -203,7 +203,6 @@ export class ProductListPage implements OnInit {
     if(cartData.length == 0){
       this.commonService.presentOneButtonAlert('GSK','Please select product.','OK');
     }else{
-      this.fromView = 'buyNow'
       let cartList:CartModel[] = [];
       cartData.map(
         (ele)=>{
@@ -216,7 +215,13 @@ export class ProductListPage implements OnInit {
           cartList.push(cartProd);
         }
       );
-      this.router.navigate(['/order-summary',{stockiest:JSON.stringify( this.distributor),cartInfo:JSON.stringify(cartList),fromView:this.fromView}]);
+      if(this.fromView === 'distributor'){
+        this.fromView = 'buyNow'
+        this.router.navigate(['/order-summary',{stockiest:JSON.stringify( this.distributor),cartInfo:JSON.stringify(cartList),fromView:this.fromView}]);
+      }else{
+        this.fromView = 'buyNow'
+        this.router.navigate(['/select-distributor',{cartInfo:JSON.stringify(cartList),fromView:this.fromView}]);
+      }
     }
   }
 
