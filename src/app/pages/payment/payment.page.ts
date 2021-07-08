@@ -53,7 +53,7 @@ export class PaymentPage implements OnInit {
     this.cartData.map((ele: any, index) => {
       console.log('element ', ele);
       data.Order_Info_BO.push({
-        "OrderLineNo": "22",
+        "OrderLineNo": (index + 1).toString(),
         "ProductCode": ele.productCode.toString(),
         "Quantity": ele.quantity.toString(),
         "RatePerUnit": ele.total.toString(),
