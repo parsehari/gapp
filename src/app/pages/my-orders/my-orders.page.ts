@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController, ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from 'src/app/services/common.service';
 
@@ -11,10 +12,27 @@ import { CommonService } from 'src/app/services/common.service';
 export class MyOrdersPage implements OnInit {
   bgColor: any;
   myOrders: any;
-  constructor(private router: Router, private apiService: ApiService, private commonService: CommonService) { }
+  constructor(private router: Router,
+    private apiService: ApiService,
+    private commonService: CommonService,
+    private modal: ModalController) {
+
+  }
 
   ngOnInit() {
     this.getMyOrders();
+  }
+
+  showFilter() {
+    this.presentModal();
+  }
+
+  async presentModal() {
+    const modal = await this.modal.create({
+      component: AlertController,
+      cssClass: 'alert-custom-class'
+    });
+    return await modal.present();
   }
 
   goToDetail(gskOrderNo) {

@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit {
   @Output() information: EventEmitter<null> = new EventEmitter();
   @Output() notifications: EventEmitter<null> = new EventEmitter();
   @Output() paymentModes: EventEmitter<null> = new EventEmitter();
+  @Output() openSetting = new EventEmitter();
 
 
   badgeCount: any;
@@ -51,6 +52,10 @@ export class HeaderComponent implements OnInit {
       this.searchBarSize = '12';
       this.settingIconSize = '0';
     }
+  }
+
+  showSetting() {
+    this.openSetting.emit();
   }
 
   displayNotes() {

@@ -27,7 +27,7 @@
     <ion-col [size]="searchBarSize">
       <ion-searchbar class="bgClr"> </ion-searchbar>
      </ion-col>
-    <ion-col [size]="settingIconSize" class="searchBar" *ngIf="issettingIcon">
+    <ion-col [size]="settingIconSize" class="searchBar" (click)="showSetting();" *ngIf="issettingIcon">
       <ion-icon name="options-outline"></ion-icon>
     </ion-col>
   </ion-row>
