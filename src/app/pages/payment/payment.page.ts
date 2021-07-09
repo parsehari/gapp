@@ -32,7 +32,16 @@ export class PaymentPage implements OnInit {
     console.log("netPrice ", this.netPrice);
     console.log("Summarydata ", this.Summarydata);
     console.log("stockiestObj ", this.stockiestObj);
+
+
     this.stockiestObj.stockistCerpCode ? this.stockiestID = this.stockiestObj.stockistCerpCode : this.stockiestID = this.stockiestObj.stockiest;
+    console.log("this.stockiestID ", this.stockiestID);
+    if (this.stockiestID == undefined) {
+      let stobj = JSON.parse(this.stockiestObj);
+      stobj.stockistCerpCode ? this.stockiestID = stobj.stockistCerpCode : this.stockiestID = null;
+
+    }
+    console.log("this.stockiestID ", this.stockiestID);
     this.orderDate = new Date();
     this.orderDate = this.datePipe.transform(this.orderDate, 'dd-MM-yyyy');
   }
