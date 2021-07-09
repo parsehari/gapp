@@ -17,6 +17,7 @@ export class PaymentPage implements OnInit {
   public stockiestObj: any;
   public orderDate: any;
   public Summarydata: any;
+  public stockiestID: any;
 
   constructor(private activatedroute: ActivatedRoute, private commonService: CommonService,
     private storageService: StorageService, private apiService: ApiService, private route: Router, private datePipe: DatePipe) {
@@ -30,7 +31,8 @@ export class PaymentPage implements OnInit {
     console.log("cartData ", this.cartData);
     console.log("netPrice ", this.netPrice);
     console.log("Summarydata ", this.Summarydata);
-    console.log("stockiestObj ", this.stockiestObj.stockistCerpCode);
+    console.log("stockiestObj ", this.stockiestObj);
+    this.stockiestObj.stockistCerpCode ? this.stockiestID = this.stockiestObj.stockistCerpCode : this.stockiestID = this.stockiestObj.stockiest;
     this.orderDate = new Date();
     this.orderDate = this.datePipe.transform(this.orderDate, 'dd-MM-yyyy');
   }
@@ -49,7 +51,7 @@ export class PaymentPage implements OnInit {
       "Ord_Header_BO":
       {
         "hcpCode": this.storageService.getHcpCode(),
-        "StockistCerpCode": this.stockiestObj.stockistCerpCode.toString(),
+        "StockistCerpCode": this.stockiestID.toString(),
         "gskOrderDate": this.orderDate.toString(),
         "orderValue": this.netPrice.toString(),
         "totalTax": this.Summarydata.gstTotal.toString(),

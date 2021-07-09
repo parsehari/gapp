@@ -43,20 +43,26 @@ export class OrderSummaryPage implements OnInit {
       } if (params["fromEvent"]) {
         this.formEvent = params["fromEvent"];
       }
+      console.log("this.formView ", this.formView);
+      console.log("this.formEvent ", this.formEvent);
       if ((this.formView == "product-list" && this.formEvent == "buyNow") || (this.formView == "product-list" && this.formEvent == "aCart")) {
-        console.log("product-list buyNow");
         this.cartWithPDistributor.forEach(element => {
+          console.log("element ", element);
           if (element.stockiestOne) {
             if (this.stockiestObj.stockiest === element.stockiestOne.stockiest) {
-              element.unitCart.mrp = element.stockiestOne.stokiestRate;
+              element.stockiestOne.stockiest ?
+                element.unitCart.mrp = element.stockiestOne.stokiestRate : '';
+
             }
           } if (element.stockiestTwo) {
             if (this.stockiestObj.stockiest === element.stockiestTwo.stockiest) {
-              element.unitCart.mrp = element.stockiestOne.stokiestRate;
+
+              element.stockiestTwo.stokiestRate ? element.unitCart.mrp = element.stockiestTwo.stokiestRate : '';
             }
           } if (element.stockiestThree) {
             if (this.stockiestObj.stockiest === element.stockiestThree.stockiest) {
-              element.unitCart.mrp = element.stockiestOne.stokiestRate;
+              element.stockiestThree.stokiestRate ?
+                element.unitCart.mrp = element.stockiestThree.stokiestRate : '';
             }
           }
           this.products.push(element.unitCart);
@@ -68,6 +74,31 @@ export class OrderSummaryPage implements OnInit {
         });
         this.callAll();
       }
+      // if (this.formView == "product-list" && this.formEvent == "aCart") {
+      //   console.log("product-list buyNow");
+      //   this.cartWithPDistributor.forEach(element => {
+      //     if (element.stockiestOne) {
+      //       if (this.stockiestObj.stockiest === element.stockiestOne.stockiest) {
+      //         element.unitCart.mrp = element.stockiestOne.stokiestRate;
+      //       }
+      //     } if (element.stockiestTwo) {
+      //       if (this.stockiestObj.stockiest === element.stockiestTwo.stockiest) {
+      //         element.stockiestOne.stokiestRate ? element.unitCart.mrp = element.stockiestOne.stokiestRate : '';
+      //       }
+      //     } if (element.stockiestThree) {
+      //       if (this.stockiestObj.stockiest === element.stockiestThree.stockiest) {
+      //         element.unitCart.mrp = element.stockiestOne.stokiestRate;
+      //       }
+      //     }
+      //     this.products.push(element.unitCart);
+      //   });
+      //   console.log("products ", this.products);
+      //   this.products.forEach(element => {
+      //     console.log("elem ", element);
+      //     this.productsArr.push(element.productCode);
+      //   });
+      //   this.callAll();
+      // }
       if ((this.formView == "distributor" && this.formEvent == "buyNow") || (this.formView == "distributor" && this.formEvent == "aCart")) {
         console.log("buyNow aCart");
         this.cartWithPDistributor.forEach(element => {

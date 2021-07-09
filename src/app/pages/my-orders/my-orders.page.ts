@@ -29,6 +29,7 @@ export class MyOrdersPage implements OnInit {
       console.log("my orders ", this.myOrders);
     }, (err) => {
       console.log("error ", err);
+      this.commonService.hideLoader();
       this.commonService.showToast(err.message);
     })
   }

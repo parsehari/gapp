@@ -26,6 +26,7 @@ export class OtpPage implements OnInit {
   btnDisabled: any = true;
   loginData: any;
   loginType: any;
+  otpTypeText: any;
   constructor(
     public menu: MenuController,
     private router: Router,
@@ -39,6 +40,11 @@ export class OtpPage implements OnInit {
   ngOnInit() {
     this.loginData = this.activatedroute.snapshot.paramMap.get('loginData');
     this.loginType = this.activatedroute.snapshot.paramMap.get('type');
+    if (this.loginType == "email") {
+      this.otpTypeText = "Email";
+    } else {
+      this.otpTypeText = "SMS";
+    }
     this.setTimer();
     this.getOTP();
   }
