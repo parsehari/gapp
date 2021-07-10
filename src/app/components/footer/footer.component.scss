@@ -52,7 +52,7 @@
     background: transparent linear-gradient(180deg, #EF4B22 0%, #F69427 100%) 0% 0% no-repeat padding-box !important;
     opacity: 1 !important;
   }
-  
+
   .info-section {
     --min-height:35px !important;
     --padding-top:0 !important;
@@ -69,4 +69,46 @@
     font-size:20px;
     color: #EF4B22;
   }
-  
+  .color-green{
+      background-color: green;
+  }
+  .color-red{
+      background-color: red;
+  }
+  .square{
+      min-height: 30px !important;
+      min-width: 30px !important;
+      width: 30px !important;
+      height: 30px !important;
+      display: inline;
+      text-align: center;
+      border-radius: 4px;
+     
+  }
+
+  .na-info{
+        font-size: 8px;
+        color: white;
+
+  }
+  .lagend-info{
+   //   padding: 0px 16px 0px 16px;
+      background-color: white;
+      ion-row ion-col{
+          padding: 0 !important;
+          margin: 0 !important;
+      }
+  }
+  .top{
+      position:absolute;
+      top:4px !important;
+  }
+  .sd-info{
+      background-color: white;
+      ion-label{
+          font-size: 10px !important;
+      }
+  }
+  .clear {
+      color: transparent !important;
+  }

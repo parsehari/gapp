@@ -3,5 +3,6 @@ export class PercentDiscount {
     public gskProductCode: string;
     public disPercent: string;
     public disFlag: string;
+    public minQty:string;
     
 }

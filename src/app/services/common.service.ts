@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ApiService } from './api.service';
 
 
 @Injectable({
@@ -24,6 +25,7 @@ export class CommonService {
   balance: any;
   buttonText: any;
   alert: any;
+  public badgeCountValue = 0;
   passReset: boolean = true;
   constructor(private loadingController: LoadingController,
     public toastController: ToastController,
@@ -31,7 +33,8 @@ export class CommonService {
     public popoverController: PopoverController,
     public translateService: TranslateService,
     public router: Router,
-    private sanitizer:DomSanitizer
+    private sanitizer:DomSanitizer,
+    public apiService:ApiService,
   ) {
 
     this.currentUrl = router.url;
@@ -191,5 +194,22 @@ export class CommonService {
     var imageSource = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${imageData}`);
     return imageSource;
   }
-
+  
+  getCartItem() {
+    this.showLoader();
+    this.apiService.getDataService(this.apiService.getCartAPI).subscribe((resp: any) => {
+      console.log("response cart ", resp);
+      if (resp.getProdList){
+       
+        this.hideLoader();
+        this.badgeCountValue = resp.getProdList.length;
+      }else{
+        this.showToast(resp.message);
+      }
+    }, (err) => {
+      console.log("error in cart", err);
+      this.hideLoader()
+      this.showToast(err);
+    });
+  }
 }

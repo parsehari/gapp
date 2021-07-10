@@ -1,9 +1,36 @@
 
 <ion-footer>
- <ion-item *ngIf="showInfo" class="info-section">
-   <ion-icon   slot="start" name="information-circle"></ion-icon>
-   <ion-label >{{infoLabel | translate : {param:infoText?.stkName ? infoText?.stkName : ''} }}</ion-label>
- </ion-item>
+<div class="lagend-info" *ngIf="showInfo">
+  <ion-grid>
+    <ion-row class="temp">
+      <ion-col>
+        <ion-label style="font-size: 10px;"><ion-icon  name="information-circle"></ion-icon>
+        <ion-label class="top">  {{infoLabel | translate : {param:infoText?.stkName ? infoText?.stkName : ''} }}</ion-label> 
+        </ion-label> 
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+<div  *ngIf="isLegand" class="lagend-info">
+  <ion-grid>
+    <ion-row class="sd-info">
+      <ion-col size="5">
+       <div class="square color-red"><ion-label class="na-info">N/A</ion-label></div>
+       <ion-label>&nbsp;Stockist price not available.</ion-label>
+      </ion-col>
+      <ion-col>
+       <div class="square color-red"><ion-label class="clear">N/A</ion-label></div>
+     <ion-label>&nbsp;Stock not available.</ion-label>
+      </ion-col>
+      <ion-col>
+        <div class="square color-green"><ion-label class="clear">N/A</ion-label></div>
+      <ion-label>&nbsp;Stock available.
+   </ion-label>
+       </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+
   <div class="event-section footer-section">
     <ion-row *ngIf="moreEvent">
       <ion-col size="6">

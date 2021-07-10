@@ -7,6 +7,7 @@ import { Product } from 'src/app/Model/product.model';
 import { StockiestPrice } from 'src/app/Model/stockiest-price.model';
 import { Stockiest } from 'src/app/Model/stockiest.model';
 import { ApiService } from 'src/app/services/api.service';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-select-distributor',
@@ -23,9 +24,11 @@ export class SelectDistributorPage implements OnInit {
   sDInfoLabel = 'sdistributor.sdistributorPage.selected-distributor-info'
   fromView = 'product-list'
   fromEvent: string = 'aCart';
+   badgeCountValue = this.commonService.badgeCountValue;
   constructor(private router: Router, private menu: MenuController,
     private route: ActivatedRoute,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private commonService:CommonService
   ) {
     this.route.params.subscribe(
       (param) => {
@@ -66,11 +69,7 @@ export class SelectDistributorPage implements OnInit {
         this.stockiestPrice.distributor1_List.map(
           (innerEle) => {
             if (ele.productCode === innerEle.productCode) {
-              if (innerEle.stokiestRate > 0) {
-                innerEle.unitDisplayPrice = innerEle.stokiestRate;
-              } else {
-                innerEle.unitDisplayPrice = innerEle.ptr;
-              }
+              innerEle.unitDisplayPrice = innerEle.stokiestRate;
               innerEle.totalDisplayPrice = innerEle.unitDisplayPrice * ele.quantity;
               cartWithStockiest.stockiestOne = innerEle;
             }
@@ -79,13 +78,8 @@ export class SelectDistributorPage implements OnInit {
         this.stockiestPrice.distributor2_List.map(
           (innerEle) => {
             if (ele.productCode === innerEle.productCode) {
-              if (innerEle.stokiestRate > 0) {
-                innerEle.unitDisplayPrice = innerEle.stokiestRate;
-              } else {
-                innerEle.unitDisplayPrice = innerEle.ptr;
-              }
+              innerEle.unitDisplayPrice = innerEle.stokiestRate;
               innerEle.totalDisplayPrice = innerEle.unitDisplayPrice * ele.quantity;
-
               cartWithStockiest.stockiestTwo = innerEle;
             }
           }
@@ -93,13 +87,8 @@ export class SelectDistributorPage implements OnInit {
         this.stockiestPrice.distributor3_List.map(
           (innerEle) => {
             if (ele.productCode === innerEle.productCode) {
-              if (innerEle.stokiestRate > 0) {
-                innerEle.unitDisplayPrice = innerEle.stokiestRate;
-              } else {
-                innerEle.unitDisplayPrice = innerEle.ptr;
-              }
+              innerEle.unitDisplayPrice = innerEle.stokiestRate;
               innerEle.totalDisplayPrice = innerEle.unitDisplayPrice * ele.quantity;
-
               cartWithStockiest.stockiestThree = innerEle;
             }
           }

@@ -78,6 +78,7 @@ export class InterceptService implements HttpInterceptor {
   providedIn: 'root'
 })
 export class ApiService {
+
   /**
    * Global flag used for native http calls for all API
    */

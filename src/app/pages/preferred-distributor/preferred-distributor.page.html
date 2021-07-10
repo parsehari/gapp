@@ -1,4 +1,4 @@
-<app-header heading="Preferred Distributor's" [showMenuButton]="true" [showSubHeader]="true" [showSearch]="true" [showCart]="true">
+<app-header heading="Preferred Distributor's" [showMenuButton]="true" [showSubHeader]="false" [showSearch]="true" [showCart]="true">
 </app-header>
 <ion-content>
     <ion-card *ngFor="let distributor of pDistributorList; let i = index"  [ngStyle]="{'background-color':distributor.isPreferred?'#B8DEFD':'white'}"  (click)="goToDetail(i)" >
@@ -16,4 +16,4 @@
       </ion-item>
     </ion-card>
 </ion-content>
-<app-footer  [isFirstOutline]=false [moreEvent]=false [firstTitle]="'pdistributor.pdistributorPage.save-pdistributor'" (firstEvent)="savePressed()"></app-footer>
+<app-footer  [isFirstOutline]=false [moreEvent]=false [showInfo]="true" [infoLabel]="'pdistributor.pdistributorPage.pdistributor-info'" [firstTitle]="'pdistributor.pdistributorPage.save-pdistributor'" (firstEvent)="savePressed()"></app-footer>

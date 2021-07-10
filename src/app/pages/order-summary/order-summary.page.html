@@ -11,7 +11,7 @@
   <app-track-order [isPayment]="false" [isOrderdetails]="false"></app-track-order>
 <ion-item class="d-theme" lines="none">
     <ion-icon slot="start" name="person-outline"></ion-icon>
-    <ion-label style="color: #F36633;">Distributor 2</ion-label>
+    <ion-label style="color: #F36633;">{{stockiestObj.stkName}}</ion-label>
 </ion-item>
 <ion-grid class="o-theme">
   <ion-row>
@@ -27,7 +27,7 @@
     </div></ion-col>
   </ion-row>
 </ion-grid>
-  <ion-grid class="product-details" *ngFor="let product of products">
+  <ion-grid class="product-details" *ngFor="let product of products;let i=index">
     <ion-row style="align-items: center;height: 60px;">
       <ion-col size="4">
        <p>{{product.productDescription}}</p>

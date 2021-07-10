@@ -19,6 +19,7 @@ export class FooterComponent implements OnInit {
   @Input() showInfo: boolean = false;
   @Input() infoText: Stockiest;
   @Input() infoLabel: string ;
+  @Input() isLegand:boolean=false;
   constructor() { }
 
   ngOnInit() { }

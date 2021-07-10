@@ -7,7 +7,8 @@
       {{heading}}
     </ion-title>
     <ion-buttons slot="end"  *ngIf="showCart" (click)="goToCart();">
-      <ion-icon class="cartSize" icon-only name="cart-outline"></ion-icon>
+      <ion-icon class="cartSize"  name="cart-outline"></ion-icon>
+      <ion-badge *ngIf="badgeCount > 0" class="badge">{{badgeCount}}</ion-badge>
     </ion-buttons>
     
   </ion-toolbar>
