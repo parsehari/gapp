@@ -221,15 +221,17 @@ export class OrderSummaryPage implements OnInit {
         var discountItem = new DiscountProduct();
         discountItem.isPercentDiscount = false;
         discountItem.isDiscount = false;
+        console.log("this.discountInfo  ", this.discountInfo);
         this.discountInfo.gskDisPercentList.map(
           (innerEle: any) => {
+            console.log("inner ele of gskDisPercentList ", innerEle);
             if (ele.productCode === innerEle.gskProductCode) {
               discountItem.isPercentDiscount = true;
               discountItem.isDiscount = true;
               discountItem.pDiscount = innerEle;
               //add discount logic according to disPercent
               let total = ele.quantity * ele.mrp;
-              this.subTotal = (total - ((total * innerEle.disPercent) / 100));
+              ele.quantity >= innerEle.minQty ? this.subTotal = (total - ((total * innerEle.disPercent) / 100)) : this.subTotal = total;
               this.savingValue += total - this.subTotal;
               this.gskDiscount += this.subTotal;
               ele.total = total;
@@ -252,14 +254,16 @@ export class OrderSummaryPage implements OnInit {
         )
         if (discountItem.isPercentDiscount == false) {
           this.discountInfo.gskDisPerUnitPerProdList.map(
-            (innerEle) => {
+            (innerEle: any) => {
+              console.log("inner ele of gskDisPerUnitPerProdList ", innerEle);
               if (innerEle != null) {
                 if (ele.productCode === innerEle.gskProductCode) {
                   discountItem.isDiscount = true;
                   discountItem.uDiscount = innerEle.gskDisPerUnitList;
                   if (ele.quantity >= innerEle.minQty) {
                     let total = ele.quantity * ele.mrp;
-                    this.subTotal = (total - ((total * innerEle.disPercent) / 100));
+                    ele.quantity >= innerEle.minQty ? this.subTotal = (total - ((total * innerEle.disAmtPerUnit) / 100)) : this.subTotal = total;
+                    //this.subTotal = (total - ((total * innerEle.disPercent) / 100));
                     this.savingValue += total - this.subTotal;
                     this.gskDiscount += this.subTotal;
                     ele.total = total;

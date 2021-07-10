@@ -16,6 +16,7 @@ export class CartPage implements OnInit {
   cartProducts: CartModel[] = [];
   fromView='product-list';
   fromEvent='aCart';
+  badgeCountValue=0;
   stockiest:PreferredDistributorModel;
   constructor(private route: Router, 
     private apiService: ApiService, 
@@ -48,6 +49,8 @@ export class CartPage implements OnInit {
       if (resp.getProdList){
         this.cartProducts = resp.getProdList;
         this.commonService.hideLoader();
+        this.commonService.badgeCountValue = this.cartProducts.length;
+        this.badgeCountValue = this.commonService.badgeCountValue;
       }else{
         this.commonService.showToast(resp.message);
       }
@@ -127,6 +130,8 @@ export class CartPage implements OnInit {
       (response)=>{
         this.commonService.hideLoader()
         this.cartProducts.splice(index,1);
+        this.commonService.badgeCountValue =  this.commonService.badgeCountValue -1;
+        this.badgeCountValue = this.badgeCountValue-1;
          console.log("remove cart response:", response);
       },
       (error)=>{

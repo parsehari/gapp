@@ -30,9 +30,8 @@ export class HeaderComponent implements OnInit {
   @Output() notifications: EventEmitter<null> = new EventEmitter();
   @Output() paymentModes: EventEmitter<null> = new EventEmitter();
   @Output() openSetting = new EventEmitter();
+  @Input() badgeCount: number = 0;
 
-
-  badgeCount: any;
   esopLogo: any;
   companyLogo: any;
   searchBarSize: any;
@@ -40,7 +39,8 @@ export class HeaderComponent implements OnInit {
   constructor(public alertController: AlertController,
     public router: Router,
     public modalController: ModalController,
-    private commonService: CommonService
+    private commonService: CommonService,
+
   ) {
   }
 

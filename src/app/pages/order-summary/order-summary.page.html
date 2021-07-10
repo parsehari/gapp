@@ -27,7 +27,7 @@
     </div></ion-col>
   </ion-row>
 </ion-grid>
-  <ion-grid class="product-details" *ngFor="let product of products">
+  <ion-grid class="product-details" *ngFor="let product of products;let i=index">
     <ion-row style="align-items: center;height: 60px;">
       <ion-col size="4">
        <p>{{product.productDescription}}</p>

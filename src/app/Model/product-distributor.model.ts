@@ -6,4 +6,5 @@ export class ProductByDistributor{
     public stokiestRate:number;
     public ptr:number;
     public productImage :string;
+    public salebleQty?:number;
 }

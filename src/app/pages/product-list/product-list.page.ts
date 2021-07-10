@@ -91,6 +91,7 @@ export class ProductListPage implements OnInit {
         prod.quantity = 0;
         prod.stockistCerpCode = ele.stockistCerpCode;
         prod.stokiestRate = ele.stokiestRate;
+        prod.salebleQty = ele.salebleQty;
         if (ele.stokiestRate > 0) {
           prod.ptr = ele.stokiestRate.toString();
         } else {

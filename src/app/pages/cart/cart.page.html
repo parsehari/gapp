@@ -1,4 +1,4 @@
-<app-header heading="Cart" [showMenuButton]="true" [showSubHeader]="true" [showSearch]="false" [showCart]="true">
+<app-header heading="Cart" [showMenuButton]="true" [showSubHeader]="true" [showSearch]="false" [showCart]="true" [badgeCount]="badgeCountValue">
 </app-header>
 <ion-content>
   <div *ngIf="cartProducts.length; else noCartMessage" class="cardTop">

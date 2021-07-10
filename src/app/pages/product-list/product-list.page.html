@@ -73,6 +73,9 @@
           <div class="ion-text-left">
             <ion-label >
               <h2 class="text-color">{{product.productDescription}} </h2>
+               <p *ngIf="product?.stockistCerpCode" [ngClass]="{'color-green':product?.salebleQty >= product.quantity,
+                'color-red':product?.salebleQty < product.quantity   
+              }">{{product?.salebleQty < product.quantity ?'Not Available':'Available'}}</p>
             </ion-label>
           </div>
         </ion-col>
