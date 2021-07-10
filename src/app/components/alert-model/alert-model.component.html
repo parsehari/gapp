@@ -1,5 +1,6 @@
 <div class="alert-container">
   <div class="alert">
+    <div *ngIf="!showFilter">
     <ion-row>
       <ion-col>
         <div class="ion-text-right">
@@ -30,5 +31,44 @@
       <ion-button fill="outline" size="small">Privacy Policy</ion-button>
     </div>
   </div>
+  <div *ngIf="showFilter">
+    <ion-row>
+      <ion-col>
+        <div class="ion-text-right">
+          <ion-icon class="icon-text" name="close-outline" (click)="closeModal()"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row style="display: block;">
+      <ion-item>
+        <ion-label>Status</ion-label>
+        <ion-select (ionChange)="selectValue($event)" placeholder="Select">
+          <ion-select-option value="ordered">Ordered</ion-select-option>
+          <ion-select-option value="confirmed">Confirmed</ion-select-option>
+          <ion-select-option value="invoiced">Invoiced</ion-select-option>
+          <ion-select-option value="delivered">Delivered</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-row>
+    <ion-row style="display: block;">
+      <ion-item>
+        <ion-label>Start Date</ion-label>
+        <ion-datetime placeholder="Select Date"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Start End</ion-label>
+        <ion-datetime placeholder="Select Date"></ion-datetime>
+      </ion-item>
+    </ion-row>
+    <div class="bottom-div">
+      <ion-button fill="outline" size="small" (click)="applyFilter();">Apply</ion-button>
+    </div>
+    <!-- <ion-row>
+      <ion-col>
+        <ion-button style="margin-top: 50%;" expand="block" fill="solid" (click)="applyFilter();">Apply</ion-button>
+      </ion-col>
+    </ion-row> -->
+  </div>
+</div>
 </div>
 

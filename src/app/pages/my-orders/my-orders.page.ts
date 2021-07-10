@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
+import * as moment from 'moment';
+import { AlertModelComponent } from 'src/app/components/alert-model/alert-model.component';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from 'src/app/services/common.service';
 
@@ -12,6 +14,7 @@ import { CommonService } from 'src/app/services/common.service';
 export class MyOrdersPage implements OnInit {
   bgColor: any;
   myOrders: any;
+  dataSearch: any;
   constructor(private router: Router,
     private apiService: ApiService,
     private commonService: CommonService,
@@ -29,9 +32,20 @@ export class MyOrdersPage implements OnInit {
 
   async presentModal() {
     const modal = await this.modal.create({
-      component: AlertController,
-      cssClass: 'alert-custom-class'
+      component: AlertModelComponent,
+      cssClass: 'alert-custom-class',
+      componentProps: {
+        type: 'order'
+      }
     });
+
+    modal.onDidDismiss()
+      .then((data) => {
+        console.log("data ", data);
+        this.dataSearch = data;
+        this.filterList(this.dataSearch);
+      });
+
     return await modal.present();
   }
 
@@ -39,9 +53,18 @@ export class MyOrdersPage implements OnInit {
     this.router.navigate(["/order-details", { orderNo: gskOrderNo }]);
   }
 
+  filterList(search) {
+
+  }
+
   getMyOrders() {
+    var startdate = moment().format("DD-MM-YYYY");
+    var enddate = moment().subtract(6, "months").format('DD-MM-YYYY');
+
+    console.log("start date :", startdate);
+    console.log("end date :", enddate);
     this.commonService.showLoader();
-    this.apiService.getDataService(this.apiService.myOrders).subscribe((response: any) => {
+    this.apiService.postDataService(this.apiService.myOrders, { "OrderStartDate": '', "OrderEndDate": '' }).subscribe((response: any) => {
       this.commonService.hideLoader();
       this.myOrders = response.gsk_Ord_Header_BO_List;
       console.log("my orders ", this.myOrders);

@@ -1,53 +1,63 @@
-.alert-container{
-    width: 100%;
-    height: 100;
-    background-color: transparent;
-    display: table;
-    vertical-align: middle;
-    text-align: center;
+.alert-container {
+  width: 100%;
+  height: 100;
+  background-color: transparent;
+  display: table;
+  vertical-align: middle;
+  text-align: center;
 }
-.alert{
-    display: inline-block;
-    min-width: 300px;
-    min-height: 400px;
-    background-color: white;
-    width: 300px;
-    height: 400px;
-    position: relative;
-    top:100px;
-    border-radius: 10px;
-}
-.img-circel{
-    width: 60px;
-    height: 60px;
-    border-radius: 30px;
-    background: #F69427;
-    display: inline-block;
-    padding-top: 15px;
-}
-.alert-text{
-    color: #F69427;
-    font-size: 22px;
-    margin-top: 5px;
-}
-.msg-text{
-    padding:5px 15px 5px 15px !important;
-    height: 190px;
-    overflow: scroll;
-}
-.bottom-div{
-    position: absolute;
-    bottom: 10px !important;
-    height: 40px;
-    min-height: 40px;
-    min-width: 300px;
-}
-ion-button{
-    --background: white;
-    height: 40px;
 
+.alert {
+  display: inline-block;
+  min-width: 300px;
+  min-height: 400px;
+  background-color: white;
+  width: 300px;
+  height: 400px;
+  position: relative;
+  top: 100px;
+  border-radius: 10px;
 }
-.icon-text{
-    font-size: 22px;
-    color: #F36633;
+
+.applybtn {
+  background-color: none;
+}
+
+.img-circel {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  background: #F69427;
+  display: inline-block;
+  padding-top: 15px;
+}
+
+.alert-text {
+  color: #F69427;
+  font-size: 22px;
+  margin-top: 5px;
+}
+
+.msg-text {
+  padding: 5px 15px 5px 15px !important;
+  height: 190px;
+  overflow: scroll;
+}
+
+.bottom-div {
+  position: absolute;
+  bottom: 10px !important;
+  height: 40px;
+  min-height: 40px;
+  min-width: 300px;
+}
+
+ion-button {
+  --background: white;
+  height: 40px;
+}
+
+.icon-text {
+  font-size: 22px;
+  color: #F36633;
 }
