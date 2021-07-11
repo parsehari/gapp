@@ -29,18 +29,57 @@
             </ion-col>
           </ion-row>
         </td>
-        <td  ><div [ngClass]="{'color-green':item.stockiestOne?.salebleQty >= item.unitCart.quantity,
-          'color-red':item.stockiestOne?.salebleQty < item.unitCart.quantity 
-        }"><ion-label class="center-data">{{item.stockiestOne?.totalDisplayPrice ? (item.stockiestOne?.totalDisplayPrice | currency:'INR':'symbol-narrow':'1.0-0'):'N/A'}}</ion-label></div></td>
-        <td  ><div [ngClass]="{'color-green':item.stockiestTwo?.salebleQty >= item.unitCart.quantity,
+        <td><div [ngClass]="{'color-green':item.stockiestOne?.salebleQty >= item.unitCart.quantity,
+          'color-red':(item.stockiestOne?.salebleQty < item.unitCart.quantity) && item.stockiestOne?.stokiestRate > 0,
+          'color-trans':(!item.stockiestOne?.stokiestRate || item.stockiestOne?.stokiestRate == 0)
+        }"><ion-label class="center-data">{{(!item.stockiestOne?.totalDisplayPrice  || item.stockiestOne?.totalDisplayPrice == 0)?'NA': (item.stockiestOne?.totalDisplayPrice | currency:'INR':'symbol-narrow':'1.0-0')}}</ion-label></div></td>
+
+        <td><div [ngClass]="{'color-green':item.stockiestTwo?.salebleQty >= item.unitCart.quantity,
+          'color-red':(item.stockiestTwo?.salebleQty < item.unitCart.quantity) && item.stockiestTwo?.stokiestRate > 0,
+          'color-trans':(!item.stockiestTwo?.stokiestRate || item.stockiestTwo?.stokiestRate == 0)
+        }"><ion-label class="center-data">{{(!item.stockiestTwo?.totalDisplayPrice  || item.stockiestTwo?.totalDisplayPrice == 0)?'NA': (item.stockiestTwo?.totalDisplayPrice | currency:'INR':'symbol-narrow':'1.0-0')}}</ion-label></div></td>
+       
+        <td><div [ngClass]="{'color-green':item.stockiestThree?.salebleQty >= item.unitCart.quantity,
+          'color-red':(item.stockiestThree?.salebleQty < item.unitCart.quantity) && item.stockiestThree?.stokiestRate > 0,
+          'color-trans':(!item.stockiestThree?.stokiestRate || item.stockiestThree?.stokiestRate == 0)
+        }"><ion-label class="center-data">{{(!item.stockiestThree?.totalDisplayPrice  || item.stockiestThree?.totalDisplayPrice == 0)?'NA': (item.stockiestThree?.totalDisplayPrice | currency:'INR':'symbol-narrow':'1.0-0')}}</ion-label></div></td>
+
+       <!-- <td  ><div [ngClass]="{'color-green':item.stockiestTwo?.salebleQty >= item.unitCart.quantity,
           'color-red':item.stockiestTwo?.salebleQty < item.unitCart.quantity 
         }"><ion-label class="center-data">{{item.stockiestTwo?.totalDisplayPrice? (item.stockiestTwo?.totalDisplayPrice | currency:'INR':'symbol-narrow':'1.0-0'):'N/A'}}</ion-label></div></td>
         <td  ><div [ngClass]="{'color-green':item.stockiestThree?.salebleQty >= item.unitCart.quantity,
           'color-red':item.stockiestThree?.salebleQty < item.unitCart.quantity 
         }"><ion-label class="center-data">{{item.stockiestThree?.totalDisplayPrice ? (item.stockiestThree?.totalDisplayPrice | currency:'INR':'symbol-narrow':'1.0-0'):'N/A'}}</ion-label> </div></td>
+      -->
+      </tr>
+      <tr>
+        <td style="color: #F36633;">{{'sdistributor.sdistributorPage.total' | translate}}</td>
+        <td>
+          <ion-label>{{getTotalForQuantity()}}</ion-label>
+        </td>
+        <td><div class="color-trans"><ion-label class="center-data">{{getTotalForPrice(0) | currency:'INR':'symbol-narrow':'1.0-0'}}</ion-label></div></td>
+        <td><div class="color-trans"><ion-label class="center-data">{{getTotalForPrice(1) | currency:'INR':'symbol-narrow':'1.0-0'}}</ion-label></div></td>
+        <td><div class="color-trans"><ion-label class="center-data">{{getTotalForPrice(2) | currency:'INR':'symbol-narrow':'1.0-0'}}</ion-label></div></td>
+      </tr>
+      <tr>
+        <td [colSpan]="2">{{'sdistributor.sdistributorPage.sdistributor' | translate }}</td>
+        <td [colSpan]="3">
+          <ion-radio-group  (ionChange)="selectDistributor($event)">
+            <ion-row style="align-items: center;">
+              <ion-col style="min-height: 57px;height: 57px;">
+                <div class="ion-text-center"><ion-label class="center-data"><ion-radio  value="0"></ion-radio></ion-label>
+              </div>
+            </ion-col>
+              <ion-col style="min-height: 57px;height: 57px;"><div class="ion-text-center"><ion-label class="center-data"><ion-radio  value="1"></ion-radio></ion-label>
+              </div></ion-col>
+              <ion-col style="min-height: 57px;height: 57px;"><div class="ion-text-center"><ion-label class="center-data"><ion-radio   value="2"></ion-radio></ion-label>
+              </div></ion-col>
+            </ion-row>
+          </ion-radio-group>
+        </td>
       </tr>
     </tbody>
-    <tfoot>
+   <!-- <tfoot>
       <tr>
         <td style="color: #F36633;">{{'sdistributor.sdistributorPage.total' | translate}}</td>
         <td>
@@ -50,24 +89,8 @@
         <td>{{getTotalForPrice(1) | currency:'INR':'symbol-narrow':'1.0-0'}}</td>
         <td>{{getTotalForPrice(2) | currency:'INR':'symbol-narrow':'1.0-0'}}</td>
       </tr>
-      <tr>
-        <td [colSpan]="2">{{'sdistributor.sdistributorPage.sdistributor' | translate }}</td>
-        <td [colSpan]="3">
-          <ion-radio-group  (ionChange)="selectDistributor($event)">
-            <ion-row>
-              <ion-col>
-                <div class="ion-text-center"><ion-radio  value="0"></ion-radio>
-              </div>
-            </ion-col>
-              <ion-col><div class="ion-text-center"><ion-radio  value="1"></ion-radio>
-              </div></ion-col>
-              <ion-col><div class="ion-text-center"><ion-radio  value="2"></ion-radio>
-              </div></ion-col>
-            </ion-row>
-          </ion-radio-group>
-        </td>
-      </tr>
-    </tfoot>
+     
+    </tfoot>-->
   </table>
 </ion-content>
 <app-footer (secondEvent)="continueClicked();" (firstEvent)="cancel();" [isFirstOutline]=true [isSecondOutline]=false [firstTitle]="'sdistributor.sdistributorPage.cancel'" [secondTitle]="'sdistributor.sdistributorPage.continue'" [showInfo]=true [infoText]="sDistributor" [infoLabel]="sDInfoLabel" [isLegand]="true"></app-footer>

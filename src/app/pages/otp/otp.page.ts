@@ -170,7 +170,28 @@ export class OtpPage implements OnInit {
       this.btnDisabled = false;
     }
   }
- 
+  /*
+  getCartItem() {
+    this.commonService.showLoader();
+    this.apiService.getDataService(this.apiService.getCartAPI).subscribe((resp: any) => {
+      console.log("response cart ", resp);
+      if (resp.getProdList){
+        if(this.storageService.prefDistFlag){
+          this.router.navigate(['/product-list']);
+        }else{
+          this.router.navigate(["/preferred-distributor"]);
+        }
+        this.commonService.hideLoader();
+        this.commonService.badgeCountValue = resp.getProdList.length;
+      }else{
+        this.commonService.showToast(resp.message);
+      }
+    }, (err) => {
+      console.log("error in cart", err);
+      this.commonService.hideLoader()
+      this.commonService.showToast(err);
+    });
+  }
   /*
    processValidateOTPResponse(response) {
      this.commonService.hideLoader();
