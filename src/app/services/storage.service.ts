@@ -8,6 +8,7 @@ export class StorageService {
   productDiscount: any;
   productData: any;
 
+  prefDistFlag: boolean;
   constructor() { }
 
   setHcpCode(code) {

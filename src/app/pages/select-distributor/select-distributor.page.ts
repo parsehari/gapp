@@ -15,7 +15,7 @@ import { CommonService } from 'src/app/services/common.service';
   styleUrls: ['./select-distributor.page.scss'],
 })
 export class SelectDistributorPage implements OnInit {
-  sDistributor: Stockiest;
+  sDistributor?: Stockiest;
   selectedIndex = 0;
   distributor: any = 'Distributor 2';
   cartData: CartModel[];
@@ -170,7 +170,11 @@ export class SelectDistributorPage implements OnInit {
     return total;
   }
   continueClicked() {
-    this.router.navigate(['/order-summary', { stockiest: JSON.stringify(this.sDistributor), cartInfo: JSON.stringify(this.cartWithPDistributor), fromView: this.fromView, fromEvent: this.fromEvent }]);
+    if(this.sDistributor){
+      this.router.navigate(['/order-summary', { stockiest: JSON.stringify(this.sDistributor), cartInfo: JSON.stringify(this.cartWithPDistributor), fromView: this.fromView, fromEvent: this.fromEvent }]);
+    }else{
+      this.commonService.presentOneButtonAlert('GSK','Please select distributor for continue.','OK');
+    }
   }
   cancel() {
     this.router.navigate(['product-list']);

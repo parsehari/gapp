@@ -2,7 +2,7 @@ import { PercentDiscount } from "./percent-discount.model";
 import { UnitDiscount } from "./unit-discount.model";
 
 export class Discount {
-    public gskDisPerUnitPerProdList : UnitDiscount [];
-    public gskDisPercentList: PercentDiscount[];
-    public gskDisGrpHdrList: any;
+    public gskDisPerUnitPerProd : UnitDiscount [];
+    public disPercentWithProdList: PercentDiscount[];
+    public gskDisGrpHdrList?: any;
 }

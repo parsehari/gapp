@@ -32,7 +32,10 @@ ion-card {
 .text-margin {
   margin-top: 5px;
 }
-
+.col-height{
+  min-height: 85px;
+  height: 85px;
+}
 .quantity {
   margin-top: -35px !important;
   min-height: 50px !important;
