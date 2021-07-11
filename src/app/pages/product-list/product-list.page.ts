@@ -24,6 +24,7 @@ export class ProductListPage implements OnInit {
   fromView: string = 'product-list';
   fromEvent: string = 'aCart';
   dViaProduct: DiscountProduct[] = [];
+  badgeValue =  this.commonService.badgeCountValue;
   constructor(private menu: MenuController, private router: Router,
     private apiService: ApiService,
     private commonService: CommonService,

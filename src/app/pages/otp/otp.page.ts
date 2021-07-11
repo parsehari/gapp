@@ -170,6 +170,7 @@ export class OtpPage implements OnInit {
       this.btnDisabled = false;
     }
   }
+ 
   /*
    processValidateOTPResponse(response) {
      this.commonService.hideLoader();
