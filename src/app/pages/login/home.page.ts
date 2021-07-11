@@ -53,16 +53,17 @@ export class HomePage implements OnInit {
     }
     this.apiService.setLoginHeader();
     var data = {
-      "EmailId": "",
-      "MobileNo": ""
+      "Mobile_Email": this.loginInput,
+      //  "MobileNo": ""
     }
-    if (this.inputType == 'email') {
-      data.EmailId = this.loginInput;
-      data.MobileNo = ""
-    } else {
-      data.EmailId = "";
-      data.MobileNo = this.loginInput;
-    }
+    // if (this.inputType == 'email') {
+    //   data.EmailId = this.loginInput;
+    //   data.MobileNo = ""
+    // } else {
+    //   data.EmailId = "";
+    //   data.MobileNo = this.loginInput;
+    // }
+
     this.apiService.postDataService(this.apiService.loginAPI, data)
       .subscribe((resp: any) => {
         console.log("response ", resp);

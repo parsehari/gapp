@@ -60,16 +60,15 @@ export class OtpPage implements OnInit {
   getOTP() {
     this.commonService.showLoader();
     var data = {
-      "EmailId": "",
-      "MobileNo": ""
+      "Mobile_Email": this.loginData,
+      "OtpSendOn": ''
     }
     console.log(this.loginType);
+
     if (this.loginType == 'email') {
-      data.EmailId = this.loginData;
-      data.MobileNo = ""
+      data.OtpSendOn = "EMAIL"
     } else {
-      data.EmailId = "";
-      data.MobileNo = this.loginData;
+      data.OtpSendOn = "MOBILE"
     }
     this.apiService.postDataService(this.apiService.SendOTP, data)
       .subscribe((resp: any) => {
