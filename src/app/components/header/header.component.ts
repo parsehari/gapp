@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -40,6 +41,7 @@ export class HeaderComponent implements OnInit {
     public router: Router,
     public modalController: ModalController,
     private commonService: CommonService,
+    private loc:Location
 
   ) {
   }
@@ -83,8 +85,10 @@ export class HeaderComponent implements OnInit {
   }
 
   goBack() {
-    console.log('previous ', this.commonService.previousUrl);
-    this.router.navigate([this.commonService.previousUrl]);
+   // console.log('previous ', this.commonService.previousUrl);
+   // this.router.navigate([this.commonService.previousUrl]);
+
+   this.loc.back();
   }
 
   goToCart() {
