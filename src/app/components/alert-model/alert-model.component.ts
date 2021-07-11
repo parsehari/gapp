@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
+import * as moment from 'moment';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-alert-model',
@@ -9,7 +11,15 @@ import { ModalController, NavParams } from '@ionic/angular';
 export class AlertModelComponent implements OnInit {
   showFilter: boolean = false;
   selectedValue: any;
-  constructor(private modalController: ModalController, private navParams: NavParams) {
+  maxDate: any;
+  minDate: any;
+  productsData: any;
+  startDate: any;
+  endDate: any;
+  selectedProd: any;
+  productselectedValue: any;
+
+  constructor(private modalController: ModalController, private navParams: NavParams, private storageService: StorageService) {
     console.log(this.navParams.data.type);
     if (this.navParams.data.type == "order") {
       this.showFilter = true;
@@ -17,7 +27,14 @@ export class AlertModelComponent implements OnInit {
   }
 
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.productsData = this.storageService.getProductData();
+    console.log("this.productsData ", this.productsData);
+    let sixmnths = moment();
+    sixmnths = sixmnths.subtract(180, "days");
+    this.maxDate = new Date(sixmnths.format("YYYY/MM/DD")).toISOString();
+    this.minDate = new Date().toISOString();
+  }
   closeModal() {
     this.modalController.dismiss({
       'dismissed': true
@@ -25,12 +42,33 @@ export class AlertModelComponent implements OnInit {
   }
 
   selectValue(ev) {
-    console.log("ev ", ev.detail.value);
     this.selectedValue = ev.detail.value;
+  }
+  productSelect(ev) {
+    this.productselectedValue = ev.detail.value;
+  }
+
+  showDate(ev, type) {
+    console.log("type", type);
+    if (type == "start")
+      this.startDate = ev.detail.value;
+    else
+      this.endDate = ev.detail.value;
+    this.startDate = moment(this.startDate).format("DD-MM-YYYY");
+    this.endDate = moment(this.endDate).format("DD-MM-YYYY");
   }
 
   applyFilter() {
-    console.log(this.selectedValue);
+    console.log('selectedValue ', this.selectedValue);
+    console.log('productsData ', this.productselectedValue);
+    console.log('startDate ', this.startDate);
+    console.log('endDate ', this.endDate);
+
+    return;
+    var filter = {
+      'orderStatus': this.selectedValue
+      //'startDate': 
+    }
     this.modalController.dismiss(this.selectedValue);
   }
 }

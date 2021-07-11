@@ -40,9 +40,10 @@
       </ion-col>
     </ion-row>
     <ion-row style="display: block;">
-      <ion-item>
+      <ion-item class="dropdownClr">
         <ion-label>Status</ion-label>
-        <ion-select (ionChange)="selectValue($event)" placeholder="Select">
+        <ion-select (ionChange)="selectValue($event)" [(ngModel)]="productsData" placeholder="Select">
+          <ion-select-option value="all">All</ion-select-option>
           <ion-select-option value="ordered">Ordered</ion-select-option>
           <ion-select-option value="confirmed">Confirmed</ion-select-option>
           <ion-select-option value="invoiced">Invoiced</ion-select-option>
@@ -51,13 +52,21 @@
       </ion-item>
     </ion-row>
     <ion-row style="display: block;">
-      <ion-item>
-        <ion-label>Start Date</ion-label>
-        <ion-datetime placeholder="Select Date"></ion-datetime>
+      <ion-item class="dropdownClr">
+        <ion-label>Product</ion-label>
+        <ion-select (ionChange)="productSelect($event)" [(ngModel)]="selectedProd" placeholder="Select">
+          <ion-select-option *ngFor="let prod of productsData; let i = index" value="{{prod.productCode}}">{{prod.productDescription}}</ion-select-option>
+        </ion-select>
       </ion-item>
-      <ion-item>
-        <ion-label>Start End</ion-label>
-        <ion-datetime placeholder="Select Date"></ion-datetime>
+    </ion-row>
+    <ion-row style="display: block;">
+      <ion-item class="dropdownClr">
+        <ion-label>Start Date</ion-label>
+        <ion-datetime placeholder="Select Date"  display-format="DD-MM-YYYY" (ionChange)="showDate($event,'start')"  [max]="minDate" [min]="maxDate"></ion-datetime>
+      </ion-item>
+      <ion-item class="dropdownClr">
+        <ion-label>End Date</ion-label>
+        <ion-datetime placeholder="Select Date"  display-format="DD-MM-YYYY"  (ionChange)="showDate($event,'end')" [max]="minDate" [min]="maxDate"></ion-datetime>
       </ion-item>
     </ion-row>
     <div class="bottom-div">

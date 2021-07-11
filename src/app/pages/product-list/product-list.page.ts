@@ -68,6 +68,7 @@ export class ProductListPage implements OnInit {
           console.log("response :", response);
           this.commonService.hideLoader()
           this.productList = response.gskProdList;
+          this.storageService.setProductData(this.productList);
           this.productList.map((ele) => {
             ele.quantity = 0;
           })

@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 export class StorageService {
   hcpCode: any;
   productDiscount: any;
+  productData: any;
+
   constructor() { }
 
   setHcpCode(code) {
@@ -22,6 +24,14 @@ export class StorageService {
 
   getProductDiscount() {
     return this.productDiscount;
+  }
+
+  setProductData(data: any) {
+    this.productData = data;
+  }
+
+  getProductData() {
+    return this.productData;
   }
 
 }

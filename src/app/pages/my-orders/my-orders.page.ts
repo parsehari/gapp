@@ -64,7 +64,7 @@ export class MyOrdersPage implements OnInit {
     console.log("start date :", startdate);
     console.log("end date :", enddate);
     this.commonService.showLoader();
-    this.apiService.postDataService(this.apiService.myOrders, { "OrderStartDate": '', "OrderEndDate": '' }).subscribe((response: any) => {
+    this.apiService.postDataService(this.apiService.myOrders, { "OrderStartDate": '', "OrderEndDate": '', "OrderStatus": 'All' }).subscribe((response: any) => {
       this.commonService.hideLoader();
       this.myOrders = response.gsk_Ord_Header_BO_List;
       console.log("my orders ", this.myOrders);
