@@ -256,14 +256,12 @@ export class OrderSummaryPage implements OnInit {
                   console.log("percent ", percentList);
                   console.log("total ", total);
                   this.savingValue += total - this.subTotal;
-                  //  this.gskDiscount += this.subTotal;
                   ele.total = total;
                   ele.productDiscount = this.subTotal;
                   ele.savingValue = this.savingValue;
-                  //  ele.gskDiscount = this.gskDiscount;
-                  ele.disId = innerEle.disId;
-                  ele.disPercent = innerEle.disPercent;
-                  ele.disFlag = innerEle.disFlag;
+                  ele.disId = percentList.disId;
+                  ele.disPercent = percentList.disPercent;
+                  ele.disFlag = percentList.disFlag;
                 }
               })
             } else {
@@ -272,7 +270,7 @@ export class OrderSummaryPage implements OnInit {
               ele.savingValue = this.savingValue;
               //  ele.gskDiscount = this.gskDiscount;
               ele.disId = innerEle.disId ? innerEle.disId : "";
-              ele.disPercent = innerEle.disAmtPerUnit ? innerEle.disAmtPerUnit : "";
+              ele.disPercent = innerEle.disPercent ? innerEle.disPercent : "";
               ele.disFlag = innerEle.disFlag ? innerEle.disFlag : "";
             }
           }
@@ -298,9 +296,9 @@ export class OrderSummaryPage implements OnInit {
                       ele.productDiscount = this.subTotal;
                       ele.savingValue = this.savingValueTwo;
                       //  ele.gskDiscount = this.gskDiscount;
-                      ele.disId = innerEle.disId;
-                      ele.disPercent = innerEle.disAmtPerUnit;
-                      ele.disFlag = innerEle.disFlag;
+                      ele.disId = percentList.disId;
+                      ele.disPercent = percentList.disAmtPerUnit;
+                      ele.disFlag = percentList.disFlag;
                     } else {
                       total = ele.quantity * ele.mrp;
                       this.subTotalTwo = total;
@@ -310,18 +308,18 @@ export class OrderSummaryPage implements OnInit {
                       ele.productDiscount = this.subTotalTwo;
                       ele.savingValue = this.savingValueTwo;
                       //  ele.gskDiscount = this.gskDiscount;
-                      ele.disId = innerEle.disId;
-                      ele.disPercent = innerEle.disAmtPerUnit;
-                      ele.disFlag = innerEle.disFlag;
+                      ele.disId = percentList.disId;
+                      ele.disPercent = percentList.disAmtPerUnit;
+                      ele.disFlag = percentList.disFlag;
                     }
                   })
                 } else {
                   ele.total = ele.quantity * ele.mrp;
-                  ele.productDiscount = this.subTotal;
+                  ele.productDiscount = this.subTotalTwo;
                   ele.savingValue = this.savingValue;
                   ele.gskDiscount = this.gskDiscount;
                   ele.disId = innerEle.disId ? innerEle.disId : "";
-                  ele.disPercent = innerEle.disAmtPerUnit ? innerEle.disAmtPerUnit : "";
+                  ele.disPercent = innerEle.disAmtPerUnit;
                   ele.disFlag = innerEle.disFlag ? innerEle.disFlag : "";
                 }
               }
