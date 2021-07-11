@@ -56,6 +56,8 @@ export class AlertModelComponent implements OnInit {
       this.endDate = ev.detail.value;
     this.startDate = moment(this.startDate).format("DD-MM-YYYY");
     this.endDate = moment(this.endDate).format("DD-MM-YYYY");
+    console.log("this.startDate ", this.startDate);
+    console.log("this.startDate ", this.endDate);
   }
 
   applyFilter() {
@@ -63,12 +65,12 @@ export class AlertModelComponent implements OnInit {
     console.log('productsData ', this.productselectedValue);
     console.log('startDate ', this.startDate);
     console.log('endDate ', this.endDate);
-
-    return;
     var filter = {
-      'orderStatus': this.selectedValue
-      //'startDate': 
+      'orderStatus': this.selectedValue,
+      'startDate': this.startDate,
+      'endDate': this.endDate,
+      'productsData': this.productselectedValue
     }
-    this.modalController.dismiss(this.selectedValue);
+    this.modalController.dismiss(filter);
   }
 }

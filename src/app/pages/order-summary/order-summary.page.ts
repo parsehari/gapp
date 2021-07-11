@@ -14,9 +14,11 @@ export class OrderSummaryPage implements OnInit {
   quantity = 0;
   gstTotal: any = 0;
   subTotal: any = 0;
+  subTotalTwo: any = 0;
   productSubTotal: any = 0;
   gskDiscount: any;
   savingValue: any;
+  savingValueTwo: any;
   discountObj: any;
   discountInfo: any;
   netPrice: any;
@@ -195,10 +197,12 @@ export class OrderSummaryPage implements OnInit {
     this.apiService.getDataService(this.apiService.getGSTdetail, this.productsArr.toString()).subscribe((response: any) => {
       console.log("response ", response);
       var total = 0;
-      response.gstDetailList.forEach(element => {
-        total = parseInt(element.cgstRate) + parseInt(element.sgstRate);
-        this.gstTotal += total;
-      });
+      if (response.gstDetailList) {
+        response.gstDetailList.forEach(element => {
+          total = parseInt(element.cgstRate) + parseInt(element.sgstRate);
+          this.gstTotal += total;
+        });
+      }
       this.setDiscount();
     })
   }
@@ -214,6 +218,7 @@ export class OrderSummaryPage implements OnInit {
     console.log("products ", products);
     this.subTotal = 0;
     this.savingValue = 0;
+    this.savingValueTwo = 0;
     this.gskDiscount = 0;
     this.netPrice = 0;
     this.products.map(
@@ -222,30 +227,50 @@ export class OrderSummaryPage implements OnInit {
         discountItem.isPercentDiscount = false;
         discountItem.isDiscount = false;
         console.log("this.discountInfo  ", this.discountInfo);
-        this.discountInfo.gskDisPercentList.map(
+        // this.discountInfo.gskDisPercentList.map(
+        this.discountInfo.disPercentWithProdList.map(
           (innerEle: any) => {
-            console.log("inner ele of gskDisPercentList ", innerEle);
+            console.log("inner ele of disPercentWithProdList ", innerEle);
             if (ele.productCode === innerEle.gskProductCode) {
               discountItem.isPercentDiscount = true;
               discountItem.isDiscount = true;
               discountItem.pDiscount = innerEle;
               //add discount logic according to disPercent
-              let total = ele.quantity * ele.mrp;
-              ele.quantity >= innerEle.minQty ? this.subTotal = (total - ((total * innerEle.disPercent) / 100)) : this.subTotal = total;
-              this.savingValue += total - this.subTotal;
-              this.gskDiscount += this.subTotal;
-              ele.total = total;
-              ele.productDiscount = this.subTotal;
-              ele.savingValue = this.savingValue;
-              ele.gskDiscount = this.gskDiscount;
-              ele.disId = innerEle.disId;
-              ele.disPercent = innerEle.disPercent;
-              ele.disFlag = innerEle.disFlag;
+              innerEle.gskDisPercentList.map((percentList: any) => {
+                if (ele.quantity >= percentList.minQty) {
+                  this.subTotal = 0;
+                  var total = 0;
+                  total = ele.quantity * ele.mrp;
+                  this.subTotal = (total - ((total * percentList.disPercent) / 100));
+                  this.savingValue = total - this.subTotal;
+
+                  ele.total = total;
+                  ele.productDiscount = this.subTotal;
+                  ele.savingValue = this.savingValue;
+                  ele.disId = innerEle.disId;
+                  ele.disPercent = innerEle.disPercent;
+                  ele.disFlag = innerEle.disFlag;
+                } else {
+                  total = ele.quantity * ele.mrp;
+                  this.subTotal = total;
+                  console.log("percent ", percentList);
+                  console.log("total ", total);
+                  this.savingValue += total - this.subTotal;
+                  //  this.gskDiscount += this.subTotal;
+                  ele.total = total;
+                  ele.productDiscount = this.subTotal;
+                  ele.savingValue = this.savingValue;
+                  //  ele.gskDiscount = this.gskDiscount;
+                  ele.disId = innerEle.disId;
+                  ele.disPercent = innerEle.disPercent;
+                  ele.disFlag = innerEle.disFlag;
+                }
+              })
             } else {
               ele.total = ele.quantity * ele.mrp;
               ele.productDiscount = this.subTotal;
               ele.savingValue = this.savingValue;
-              ele.gskDiscount = this.gskDiscount;
+              //  ele.gskDiscount = this.gskDiscount;
               ele.disId = innerEle.disId ? innerEle.disId : "";
               ele.disPercent = innerEle.disAmtPerUnit ? innerEle.disAmtPerUnit : "";
               ele.disFlag = innerEle.disFlag ? innerEle.disFlag : "";
@@ -253,27 +278,43 @@ export class OrderSummaryPage implements OnInit {
           }
         )
         if (discountItem.isPercentDiscount == false) {
-          this.discountInfo.gskDisPerUnitPerProdList.map(
+          this.discountInfo.gskDisPerUnitPerProd.map(
+            //  this.discountInfo.gskDisPerUnitPerProdList.map(
             (innerEle: any) => {
-              console.log("inner ele of gskDisPerUnitPerProdList ", innerEle);
               if (innerEle != null) {
                 if (ele.productCode === innerEle.gskProductCode) {
                   discountItem.isDiscount = true;
                   discountItem.uDiscount = innerEle.gskDisPerUnitList;
-                  if (ele.quantity >= innerEle.minQty) {
-                    let total = ele.quantity * ele.mrp;
-                    ele.quantity >= innerEle.minQty ? this.subTotal = (total - ((total * innerEle.disAmtPerUnit) / 100)) : this.subTotal = total;
-                    //this.subTotal = (total - ((total * innerEle.disPercent) / 100));
-                    this.savingValue += total - this.subTotal;
-                    this.gskDiscount += this.subTotal;
-                    ele.total = total;
-                    ele.productDiscount = this.subTotal;
-                    ele.savingValue = this.savingValue;
-                    ele.gskDiscount = this.gskDiscount;
-                    ele.disId = innerEle.disId;
-                    ele.disPercent = innerEle.disAmtPerUnit;
-                    ele.disFlag = innerEle.disFlag;
-                  }
+                  innerEle.gskDisPerUnitList.map((percentList: any) => {
+                    if (ele.quantity >= percentList.minQty) {
+                      this.subTotalTwo = 0;
+                      var total = 0;
+                      console.log("percent ", percentList);
+                      total = ele.quantity * ele.mrp;
+                      this.subTotalTwo = (total - ((total * percentList.disAmtPerUnit) / 100));
+                      this.savingValueTwo = total - this.subTotalTwo;
+                      //  this.gskDiscount += this.subTotal;
+                      ele.total = total;
+                      ele.productDiscount = this.subTotal;
+                      ele.savingValue = this.savingValueTwo;
+                      //  ele.gskDiscount = this.gskDiscount;
+                      ele.disId = innerEle.disId;
+                      ele.disPercent = innerEle.disAmtPerUnit;
+                      ele.disFlag = innerEle.disFlag;
+                    } else {
+                      total = ele.quantity * ele.mrp;
+                      this.subTotalTwo = total;
+                      this.savingValue += total - this.subTotalTwo;
+                      // this.gskDiscount += this.subTotal;
+                      ele.total = total;
+                      ele.productDiscount = this.subTotalTwo;
+                      ele.savingValue = this.savingValueTwo;
+                      //  ele.gskDiscount = this.gskDiscount;
+                      ele.disId = innerEle.disId;
+                      ele.disPercent = innerEle.disAmtPerUnit;
+                      ele.disFlag = innerEle.disFlag;
+                    }
+                  })
                 } else {
                   ele.total = ele.quantity * ele.mrp;
                   ele.productDiscount = this.subTotal;
@@ -282,12 +323,14 @@ export class OrderSummaryPage implements OnInit {
                   ele.disId = innerEle.disId ? innerEle.disId : "";
                   ele.disPercent = innerEle.disAmtPerUnit ? innerEle.disAmtPerUnit : "";
                   ele.disFlag = innerEle.disFlag ? innerEle.disFlag : "";
-
                 }
               }
             }
           )
         }
+        console.log("savingValueTwo ", this.savingValueTwo);
+        console.log("savingValue ", this.savingValue);
+        this.savingValue = this.savingValueTwo + this.savingValue;
         discountItem.productCode = ele.productCode;
         this.dViaProduct.push(discountItem);
       }

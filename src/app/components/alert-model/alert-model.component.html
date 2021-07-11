@@ -42,7 +42,7 @@
     <ion-row style="display: block;">
       <ion-item class="dropdownClr">
         <ion-label>Status</ion-label>
-        <ion-select (ionChange)="selectValue($event)" [(ngModel)]="productsData" placeholder="Select">
+        <ion-select (ionChange)="selectValue($event)"  placeholder="Select">
           <ion-select-option value="all">All</ion-select-option>
           <ion-select-option value="ordered">Ordered</ion-select-option>
           <ion-select-option value="confirmed">Confirmed</ion-select-option>
@@ -54,7 +54,7 @@
     <ion-row style="display: block;">
       <ion-item class="dropdownClr">
         <ion-label>Product</ion-label>
-        <ion-select (ionChange)="productSelect($event)" [(ngModel)]="selectedProd" placeholder="Select">
+        <ion-select (ionChange)="productSelect($event)"  placeholder="Select">
           <ion-select-option *ngFor="let prod of productsData; let i = index" value="{{prod.productCode}}">{{prod.productDescription}}</ion-select-option>
         </ion-select>
       </ion-item>

@@ -6,6 +6,7 @@
   background: transparent linear-gradient(180deg, #EF4B22 0%, #F69427 100%) 0% 0% no-repeat padding-box;
   opacity: 1;
 }
+
 ion-card {
   background-color: var(--ion-gsk-white-color);
   margin-bottom: 10px;
@@ -19,4 +20,16 @@ ion-item {
   --detail-icon-color: var(--ion-gsk-orange-color);
   --detail-icon-font-size: 24px;
   --detail-icon-opacity: 1;
+}
+
+.cardTop {
+  margin-top: 10px;
+}
+
+.msgDiv {
+  text-align: center;
+  text-align: center;
+  margin-top: 30%;
+  font-size: 25px;
+  color: var(--ion-gsk-orange-color);
 }

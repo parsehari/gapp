@@ -13,7 +13,7 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class MyOrdersPage implements OnInit {
   bgColor: any;
-  myOrders: any;
+  myOrders: any = [];
   dataSearch: any;
   constructor(private router: Router,
     private apiService: ApiService,
@@ -42,8 +42,8 @@ export class MyOrdersPage implements OnInit {
     modal.onDidDismiss()
       .then((data) => {
         console.log("data ", data);
-        this.dataSearch = data;
-        this.filterList(this.dataSearch);
+        this.dataSearch = data.data;
+        this.getMyOrders(this.dataSearch);
       });
 
     return await modal.present();
@@ -53,18 +53,21 @@ export class MyOrdersPage implements OnInit {
     this.router.navigate(["/order-details", { orderNo: gskOrderNo }]);
   }
 
-  filterList(search) {
 
-  }
-
-  getMyOrders() {
-    var startdate = moment().format("DD-MM-YYYY");
-    var enddate = moment().subtract(6, "months").format('DD-MM-YYYY');
-
-    console.log("start date :", startdate);
-    console.log("end date :", enddate);
+  getMyOrders(data?: any) {
+    console.log("data ", data);
+    var orderStart = '';
+    var orderEnd = '';
+    var orderStatus = 'All';
+    var product = '';
+    if (data) {
+      orderStart = data.startDate;
+      orderEnd = data.endDate;
+      orderStatus = data.orderStatus;
+      product = data.productsData
+    }
     this.commonService.showLoader();
-    this.apiService.postDataService(this.apiService.myOrders, { "OrderStartDate": '', "OrderEndDate": '', "OrderStatus": 'All' }).subscribe((response: any) => {
+    this.apiService.postDataService(this.apiService.myOrders, { "OrderStartDate": orderStart, "OrderEndDate": orderEnd, "OrderStatus": orderStatus }).subscribe((response: any) => {
       this.commonService.hideLoader();
       this.myOrders = response.gsk_Ord_Header_BO_List;
       console.log("my orders ", this.myOrders);
