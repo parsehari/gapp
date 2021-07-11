@@ -1,8 +1,7 @@
+import { PercentDiscountInfo } from "./percent-discount-info.model";
+
 export class PercentDiscount {
-    public disId: string;
-    public gskProductCode: string;
-    public disPercent: string;
-    public disFlag: string;
-    public minQty:string;
+    public gskProductCode?: string;
+    public gskDisPercentList:PercentDiscountInfo[];
     
 }

@@ -31,15 +31,16 @@
                      </tr>
                    </thead>
                    <tbody *ngIf="dViaProduct[i].isPercentDiscount">
-                     <tr>
-                     <td>1</td>
-                     <td>{{dViaProduct[i].pDiscount.disPercent}}</td>
-                     </tr>
+                    
+                    <tr *ngFor="let item of dViaProduct[i].pDiscount;let j=index;">
+                      <td>{{item.minQty}}</td>
+                      <td>{{(item.disPercent | number:'1.0-0') + " %"}}</td>
+                      </tr>
                    </tbody>
                    <tbody *ngIf="!dViaProduct[i].isPercentDiscount">
                     <tr *ngFor="let item of dViaProduct[i].uDiscount;let j=index;">
                     <td>{{item.minQty}}</td>
-                    <td>{{item.disAmtPerUnit}}</td>
+                    <td>{{item.disAmtPerUnit | currency:'INR':'symbol-narrow':'1.0-0'}}</td>
                     </tr>
                   </tbody>
                   </table>

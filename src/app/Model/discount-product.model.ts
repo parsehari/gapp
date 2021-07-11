@@ -1,3 +1,4 @@
+import { PercentDiscountInfo } from "./percent-discount-info.model";
 import { PercentDiscount } from "./percent-discount.model";
 import { UnitDiscountInfo } from "./unit-discount-info.model";
 import { UnitDiscount } from "./unit-discount.model";
@@ -7,5 +8,5 @@ export class DiscountProduct {
     public isDiscount: boolean;
     public isPercentDiscount: boolean;
     public uDiscount?: UnitDiscountInfo[];
-    public pDiscount?: PercentDiscount;
+    public pDiscount?: PercentDiscountInfo[];
 }

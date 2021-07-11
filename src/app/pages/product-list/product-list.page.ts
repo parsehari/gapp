@@ -125,17 +125,17 @@ export class ProductListPage implements OnInit {
         var discountItem = new DiscountProduct();
         discountItem.isPercentDiscount = false;
         discountItem.isDiscount = false;
-        this.discountInfo.gskDisPercentList.map(
+        this.discountInfo.disPercentWithProdList.map(
           (innerEle) => {
             if (ele.productCode === innerEle.gskProductCode) {
               discountItem.isPercentDiscount = true;
               discountItem.isDiscount = true;
-              discountItem.pDiscount = innerEle;
+              discountItem.pDiscount = innerEle.gskDisPercentList;
             }
           }
         )
         if (discountItem.isPercentDiscount == false) {
-          this.discountInfo.gskDisPerUnitPerProdList.map(
+          this.discountInfo.gskDisPerUnitPerProd.map(
             (innerEle) => {
               if (innerEle != null) {
                 if (ele.productCode === innerEle.gskProductCode) {
