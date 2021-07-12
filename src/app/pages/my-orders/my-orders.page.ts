@@ -15,6 +15,10 @@ export class MyOrdersPage implements OnInit {
   bgColor: any;
   myOrders: any = [];
   dataSearch: any;
+  noOrdermsg: any;
+  offset: any = 1;
+  limit: any = 5;
+  disable: any = false;
   constructor(private router: Router,
     private apiService: ApiService,
     private commonService: CommonService,
@@ -23,7 +27,7 @@ export class MyOrdersPage implements OnInit {
   }
 
   ngOnInit() {
-    this.getMyOrders();
+    this.getMyOrders('');
   }
 
   showFilter() {
@@ -43,6 +47,9 @@ export class MyOrdersPage implements OnInit {
       .then((data) => {
         console.log("data ", data);
         this.dataSearch = data.data;
+        this.myOrders = [];
+        this.offset = 1;
+        this.disable = false;
         this.getMyOrders(this.dataSearch);
       });
 
@@ -53,24 +60,46 @@ export class MyOrdersPage implements OnInit {
     this.router.navigate(["/order-details", { orderNo: gskOrderNo }]);
   }
 
+  loadMore() {
+    let lim = this.limit + this.offset;
+    this.offset = lim;
+    this.getMyOrders(this.dataSearch);
+  }
 
   getMyOrders(data?: any) {
-    console.log("data ", data);
+
     var orderStart = '';
     var orderEnd = '';
-    var orderStatus = 'All';
-    var product = '';
-    if (data) {
-      orderStart = data.startDate;
-      orderEnd = data.endDate;
-      orderStatus = data.orderStatus;
-      product = data.productsData
+    var orderStatus = 'ALL';
+    var productCode = 'ALL';
+    console.log("data ", data);
+    if (data != undefined) {
+      orderStart = data.startDate ? orderStart = data.startDate : '';
+      orderEnd = data.endDate ? orderEnd = data.endDate : '';
+      orderStatus = data.orderStatus ? orderStatus = data.orderStatus : 'ALL';
+      productCode = data.productsData ? productCode = data.productsData : 'ALL';
+      console.log("inside data ");
     }
+    console.log("data ", data);
     this.commonService.showLoader();
-    this.apiService.postDataService(this.apiService.myOrders, { "OrderStartDate": orderStart, "OrderEndDate": orderEnd, "OrderStatus": orderStatus }).subscribe((response: any) => {
+    console.log("offset ", this.offset);
+    console.log("limit ", this.limit);
+    this.apiService.postDataService(this.apiService.myOrders, { "OrderStartDate": orderStart, "OrderEndDate": orderEnd, "OrderStatus": orderStatus, "productCode": productCode, "offset": this.offset, "limit": this.limit }).subscribe((response: any) => {
       this.commonService.hideLoader();
-      this.myOrders = response.gsk_Ord_Header_BO_List;
-      console.log("my orders ", this.myOrders);
+      if (response.code == "811" || response.code) {
+        this.noOrdermsg = response.message;
+        this.disable = true;
+      } else {
+        if (this.offset > 1) {
+          response.gsk_Ord_Header_BO_List.map((ele: any) => {
+            this.myOrders.push(ele);
+          })
+        } else {
+          this.myOrders = response.gsk_Ord_Header_BO_List;
+        }
+        this.disable = false;
+        console.log("my orders ", this.myOrders);
+      }
     }, (err) => {
       console.log("error ", err);
       this.commonService.hideLoader();

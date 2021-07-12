@@ -47,13 +47,13 @@ export class OrderDetailsPage implements OnInit {
   }
 
   getInvoiceData() {
-    this.apiService.getDataService(this.apiService.GetInvoiceDetailByOrderNo + '/' + this.orderNo).subscribe((response: any) => {
-      console.log("response ", response);
-      this.orderInvoice = response;
-    }, (err) => {
-      console.log("error ", err);
-      this.commonService.showToast(err.message);
-    })
+    // this.apiService.getDataService(this.apiService.GetInvoiceDetailByOrderNo + '/' + this.orderNo).subscribe((response: any) => {
+    //   console.log("response ", response);
+    //   this.orderInvoice = response;
+    // }, (err) => {
+    //   console.log("error ", err);
+    //   this.commonService.showToast(err.message);
+    // })
   }
 
   async viewDetails() {

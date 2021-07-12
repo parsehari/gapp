@@ -89,14 +89,14 @@
   <div class="o-info-d-container">
     <div class="t-o-d-lcontainer">
       <ion-label class="o-d-flabel"><p class="title">Ordered</p>
-      <p class="subtitle">April 29, 2021, 5:30PM</p></ion-label>
+      <p class="subtitle">{{createdOn | date:'short'}}</p></ion-label>
       <ion-label class="o-d-slabel">
         <p class="title">Confirmed</p>
-      <p class="subtitle">April 29, 2021, 5:30PM</p></ion-label>
+      <p class="subtitle">{{gskOrderDate | date:'short'}}</p></ion-label>
       <ion-label class="o-d-tlabel"><p class="title">Invoiced</p>
-        <p class="subtitle">April 29, 2021, 5:30PM</p></ion-label>
+        <p class="subtitle">{{payGatewayTrxnDt | date:'short'}}</p></ion-label>
       <ion-label class="o-d-folabel"><p class="title">Delivered</p>
-        <p class="subtitle">April 29, 2021, 5:30PM</p></ion-label>
+        <p class="subtitle">{{deliveryDate | date:'short'}}</p></ion-label>
     </div>
   </div>
 </div>

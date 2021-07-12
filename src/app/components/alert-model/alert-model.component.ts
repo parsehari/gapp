@@ -69,7 +69,8 @@ export class AlertModelComponent implements OnInit {
       'orderStatus': this.selectedValue,
       'startDate': this.startDate,
       'endDate': this.endDate,
-      'productsData': this.productselectedValue
+      'productsData': this.productselectedValue,
+      'apply': true
     }
     this.modalController.dismiss(filter);
   }

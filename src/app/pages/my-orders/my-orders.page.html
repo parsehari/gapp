@@ -2,7 +2,7 @@
 </app-header>
 
 <ion-content>
-  <!-- <div *ngIf="myOrders.length; else noOrderMessage" class="cardTop">  -->
+  <div *ngIf="myOrders.length; else noOrderMessage" class="cardTop"> 
   <ion-card *ngFor="let orders of myOrders;let i = index"  [ngStyle]="{'background-color':bgColor}"  (click)="goToDetail(orders.gskOrderNo)" >
     <ion-item detail lines="none">
         <ion-icon slot="start"  name="person" class="card-icon"></ion-icon>
@@ -14,14 +14,21 @@
         </ion-label>
       </ion-item>
     </ion-card>
-    <!-- </div>
+    </div>
     <ng-template #noOrderMessage>
       <ion-row>
         <ion-col class="msgDiv">
           <div> 
-              No Orders
+              {{noOrdermsg}}
           </div>
         </ion-col>
         </ion-row>
-    </ng-template> -->
+    </ng-template>
 </ion-content>
+<ion-footer class="ion-no-border">
+  <ion-row>
+      <ion-col>
+      <ion-button expand="block" fill="solid" (click)="loadMore();" [disabled]="disable">Load more</ion-button>
+    </ion-col>
+    </ion-row>
+</ion-footer>

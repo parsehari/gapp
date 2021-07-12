@@ -2,8 +2,9 @@
 </app-header>
 
 <ion-content>
-  <app-track-order  [isOrderdetails]="true"></app-track-order>
-<div *ngIf="bindata">
+  <div *ngIf="bindata">
+  <app-track-order  [isOrderdetails]="true"  [createdOn]="orderDetailHeader.createdOn" [gskOrderDate]="orderDetailHeader.gskOrderDate" [payGatewayTrxnDt]="orderDetailHeader.payGatewayTrxnDt" [deliveryDate]="orderDetailHeader.deliveryDate"></app-track-order>
+
 <ion-card>
   <div class="cardContent">
     Order Id: {{orderDetailHeader.gskOrderNo}}
@@ -34,10 +35,10 @@
       Sub Total
     </ion-col>
     <ion-col>
-      {{orderDetailHeader.orderValue}}
+      {{orderDetailHeader.subTotal}}
     </ion-col>
     <ion-col>
-      {{orderDetailHeader.orderValue}}
+      {{orderDetailHeader.subTotal}}
     </ion-col>
   </ion-row>
   <ion-row class="cardContentDetail">

@@ -35,6 +35,7 @@ export class OrderSummaryPage implements OnInit {
     private storageService: StorageService,
     private activatedroute: ActivatedRoute
   ) {
+    console.log("this previous ", this.commonService.getPreviousUrl());
     this.activatedroute.params.subscribe((params) => {
       if (params["cartInfo"]) {
         this.cartWithPDistributor = JSON.parse(params["cartInfo"]);
@@ -45,8 +46,7 @@ export class OrderSummaryPage implements OnInit {
       } if (params["fromEvent"]) {
         this.formEvent = params["fromEvent"];
       }
-      console.log("this.formView ", this.formView);
-      console.log("this.formEvent ", this.formEvent);
+
       if ((this.formView == "product-list" && this.formEvent == "buyNow") || (this.formView == "product-list" && this.formEvent == "aCart")) {
         this.cartWithPDistributor.forEach(element => {
           console.log("element ", element);
@@ -76,31 +76,6 @@ export class OrderSummaryPage implements OnInit {
         });
         this.callAll();
       }
-      // if (this.formView == "product-list" && this.formEvent == "aCart") {
-      //   console.log("product-list buyNow");
-      //   this.cartWithPDistributor.forEach(element => {
-      //     if (element.stockiestOne) {
-      //       if (this.stockiestObj.stockiest === element.stockiestOne.stockiest) {
-      //         element.unitCart.mrp = element.stockiestOne.stokiestRate;
-      //       }
-      //     } if (element.stockiestTwo) {
-      //       if (this.stockiestObj.stockiest === element.stockiestTwo.stockiest) {
-      //         element.stockiestOne.stokiestRate ? element.unitCart.mrp = element.stockiestOne.stokiestRate : '';
-      //       }
-      //     } if (element.stockiestThree) {
-      //       if (this.stockiestObj.stockiest === element.stockiestThree.stockiest) {
-      //         element.unitCart.mrp = element.stockiestOne.stokiestRate;
-      //       }
-      //     }
-      //     this.products.push(element.unitCart);
-      //   });
-      //   console.log("products ", this.products);
-      //   this.products.forEach(element => {
-      //     console.log("elem ", element);
-      //     this.productsArr.push(element.productCode);
-      //   });
-      //   this.callAll();
-      // }
       if ((this.formView == "distributor" && this.formEvent == "buyNow") || (this.formView == "distributor" && this.formEvent == "aCart")) {
         console.log("buyNow aCart");
         this.cartWithPDistributor.forEach(element => {
@@ -109,12 +84,6 @@ export class OrderSummaryPage implements OnInit {
           this.callAll();
         })
       }
-
-      console.log("this.cartWithPDistributor ", this.cartWithPDistributor);
-      console.log("this.stockiestObj ", this.stockiestObj);
-      console.log("this.formView ", this.formView);
-      console.log("this.formEvent ", this.formEvent);
-
     })
 
   }
@@ -230,7 +199,6 @@ export class OrderSummaryPage implements OnInit {
         // this.discountInfo.gskDisPercentList.map(
         this.discountInfo.disPercentWithProdList.map(
           (innerEle: any) => {
-            console.log("inner ele of disPercentWithProdList ", innerEle);
             if (ele.productCode === innerEle.gskProductCode) {
               discountItem.isPercentDiscount = true;
               discountItem.isDiscount = true;
@@ -243,18 +211,17 @@ export class OrderSummaryPage implements OnInit {
                   total = ele.quantity * ele.mrp;
                   this.subTotal = (total - ((total * percentList.disPercent) / 100));
                   this.savingValue = total - this.subTotal;
-
+                  console.log("subTotalone ", this.subTotal);
                   ele.total = total;
                   ele.productDiscount = this.subTotal;
                   ele.savingValue = this.savingValue;
                   ele.disId = innerEle.disId;
                   ele.disPercent = innerEle.disPercent;
                   ele.disFlag = innerEle.disFlag;
+                  //ele. = 
                 } else {
                   total = ele.quantity * ele.mrp;
                   this.subTotal = total;
-                  console.log("percent ", percentList);
-                  console.log("total ", total);
                   this.savingValue += total - this.subTotal;
                   ele.total = total;
                   ele.productDiscount = this.subTotal;
@@ -287,15 +254,12 @@ export class OrderSummaryPage implements OnInit {
                     if (ele.quantity >= percentList.minQty) {
                       this.subTotalTwo = 0;
                       var total = 0;
-                      console.log("percent ", percentList);
                       total = ele.quantity * ele.mrp;
-                      this.subTotalTwo = (total - ((total * percentList.disAmtPerUnit) / 100));
-                      this.savingValueTwo = total - this.subTotalTwo;
-                      //  this.gskDiscount += this.subTotal;
+                      this.subTotalTwo = (ele.quantity * percentList.disAmtPerUnit);
+                      this.savingValueTwo = this.subTotalTwo;
                       ele.total = total;
-                      ele.productDiscount = this.subTotal;
+                      ele.productDiscount = this.subTotalTwo;
                       ele.savingValue = this.savingValueTwo;
-                      //  ele.gskDiscount = this.gskDiscount;
                       ele.disId = percentList.disId;
                       ele.disPercent = percentList.disAmtPerUnit;
                       ele.disFlag = percentList.disFlag;
@@ -319,18 +283,19 @@ export class OrderSummaryPage implements OnInit {
                   ele.savingValue = this.savingValue;
                   ele.gskDiscount = this.gskDiscount;
                   ele.disId = innerEle.disId ? innerEle.disId : "";
-                  ele.disPercent = innerEle.disAmtPerUnit;
+                  ele.disPercent = innerEle.disAmtPerUnit ? ele.disPercent = innerEle.disAmtPerUnit : 0;
                   ele.disFlag = innerEle.disFlag ? innerEle.disFlag : "";
                 }
               }
             }
           )
         }
-        console.log("savingValueTwo ", this.savingValueTwo);
-        console.log("savingValue ", this.savingValue);
+
+        console.log("subTotalTwo ", this.subTotalTwo);
         this.savingValue = this.savingValueTwo + this.savingValue;
         discountItem.productCode = ele.productCode;
         this.dViaProduct.push(discountItem);
+        console.log("saving value ", this.savingValue);
       }
     )
     console.log("gst Total ", this.gstTotal);

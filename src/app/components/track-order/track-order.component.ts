@@ -6,10 +6,24 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./track-order.component.scss'],
 })
 export class TrackOrderComponent implements OnInit {
- @Input() isPayment=true;
- @Input() isOrderdetails=false;
-  constructor() { }
+  @Input() isPayment = true;
+  @Input() isOrderdetails = false;
 
-  ngOnInit() {}
+  @Input() gskOrderDate: any;
+  @Input() createdOn: any;
+  @Input() payGatewayTrxnDt: any;
+  @Input() deliveryDate: any;
+
+  constructor() {
+  }
+
+  ngOnInit() {
+
+    console.log("gskOrderDate ", this.gskOrderDate);
+    console.log("createdOn ", this.createdOn);
+    console.log("payGatewayTrxnDt ", this.payGatewayTrxnDt);
+    console.log("deliveryDate ", this.deliveryDate);
+  }
+
 
 }
