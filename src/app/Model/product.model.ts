@@ -7,4 +7,5 @@ public quantity:number;
 public stokiestRate?:number;
 public stockistCerpCode :string;
 public salebleQty?:number;
+public pI_URL?: string;
 }

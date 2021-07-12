@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { MenuController, ModalController } from '@ionic/angular';
+import { PdfViewerComponent } from 'src/app/components/pdf-viewer/pdf-viewer.component';
 import { CartModel } from 'src/app/Model/cart.model';
 import { DiscountProduct } from 'src/app/Model/discount-product.model';
 import { Discount } from 'src/app/Model/discount.model';
@@ -29,7 +30,8 @@ export class ProductListPage implements OnInit {
     private apiService: ApiService,
     private commonService: CommonService,
     private route: ActivatedRoute,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private mCtrl:ModalController
   ) {
     this.route.params.subscribe(
       (param) => {
@@ -94,6 +96,7 @@ export class ProductListPage implements OnInit {
         prod.stockistCerpCode = ele.stockistCerpCode;
         prod.stokiestRate = ele.stokiestRate;
         prod.salebleQty = ele.salebleQty;
+        prod.pI_URL = ele.pI_URL;
         if (ele.stokiestRate > 0) {
           prod.ptr = ele.stokiestRate.toString();
         } else {
@@ -174,7 +177,7 @@ export class ProductListPage implements OnInit {
           var cartProd = new CartModel();
           cartProd.productCode = ele.productCode;
           cartProd.productDescription = ele.productDescription;
-          cartProd.productImage = ele.productImage;
+          cartProd.productImage = '';
           cartProd.quantity = ele.quantity;
           cartProd.mrp = parseFloat(ele.ptr);
           cartList.push(cartProd);
@@ -251,5 +254,15 @@ export class ProductListPage implements OnInit {
   getImageURL(imageSource) {
     return this.commonService.getImageURLFromBase64(imageSource);
   }
-
+ async viewPdf(prod :Product){
+   console.log("pdf :",prod.pI_URL);
+  const pdfModel = await this.mCtrl.create({
+    component:PdfViewerComponent,
+    cssClass:'pdf-style',
+    componentProps: {
+      'url': prod.pI_URL,
+    }
+  });
+  return await pdfModel.present();
+  }
 }

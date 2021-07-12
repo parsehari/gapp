@@ -11,10 +11,6 @@ table{
     min-height: 60px !important;
     position: relative;
     margin: 1px;
-    ion-label{
-        color: white;
-    }
-  
 }
 .color-trans {
     background-color: transparent;
@@ -27,12 +23,17 @@ table{
     }
   
 }
+.color-white {
+    color: white;
+}
+.color-black {
+    color: black;
+}
 .center-data{
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
- 
 }
 .color-red{
     background-color:red;
@@ -40,9 +41,6 @@ table{
     min-height: 60px !important;
     position: relative;  
     margin: 1px;  
-    ion-label{
-        color: white;
-    }
 }
 tr:nth-child(even) {background-color: rgb(227, 227, 227)}
 tr {

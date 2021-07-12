@@ -7,4 +7,5 @@ export class ProductByDistributor{
     public ptr:number;
     public productImage :string;
     public salebleQty?:number;
+    public pI_URL?:string;
 }

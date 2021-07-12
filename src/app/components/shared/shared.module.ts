@@ -7,24 +7,29 @@ import { FooterComponent } from '../footer/footer.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { TrackOrderComponent } from '../track-order/track-order.component';
 import { AlertModelComponent } from '../alert-model/alert-model.component';
+import { PdfViewerComponent } from '../pdf-viewer/pdf-viewer.component';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, ExpandableComponent,FooterComponent,TrackOrderComponent,AlertModelComponent],
+  declarations: [HeaderComponent, ExpandableComponent,FooterComponent,TrackOrderComponent,AlertModelComponent,PdfViewerComponent],
   imports: [
     CommonModule,
     IonicModule,
-    TranslateModule.forChild(),
+    NgxExtendedPdfViewerModule,
+    TranslateModule.forChild()
   ],
   exports: [
     HeaderComponent,
     ExpandableComponent,
     FooterComponent,
     TrackOrderComponent,
-    AlertModelComponent
+    AlertModelComponent,
+    PdfViewerComponent
 
   ]
 })
-export class SharedModule { }
+export class SharedModule { 
+}

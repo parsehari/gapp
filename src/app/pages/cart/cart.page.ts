@@ -79,8 +79,20 @@ export class CartPage implements OnInit {
     if(cartItem.length == 0){
      this.commonService.presentOneButtonAlert('GSK','Please add item to cart before proceed','OK')
     }else{
+      let cartList: CartModel[] = [];
+      cartItem.map(
+        (ele) => {
+          var cartProd = new CartModel();
+          cartProd.productCode = ele.productCode;
+          cartProd.productDescription = ele.productDescription;
+          cartProd.productImage = '';
+          cartProd.quantity = ele.quantity;
+          cartProd.mrp = ele.mrp;
+          cartList.push(cartProd);
+        }
+      )
       var cartJson = {
-        "Gsk_CartList":cartItem
+        "Gsk_CartList":cartList
       }
       this.commonService.showLoader();
       this.apiService.postDataService(this.apiService.saveCartURL,cartJson).subscribe(
