@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from './storage.service';
+import { CartModel } from '../Model/cart.model';
 
 
 

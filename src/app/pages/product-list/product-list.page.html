@@ -58,12 +58,12 @@
           </div>
           <div  class="content"></div>
         </ion-col >
-        <ion-col class="img-padding">
+        <ion-col class="img-padding" (click)="viewPdf(product)">
           <div class="ion-text-center">
             <img [src]="getImageURL(product.productImage)">
           </div>
         </ion-col>
-        <ion-col *ngIf="product?.stockistCerpCode" class="img-padding" size="2">
+        <ion-col class="img-padding" size="2">
           <div class="ion-text-right">
             <ion-label>{{product.ptr | currency:'INR':'symbol-narrow':'1.0-0'}}</ion-label>
           </div>
