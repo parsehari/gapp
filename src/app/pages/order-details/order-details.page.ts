@@ -15,6 +15,7 @@ export class OrderDetailsPage implements OnInit {
   public orderDetailHeader: any;
   public bindata: boolean = false;
   public orderInvoice: any;
+  public orderDetailInfo: any;
   constructor(private modelCtrl: ModalController, private menu: MenuController,
     private activatedroute: ActivatedRoute,
     private apiService: ApiService,
@@ -22,7 +23,6 @@ export class OrderDetailsPage implements OnInit {
   ) {
     this.orderNo = this.activatedroute.snapshot.paramMap.get('orderNo');
     console.log("orderDetailHeader", this.orderDetailHeader);
-
   }
 
   ngOnInit() {
@@ -37,6 +37,7 @@ export class OrderDetailsPage implements OnInit {
     this.apiService.getDataService(this.apiService.getOrderDetail + '/' + this.orderNo).subscribe((response: any) => {
       console.log("response ", response);
       this.orderDetailHeader = response.ord_Header_BO;
+      this.orderDetailInfo = response.order_Info_BO;
       console.log('detail ', this.orderDetailHeader);
       this.bindata = true;
       this.getInvoiceData()
@@ -59,7 +60,11 @@ export class OrderDetailsPage implements OnInit {
   async viewDetails() {
     const model = await this.modelCtrl.create({
       component: OrderViewModalPage,
-      cssClass: 'my-custom-modal-css'
+      cssClass: 'my-custom-modal-css',
+      componentProps: {
+        data: this.orderDetailHeader,
+        detail: this.orderDetailInfo
+      }
     })
     return await model.present();
   }

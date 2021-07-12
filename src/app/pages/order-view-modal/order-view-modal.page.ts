@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-order-view-modal',
@@ -7,10 +7,18 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./order-view-modal.page.scss'],
 })
 export class OrderViewModalPage implements OnInit {
+  orderViewDetail: any;
+  orderViewDetailInfo: any;
 
-  constructor(private modalController: ModalController) { }
+  constructor(private modalController: ModalController, private navParams: NavParams) { }
 
   ngOnInit() {
+
+    this.orderViewDetail = this.navParams.data.data;
+    this.orderViewDetailInfo = this.navParams.data.detail;
+
+    console.log("orderViewDetail ", this.orderViewDetail);
+    console.log("orderViewDetailInfo ", this.orderViewDetailInfo);
   }
 
   dismissModel() {

@@ -10,51 +10,23 @@
   <div>
     <ion-row class="distName">
       <ion-col>
-        Distributor: Distributor name
+        Distributor: {{orderViewDetail.stockistCerpCode}}
       </ion-col>
     </ion-row>
   </div>
     <ion-card>
-      <ion-row class="cardContentDetail">
+      <ion-row class="cardContentDetail" *ngFor="let orderBo of orderViewDetailInfo; let i = index">
         <ion-col size="6">
-          Synflorix
+          {{orderBo.productCode}}
           <div class="priceCs">
-            {{1233| currency:'INR'}}
+            {{orderBo.productValue| currency:'INR'}}
           </div>
         </ion-col>
         <ion-col size="2">
-          12
+          {{orderBo.quantity}}
         </ion-col>
         <ion-col size="4">
-          {{123345| currency:'INR'}}
-        </ion-col>
-      </ion-row>
-      <ion-row class="cardContentDetail">
-        <ion-col size="6">
-          Cervarix
-          <div class="priceCs">
-            {{342| currency:'INR'}}
-          </div>
-        </ion-col>
-        <ion-col size="2">
-          123
-        </ion-col>
-        <ion-col size="4">
-          {{123345| currency:'INR'}}
-        </ion-col>
-      </ion-row>
-      <ion-row class="cardContentDetailGST">
-        <ion-col size="6">
-          Infarix
-          <div class="priceCs">
-            {{456| currency:'INR'}}
-          </div>
-        </ion-col>
-        <ion-col size="2">
-          123
-        </ion-col>
-        <ion-col size="4">
-          {{123345| currency:'INR'}}
+          {{orderBo.ratePerUnit| currency:'INR'}}
         </ion-col>
       </ion-row>
     </ion-card>
@@ -64,7 +36,7 @@
           Sub Total
         </ion-col>
         <ion-col size="4">
-          {{123345| currency:'INR':'symbol-narrow':'4.2-2'}}
+          {{orderViewDetail.subTotal| currency:'INR'}}
         </ion-col>
       </ion-row>
       <ion-row class="orderClass">
@@ -72,7 +44,7 @@
           GST
         </ion-col>
         <ion-col size="4">
-          {{123345| currency:'INR':'symbol-narrow':'4.2-2'}}
+          {{orderViewDetail.totalTax| currency:'INR'}}
         </ion-col>
       </ion-row>
       <ion-row class="orderClass">
@@ -80,7 +52,7 @@
           GST Discount
         </ion-col>
         <ion-col size="4">
-          {{123345| currency:'INR':'symbol-narrow':'4.2-2'}}
+          {{orderViewDetail.totalDiscount| currency:'INR'}}
         </ion-col>
       </ion-row>
       </div>
@@ -90,7 +62,7 @@
           Net Price
         </ion-col>
         <ion-col size="4">
-          {{123345| currency:'INR':'symbol-narrow':'4.2-2'}}
+          {{orderViewDetail.orderValue| currency:'INR'}}
         </ion-col>
       </ion-row>
       </div>
