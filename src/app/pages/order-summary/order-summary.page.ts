@@ -218,6 +218,7 @@ export class OrderSummaryPage implements OnInit {
                   ele.disId = innerEle.disId;
                   ele.disPercent = innerEle.disPercent;
                   ele.disFlag = innerEle.disFlag;
+                  console.log("test ", ele.productCode);
                   //ele. = 
                 } else {
                   total = ele.quantity * ele.mrp;
@@ -263,6 +264,7 @@ export class OrderSummaryPage implements OnInit {
                       ele.disId = percentList.disId;
                       ele.disPercent = percentList.disAmtPerUnit;
                       ele.disFlag = percentList.disFlag;
+                      console.log("test2 ", ele.productCode);
                     } else {
                       total = ele.quantity * ele.mrp;
                       this.subTotalTwo = total;
