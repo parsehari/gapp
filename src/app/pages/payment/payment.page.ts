@@ -41,6 +41,10 @@ export class PaymentPage implements OnInit {
       stobj.stockistCerpCode ? this.stockiestID = stobj.stockistCerpCode : this.stockiestID = null;
 
     }
+    //if for reorder screen
+    if (this.stockiestID == null) {
+      this.stockiestObj ? this.stockiestID = this.stockiestObj : '';
+    }
     console.log("this.stockiestID ", this.stockiestID);
     this.orderDate = new Date();
     this.orderDate = this.datePipe.transform(this.orderDate, 'dd-MM-yyyy');
@@ -86,9 +90,9 @@ export class PaymentPage implements OnInit {
         "RatePerUnit": ele.total.toString(),
         "ProductValue": ele.mrp.toString(),
         "GskDiscountAmount": ele.productDiscount.toString(),
-        "GskDiscountPercent": ele.disPercent.toString(),
-        "DisId": ele.disId.toString(),
-        "TaxPercent": ele.disPercent.toString(),
+        "GskDiscountPercent": ele.disPercent != undefined ? ele.disPercent.toString() : '',
+        "DisId": ele.disId != undefined ? ele.disId.toString() : '',
+        "TaxPercent": ele.disPercent != undefined ? ele.disPercent.toString() : '',
         "TaxValue": ele.productDiscount.toString(),
       })
     })
@@ -98,7 +102,8 @@ export class PaymentPage implements OnInit {
       console.log("response ", response);
       this.commonService.hideLoader();
       if (response.code == "200") {
-        this.removeCartItem();       
+        //  this.removeCartItem();
+        this.route.navigate(['my-orders']);
       } else {
         this.commonService.showToast(response.message);
       }
@@ -110,19 +115,19 @@ export class PaymentPage implements OnInit {
 
   }
 
-  removeCartItem(){
+  removeCartItem() {
     this.commonService.showLoader();
     this.apiService.getDataService(this.apiService.removeCart).subscribe(
-      (response)=>{
+      (response) => {
         this.commonService.hideLoader();
-        if(response.code === '200'){
+        if (response.code === '200') {
           this.commonService.badgeCountValue = 0;
           this.route.navigate(['my-orders']);
-        }else{
+        } else {
           this.commonService.showToast(response.message);
         }
       },
-      (error)=>{
+      (error) => {
         this.commonService.hideLoader();
         this.commonService.showToast(error.message);
       }

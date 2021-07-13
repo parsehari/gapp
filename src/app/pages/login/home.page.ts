@@ -15,7 +15,7 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  public loginInput: string = '9022109940';
+  public loginInput: string = '';
   //public loginInput: string = 'harshada.v.wabgaonkar@gsk.com';
   public inputType: string = 'number';
   public loginType: string;

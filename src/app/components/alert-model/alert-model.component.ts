@@ -20,7 +20,7 @@ export class AlertModelComponent implements OnInit {
   productselectedValue: any;
 
   constructor(private modalController: ModalController, private navParams: NavParams, private storageService: StorageService) {
-    console.log(this.navParams.data.type);
+    console.log('type', this.navParams.data.type);
     if (this.navParams.data.type == "order") {
       this.showFilter = true;
     }
