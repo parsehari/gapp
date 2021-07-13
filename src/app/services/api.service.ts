@@ -132,7 +132,7 @@ export class ApiService {
   public getPDistributorPrice = 'Distributor/GetPriceWrtPrefDistributor';
   public removeItemURL = 'Product/RemoveCartProduct';
   public getDistributorProduct = 'Distributor/GetProductWrtDistributor';
-
+  public removeCart = "Product/Removecart"
   constructor(private httpClient: HttpClient, private storageService: StorageService, public router: Router, private alertController: AlertController, private translate: TranslateService) {
 
   }
