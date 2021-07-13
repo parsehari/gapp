@@ -1,4 +1,4 @@
-<app-header heading="Preferred Distributor's" [showMenuButton]="true" [showSubHeader]="false" [showSearch]="true" [showCart]="true">
+<app-header heading="Preferred Distributors" [showMenuButton]="true" [showSubHeader]="false" [showSearch]="true" [showCart]="true">
 </app-header>
 <ion-content>
     <ion-card *ngFor="let distributor of pDistributorList; let i = index"  [ngStyle]="{'background-color':distributor.isPreferred?'#B8DEFD':'white'}"  (click)="goToDetail(i)" >

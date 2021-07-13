@@ -53,8 +53,8 @@
     "pdistributor":{
         "pdistributorPage":{
             "pdistributor":"Preferred distributor",
-            "save-pdistributor":"Save As Preferred Distributor's",
-            "pdistributor-info":"You can select minimum one or maximum three distributor.{{param}}"
+            "save-pdistributor":"Save As Preferred Distributor",
+            "pdistributor-info":"You can select minimum one or maximum three distributors.{{param}}"
         }
 
     },

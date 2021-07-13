@@ -97,8 +97,16 @@ export class HomePage implements OnInit {
         this.showTermsAndConditions();
       }
     } else {
-      this.commonService.showToast(data.message);
-    }
+      if(data.code === '801' || data.code === '802'){
+        this.commonService.showToast('Please enter registered mobile/email address.');
+      }else{
+        if(data.code === '816'){
+          this.commonService.showToast('Please enter valid mobile/email address.');
+        }else{
+          this.commonService.showToast(data.message);
+        }
+      }
+      }
   }
 
   processLoginError(error: any) {
