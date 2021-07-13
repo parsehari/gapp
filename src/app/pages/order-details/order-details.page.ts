@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController, ModalController } from '@ionic/angular';
+import { CartModel } from 'src/app/Model/cart.model';
 import { OrderViewModalPage } from 'src/app/pages/order-view-modal/order-view-modal.page';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from 'src/app/services/common.service';
@@ -16,10 +17,12 @@ export class OrderDetailsPage implements OnInit {
   public bindata: boolean = false;
   public orderInvoice: any;
   public orderDetailInfo: any;
+  public cartData: any;
   constructor(private modelCtrl: ModalController, private menu: MenuController,
     private activatedroute: ActivatedRoute,
     private apiService: ApiService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private router: Router
   ) {
     this.orderNo = this.activatedroute.snapshot.paramMap.get('orderNo');
     console.log("orderDetailHeader", this.orderDetailHeader);
@@ -69,6 +72,20 @@ export class OrderDetailsPage implements OnInit {
     return await model.present();
   }
   savePressed() {
-
+    let cartList: CartModel[] = [];
+    this.orderDetailInfo.map(
+      (ele) => {
+        console.log("element ", ele);
+        var cartProd = new CartModel();
+        cartProd.productCode = ele.productCode;
+        cartProd.productDescription = ele.productDescription;
+        cartProd.productImage = ele.productImage;
+        cartProd.quantity = ele.quantity;
+        cartProd.mrp = parseFloat(ele.productValue);
+        cartList.push(cartProd);
+      }
+    );
+    console.log("cartList ", cartList);
+    this.router.navigate(['/order-summary', { stockiest: JSON.stringify(this.orderDetailHeader.stockistCerpCode), cartInfo: JSON.stringify(cartList), fromView: 'distributor', fromEvent: 'buyNow' }]);
   }
 }

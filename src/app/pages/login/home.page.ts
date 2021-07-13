@@ -15,7 +15,7 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  public loginInput: string = '';
+  public loginInput: string = '9022109940';
   //public loginInput: string = 'harshada.v.wabgaonkar@gsk.com';
   public inputType: string = 'number';
   public loginType: string;
@@ -89,7 +89,10 @@ export class HomePage implements OnInit {
     this.commonService.hideLoader();
     if (data.hcpCode) {
       this.storageService.setHcpCode(data.hcpCode);
+      this.storageService.set('hcpCode', data.hcpCode);
+      this.storageService.set('apiKey', 'YTAxZTU2NWMtZDM5NS00M2Q3LTkwYzgtYmZiOTFmMzc0OTk3nM391W7QykFhd0OEO3Il6r-VXfP1lDOad7Jlq8FiprIe');
       console.log('varify ', data.tncFlag);
+
       if (data.tncFlag == "true") {
         this.route.navigate(["/otp", { loginData: this.loginInput, type: this.inputType }]);
       }
@@ -97,16 +100,16 @@ export class HomePage implements OnInit {
         this.showTermsAndConditions();
       }
     } else {
-      if(data.code === '801' || data.code === '802'){
+      if (data.code === '801' || data.code === '802') {
         this.commonService.showToast('Please enter registered mobile/email address.');
-      }else{
-        if(data.code === '816'){
+      } else {
+        if (data.code === '816') {
           this.commonService.showToast('Please enter valid mobile/email address.');
-        }else{
+        } else {
           this.commonService.showToast(data.message);
         }
       }
-      }
+    }
   }
 
   processLoginError(error: any) {

@@ -397,7 +397,7 @@ reject(err);
    * @param token token from api request
    * @param type type of the token ex.bearer
    */
-  setUserData(token: any) {
+  setUserData(token: any, hcpCode?: any) {
     this.acces_token = token;
     if (this.nativeCall) {
       // this.advanceHttp.setHeader('*', 'Authorization', type + ' ' + token);
@@ -407,12 +407,13 @@ reject(err);
         headers: new HttpHeaders({
           //'Content-Type': 'application/json',
           'Token': token,
-          'HcpCode': this.storageService.getHcpCode(),
+          'HcpCode': hcpCode,
           'apikey': 'YTAxZTU2NWMtZDM5NS00M2Q3LTkwYzgtYmZiOTFmMzc0OTk3nM391W7QykFhd0OEO3Il6r-VXfP1lDOad7Jlq8FiprIe'
         })
       };
     }
   }
+
   /**
    * this function use to set the login header to the blank or empty
    * @example called from the javascript function

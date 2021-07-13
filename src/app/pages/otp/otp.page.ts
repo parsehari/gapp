@@ -150,11 +150,12 @@ export class OtpPage implements OnInit {
         (response: any) => {
           this.commonService.hideLoader();
           console.log("validateOtp Response-", response);
+          this.storageService.set('token', response.token);
           this.apiService.setUserData(response.token);
           this.storageService.prefDistFlag = response._BO.prefDistFlag === "true" ? true : false;
-          if(this.storageService.prefDistFlag){
+          if (this.storageService.prefDistFlag) {
             this.router.navigate(['/product-list']);
-          }else{
+          } else {
             this.router.navigate(["/preferred-distributor"]);
           }
         },

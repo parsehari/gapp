@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { AlertModelComponent } from 'src/app/components/alert-model/alert-model.component';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from 'src/app/services/common.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-my-orders',
@@ -22,7 +23,8 @@ export class MyOrdersPage implements OnInit {
   constructor(private router: Router,
     private apiService: ApiService,
     private commonService: CommonService,
-    private modal: ModalController) {
+    private modal: ModalController,
+    private storageService: StorageService) {
 
   }
 

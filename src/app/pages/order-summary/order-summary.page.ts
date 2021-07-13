@@ -47,6 +47,8 @@ export class OrderSummaryPage implements OnInit {
         this.formEvent = params["fromEvent"];
       }
 
+      console.log('this.stockiestObj ', this.stockiestObj);
+
       if ((this.formView == "product-list" && this.formEvent == "buyNow") || (this.formView == "product-list" && this.formEvent == "aCart")) {
         this.cartWithPDistributor.forEach(element => {
           console.log("element ", element);
@@ -132,30 +134,30 @@ export class OrderSummaryPage implements OnInit {
       }
     });
   }
-  removeAll(){
-   if(this.formEvent === 'buyNow'){
-     this.commonService.badgeCountValue = 0;
-     this.router.navigate(['/product-list']);
-     this.commonService.presentOneButtonAlert('GSK',"Cart item removed.","OK")
-   }else{
-     this.commonService.showLoader();
+  removeAll() {
+    if (this.formEvent === 'buyNow') {
+      this.commonService.badgeCountValue = 0;
+      this.router.navigate(['/product-list']);
+      this.commonService.presentOneButtonAlert('GSK', "Cart item removed.", "OK")
+    } else {
+      this.commonService.showLoader();
       this.apiService.getDataService(this.apiService.removeCart).subscribe(
-        (response)=>{
+        (response) => {
           this.commonService.hideLoader();
-          if(response.code === '200'){
+          if (response.code === '200') {
             this.commonService.badgeCountValue = 0;
             this.router.navigate(['/product-list']);
-            this.commonService.presentOneButtonAlert('GSK',"Cart item removed.","OK")
-          }else{
+            this.commonService.presentOneButtonAlert('GSK', "Cart item removed.", "OK")
+          } else {
             this.commonService.showToast(response.message);
           }
         },
-        (error)=>{
+        (error) => {
           this.commonService.hideLoader();
           this.commonService.showToast(error.message);
         }
       )
-   }
+    }
   }
   calculateTotal(prd?: any, i?: any) {
     var total = 0;

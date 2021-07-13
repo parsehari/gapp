@@ -50,12 +50,14 @@ export class AlertModelComponent implements OnInit {
 
   showDate(ev, type) {
     console.log("type", type);
-    if (type == "start")
+    if (type == "start") {
       this.startDate = ev.detail.value;
-    else
+      this.startDate = moment(this.startDate).format("MM-DD-YYYY");
+    }
+    else {
       this.endDate = ev.detail.value;
-    this.startDate = moment(this.startDate).format("DD-MM-YYYY");
-    this.endDate = moment(this.endDate).format("DD-MM-YYYY");
+      this.endDate = moment(this.endDate).format("MM-DD-YYYY");
+    }
     console.log("this.startDate ", this.startDate);
     console.log("this.startDate ", this.endDate);
   }
