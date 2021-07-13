@@ -14,24 +14,24 @@ import { CommonService } from 'src/app/services/common.service';
 export class CartPage implements OnInit {
   quantity = 0;
   cartProducts: CartModel[] = [];
-  fromView='product-list';
-  fromEvent='aCart';
-  badgeCountValue=0;
-  stockiest:PreferredDistributorModel;
-  constructor(private route: Router, 
-    private apiService: ApiService, 
+  fromView = 'product-list';
+  fromEvent = 'aCart';
+  badgeCountValue = 0;
+  stockiest: PreferredDistributorModel;
+  constructor(private route: Router,
+    private apiService: ApiService,
     private commonService: CommonService,
-    private aRoute : ActivatedRoute
-    ) { 
+    private aRoute: ActivatedRoute
+  ) {
     this.aRoute.params.subscribe(
-      (param)=>{
-        if(param['fromEvent']){
+      (param) => {
+        if (param['fromEvent']) {
           this.fromEvent = param['fromEvent'];
         }
-        if(param['fromView']){
+        if (param['fromView']) {
           this.fromView = param['fromView'];
         }
-        if(param['stockiest']){
+        if (param['stockiest']) {
           this.stockiest = param['stockiest'];
         }
       }
@@ -46,13 +46,13 @@ export class CartPage implements OnInit {
     this.commonService.showLoader();
     this.apiService.getDataService(this.apiService.getCartAPI).subscribe((resp: any) => {
       console.log("response cart ", resp);
-      if (resp.getProdList){
+      if (resp.getProdList) {
         this.cartProducts = resp.getProdList;
         this.commonService.hideLoader();
         this.commonService.badgeCountValue = this.cartProducts.length;
         this.badgeCountValue = this.commonService.badgeCountValue;
-      }else{
-        this.commonService.showToast(resp.message);
+      } else {
+        this.commonService.hideLoader();
       }
     }, (err) => {
       console.log("error in cart", err);
@@ -69,16 +69,16 @@ export class CartPage implements OnInit {
   }
   continueClicked() {
     let cartItem = this.cartProducts.filter(
-      (ele)=>{
-        if(ele.quantity >0){
+      (ele) => {
+        if (ele.quantity > 0) {
           return true;
         }
         return false;
       }
     )
-    if(cartItem.length == 0){
-     this.commonService.presentOneButtonAlert('GSK','Please add item to cart before proceed','OK')
-    }else{
+    if (cartItem.length == 0) {
+      this.commonService.presentOneButtonAlert('GSK', 'Please add item to cart before proceed', 'OK')
+    } else {
       let cartList: CartModel[] = [];
       cartItem.map(
         (ele) => {
@@ -92,20 +92,20 @@ export class CartPage implements OnInit {
         }
       )
       var cartJson = {
-        "Gsk_CartList":cartList
+        "Gsk_CartList": cartList
       }
       this.commonService.showLoader();
-      this.apiService.postDataService(this.apiService.saveCartURL,cartJson).subscribe(
-        (response)=>{
+      this.apiService.postDataService(this.apiService.saveCartURL, cartJson).subscribe(
+        (response) => {
           this.commonService.hideLoader();
-          if(this.fromView === 'distributor'){
-            this.route.navigate(['/order-summary',{stockiest:JSON.stringify( this.stockiest),cartInfo:JSON.stringify(cartItem),fromView:this.fromView,fromEvent:this.fromEvent}]);
-          }else{
-            this.route.navigate(['/select-distributor',{param:JSON.stringify(cartItem)}])
+          if (this.fromView === 'distributor') {
+            this.route.navigate(['/order-summary', { stockiest: JSON.stringify(this.stockiest), cartInfo: JSON.stringify(cartItem), fromView: this.fromView, fromEvent: this.fromEvent }]);
+          } else {
+            this.route.navigate(['/select-distributor', { param: JSON.stringify(cartItem) }])
           }
         },
-        (error)=>{
-           this.commonService.toast(error);
+        (error) => {
+          this.commonService.toast(error);
         }
       )
     }
@@ -113,40 +113,40 @@ export class CartPage implements OnInit {
   addNewProduct() {
     this.route.navigate(['/product-list'])
   }
-  modifyQuantity(event,productCode,index) {
-    this.cartProducts.map((ele)=>{
-      if(ele.productCode === productCode){
-       let unitPrice = ele.mrp/ele.quantity;
+  modifyQuantity(event, productCode, index) {
+    this.cartProducts.map((ele) => {
+      if (ele.productCode === productCode) {
+        let unitPrice = ele.mrp / ele.quantity;
         if (event === 'add') {
-          ele.quantity ++;
+          ele.quantity++;
         } else {
-          if(ele.quantity > 1){
-            ele.quantity --;
-          }else{
-               this.deleteItem(productCode,index);
+          if (ele.quantity > 1) {
+            ele.quantity--;
+          } else {
+            this.deleteItem(productCode, index);
           }
         }
       }
     });
   }
 
-  getImageURL(productImage):any{
-   return this.commonService.getImageURLFromBase64(productImage);
+  getImageURL(productImage): any {
+    return this.commonService.getImageURLFromBase64(productImage);
   }
-  deleteItem(pCode,index){
+  deleteItem(pCode, index) {
     var removeItem = {
-      productcode:pCode
+      productcode: pCode
     }
     this.commonService.showLoader();
-    this.apiService.postDataService(this.apiService.removeItemURL,removeItem).subscribe(
-      (response)=>{
+    this.apiService.postDataService(this.apiService.removeItemURL, removeItem).subscribe(
+      (response) => {
         this.commonService.hideLoader()
-        this.cartProducts.splice(index,1);
-        this.commonService.badgeCountValue =  this.commonService.badgeCountValue -1;
-        this.badgeCountValue = this.badgeCountValue-1;
-         console.log("remove cart response:", response);
+        this.cartProducts.splice(index, 1);
+        this.commonService.badgeCountValue = this.commonService.badgeCountValue - 1;
+        this.badgeCountValue = this.badgeCountValue - 1;
+        console.log("remove cart response:", response);
       },
-      (error)=>{
+      (error) => {
         this.commonService.hideLoader()
         this.commonService.showToast(error)
       }

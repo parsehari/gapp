@@ -19,16 +19,16 @@
                                   <ion-row text-center>
                                       <ion-col size="6" offset="3">
                                           <ion-grid class="otp-container">
-                                              <ion-input type="number" #otp1 required maxLength="1" placeholder="0" text-center
+                                              <ion-input type="tel" #otp1 required maxLength="1" placeholder="0" text-center
                                                   (keyup)="otpController($event,otp2,'')" [(ngModel)]="otpOne">
                                               </ion-input>
-                                              <ion-input type="number" #otp2 required maxLength="1" placeholder="0" text-center
+                                              <ion-input type="tel" #otp2 required maxLength="1" placeholder="0" text-center
                                                   (keyup)="otpController($event,otp3,otp1)" [(ngModel)]="otpTwo">
                                               </ion-input>
-                                              <ion-input type="number" #otp3 required maxLength="1" placeholder="0" text-center
+                                              <ion-input type="tel" #otp3 required maxLength="1" placeholder="0" text-center
                                                   (keyup)="otpController($event,otp4,otp2)" [(ngModel)]="otpThree">
                                               </ion-input>
-                                              <ion-input type="number" #otp4 required maxLength="1" placeholder="0"
+                                              <ion-input type="tel" #otp4 required maxLength="1" placeholder="0"
                                                   (keyup)="otpController($event,'',otp3)" [(ngModel)]="otpFour">
                                               </ion-input>
                                           </ion-grid>
