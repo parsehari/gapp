@@ -7,7 +7,9 @@ export class StorageService {
   hcpCode: any;
   productDiscount: any;
   productData: any;
-
+  userEmail:string;
+  userMobile:string;
+  otpOnemail:boolean;
   prefDistFlag: boolean;
   constructor() { }
 

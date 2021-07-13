@@ -43,6 +43,7 @@ export class HomePage implements OnInit {
 
   inputVal(type: any) {
     this.loginType = type;
+    console.log("login type :",this.loginType);
   }
 
   doLogin() {
@@ -89,6 +90,13 @@ export class HomePage implements OnInit {
     this.commonService.hideLoader();
     if (data.hcpCode) {
       this.storageService.setHcpCode(data.hcpCode);
+      this.storageService.userEmail = data.email;
+      this.storageService.userMobile = data.mobileNo;
+      if(this.loginType === 'email'){
+        this.storageService.otpOnemail = true;
+      }else{
+        this.storageService.otpOnemail = false;
+      }
       console.log('varify ', data.tncFlag);
       if (data.tncFlag == "true") {
         this.route.navigate(["/otp", { loginData: this.loginInput, type: this.inputType }]);

@@ -1,7 +1,8 @@
-<app-header heading="Select Distributor" [showMenuButton]="true" [showSubHeader]="true" [showSearch]=false [showCart]="true" [badgeCount]="badgeCountValue">
+<app-header heading="Select Distributor" [showMenuButton]="true" [showSubHeader]="true" [showSearch]=false 
+[showCart]="true" [badgeCount]="badgeCountValue">
 </app-header>
 <ion-content>
-  <table  class="section-margin">
+  <table  *ngIf="stockiestPrice?.distributor1_List?.length>0" class="section-margin">
     <thead >
       <tr>
         <th>{{'sdistributor.sdistributorPage.products' | translate}}</th>
@@ -70,18 +71,6 @@
         </td>
       </tr>
     </tbody>
-   <!-- <tfoot>
-      <tr>
-        <td style="color: #F36633;">{{'sdistributor.sdistributorPage.total' | translate}}</td>
-        <td>
-          <ion-label>{{getTotalForQuantity()}}</ion-label>
-        </td>
-        <td>{{getTotalForPrice(0) | currency:'INR':'symbol-narrow':'1.0-0'}}</td>
-        <td>{{getTotalForPrice(1) | currency:'INR':'symbol-narrow':'1.0-0'}}</td>
-        <td>{{getTotalForPrice(2) | currency:'INR':'symbol-narrow':'1.0-0'}}</td>
-      </tr>
-     
-    </tfoot>-->
   </table>
 </ion-content>
 <app-footer (secondEvent)="continueClicked();" (firstEvent)="cancel();" [isFirstOutline]=true [isSecondOutline]=false [firstTitle]="'sdistributor.sdistributorPage.cancel'" [secondTitle]="'sdistributor.sdistributorPage.continue'" [showInfo]=true [infoText]="sDistributor" [infoLabel]="sDInfoLabel" [isLegand]="true"></app-footer>

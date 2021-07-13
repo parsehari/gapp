@@ -1,6 +1,7 @@
 <app-header heading="Vaccines" [showMenuButton]="true" [showSubHeader]="false" [showSearch]="true" [showCart]="true" [badgeCount]="badgeValue">
 </app-header>
 <ion-content>
+ <div *ngIf="productList?.length>0">
   <ion-card *ngFor="let product of productList;let i = index">
     <ion-grid class="card-section">
       <ion-row class="ion-no-padding"class="ion-no-margin" >
@@ -27,7 +28,8 @@
                    <thead>
                      <tr>
                        <th>Unit</th>
-                       <th>Discount</th>
+                       <th *ngIf="!dViaProduct[i].isPercentDiscount">Saving</th>
+                       <th *ngIf="dViaProduct[i].isPercentDiscount">Discount</th>
                      </tr>
                    </thead>
                    <tbody *ngIf="dViaProduct[i].isPercentDiscount">
@@ -40,7 +42,7 @@
                    <tbody *ngIf="!dViaProduct[i].isPercentDiscount">
                     <tr *ngFor="let item of dViaProduct[i].uDiscount;let j=index;">
                     <td>{{item.minQty}}</td>
-                    <td>{{item.disAmtPerUnit | currency:'INR':'symbol-narrow':'1.0-0'}}</td>
+                    <td>{{getDiscountTotal(item.minQty,item.disAmtPerUnit) | currency:'INR':'symbol-narrow':'1.0-0'}}</td>
                     </tr>
                   </tbody>
                   </table>
@@ -70,31 +72,23 @@
         </ion-col>
       </ion-row>
       <ion-row class="content-section">
-        <ion-col size="9">
+        <ion-col size="8">
           <div class="ion-text-left">
             <ion-label >
-              <h2 class="text-color">{{product.productDescription}} </h2>
+              <h2 class="text-color">{{product.productDescription}} <ion-icon name="help-circle-outline"></ion-icon></h2>
                <p *ngIf="product?.stockistCerpCode" [ngClass]="{'color-green':product?.salebleQty >= product.quantity,
                 'color-red':product?.salebleQty < product.quantity   
               }">{{product?.salebleQty < product.quantity ?'Not Available':'Available'}}</p>
             </ion-label>
           </div>
         </ion-col>
-        <ion-col size="3">
+        <ion-col size="4">
           <ion-row>
             <ion-col>
-              <div class="ion-text-right" (click)="modifyQuantity('remove',product.productCode)">
-                <ion-icon class="product-quantity" name="remove-circle-outline" ></ion-icon>
-              </div>
-            </ion-col>
-            <ion-col>
-              <div class="ion-text-center text-margin">
+              <div class="ion-text-right">
+                <ion-icon class="product-quantity" name="remove-circle-outline" (click)="modifyQuantity('remove',product.productCode)"></ion-icon>
                 <ion-label class="quantity">{{product.quantity}}</ion-label>
-              </div>
-            </ion-col>
-            <ion-col>
-              <div class="ion-text-left" (click)="modifyQuantity('add',product.productCode)">
-                <ion-icon class="product-quantity" name="add-circle-outline" ></ion-icon>
+                <ion-icon class="product-quantity" name="add-circle-outline" (click)="modifyQuantity('add',product.productCode)"></ion-icon>
               </div>
             </ion-col>
           </ion-row>
@@ -102,6 +96,7 @@
       </ion-row>
     </ion-grid>
   </ion-card>
+ </div>
 </ion-content>
 
 <app-footer  [isFirstOutline]=true [isSecondOutline]=false [firstTitle]="'product-list.product-listPage.aCart'" [secondTitle]="'product-list.product-listPage.bNow'" (firstEvent)="addToCart()" (secondEvent)="buyNow()"></app-footer>

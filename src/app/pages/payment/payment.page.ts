@@ -18,7 +18,7 @@ export class PaymentPage implements OnInit {
   public orderDate: any;
   public Summarydata: any;
   public stockiestID: any;
-
+  badgeCount = this.commonService.badgeCountValue;
   constructor(private activatedroute: ActivatedRoute, private commonService: CommonService,
     private storageService: StorageService, private apiService: ApiService, private route: Router, private datePipe: DatePipe) {
     this.cartData = this.activatedroute.snapshot.paramMap.get('products');
@@ -98,8 +98,7 @@ export class PaymentPage implements OnInit {
       console.log("response ", response);
       this.commonService.hideLoader();
       if (response.code == "200") {
-        this.commonService.showToast(response.message + response.success);
-        this.route.navigate(['my-orders']);
+        this.removeCartItem();       
       } else {
         this.commonService.showToast(response.message);
       }
@@ -109,5 +108,24 @@ export class PaymentPage implements OnInit {
       this.commonService.showToast(err.message);
     });
 
+  }
+
+  removeCartItem(){
+    this.commonService.showLoader();
+    this.apiService.getDataService(this.apiService.removeCart).subscribe(
+      (response)=>{
+        this.commonService.hideLoader();
+        if(response.code === '200'){
+          this.commonService.badgeCountValue = 0;
+          this.route.navigate(['my-orders']);
+        }else{
+          this.commonService.showToast(response.message);
+        }
+      },
+      (error)=>{
+        this.commonService.hideLoader();
+        this.commonService.showToast(error.message);
+      }
+    )
   }
 }

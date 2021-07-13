@@ -25,7 +25,7 @@ th,td {
   border: 1px solid white;
   width: 50% !important;
 }
-.product-quantity {
+/*.product-quantity {
   font-size: 28px;
   color: #F36633;
 }
@@ -35,12 +35,29 @@ th,td {
   align-self: center;
 
 }
+.text-margin {
+  margin-top: 3px;
+}*/
+
+.product-quantity {
+  font-size: 28px;
+  color: #F36633;
+
+}
+.quantity {
+  font-size: 20px;
+  align-self: center;
+  position:relative;
+  top:-7px !important;
+  margin: 0px 4px 0px 4px;
+}
+.text-margin {
+  margin-top: 5px;
+}
 .padding-five{
   padding-right: 5px;
 }
-.text-margin {
-  margin-top: 3px;
-}
+
 
 ion-row, ion-col {
   padding: 0 !important;

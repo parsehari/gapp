@@ -84,7 +84,9 @@ export class ProductListPage implements OnInit {
       )
     }
   }
-
+  getDiscountTotal(unit,discount){
+    return  parseFloat(unit)* parseFloat(discount);
+  }
   setProductData() {
     this.dProductList.map(
       (ele) => {
