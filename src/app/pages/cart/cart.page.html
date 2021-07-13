@@ -3,9 +3,9 @@
 <ion-content>
   <div *ngIf="cartProducts.length; else noCartMessage" class="cardTop">
   <ion-card *ngFor="let cartItem of cartProducts;let i=index">
-    <ion-grid>
+    <ion-grid >
       <ion-row>
-        <ion-col size="8" >
+        <ion-col size="7" >
           <ion-row>
             <ion-col class="col-height">
               <img style="width: 100px;height: 49px;" [src]="getImageURL(cartItem.productImage)">
@@ -17,7 +17,7 @@
             </ion-col>
             </ion-row>
         </ion-col>
-        <ion-col size="4">
+        <ion-col size="5">
           <ion-row>
             <ion-col>
               <div class="ion-text-right">
@@ -30,15 +30,7 @@
             <ion-col>
               <div class="ion-text-right">
                 <ion-icon class="product-quantity" name="remove-circle-outline" (click)="modifyQuantity('remove',cartItem.productCode,i)"></ion-icon>
-              </div>
-            </ion-col>
-            <ion-col>
-              <div class="ion-text-center text-margin">
                 <ion-label class="quantity">{{cartItem.quantity}}</ion-label>
-              </div>
-            </ion-col>
-            <ion-col>
-              <div class="ion-text-left">
                 <ion-icon class="product-quantity" name="add-circle-outline" (click)="modifyQuantity('add',cartItem.productCode,i)"></ion-icon>
               </div>
             </ion-col>

@@ -27,6 +27,8 @@ export class CommonService {
   alert: any;
   public badgeCountValue = 0;
   passReset: boolean = true;
+
+
   constructor(private loadingController: LoadingController,
     public toastController: ToastController,
     public alertController: AlertController,

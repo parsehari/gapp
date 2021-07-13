@@ -30,6 +30,7 @@ export class OrderSummaryPage implements OnInit {
   cartWithPDistributor: any;
   products: any = [];
   productsArr: any = [];
+  badgeCount=this.commonService.badgeCountValue;
   constructor(private router: Router, private apiService: ApiService,
     private commonService: CommonService,
     private storageService: StorageService,
@@ -180,6 +181,12 @@ export class OrderSummaryPage implements OnInit {
         console.log("remove cart response:", response);
         this.calculateTotal();
         this.setDiscount();
+        if(this.commonService.badgeCountValue >0){
+          this.badgeCount=this.commonService.badgeCountValue = this.commonService.badgeCountValue - 1;
+        }
+        if(this.products?.length == 0){
+          this.router.navigate(['/product-list']);
+        }
       },
       (error) => {
         this.commonService.hideLoader()

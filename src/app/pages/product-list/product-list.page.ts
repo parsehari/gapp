@@ -48,8 +48,12 @@ export class ProductListPage implements OnInit {
 
   ngOnInit() {
     this.menu.enable(true);
-    this.commonService.showLoader()
+   
     this.apiService.setDistributorHeader();
+   
+  }
+  ionViewDidEnter(){
+    this.commonService.showLoader()
     if (this.fromView === 'distributor') {
       this.apiService.postDataService(this.apiService.getDistributorProduct, { StockistCerpCode: this.distributor.stockistCerpCode }).subscribe(
         (response) => {
@@ -84,7 +88,9 @@ export class ProductListPage implements OnInit {
       )
     }
   }
-
+  getDiscountTotal(unit,discount){
+    return  parseFloat(unit)* parseFloat(discount);
+  }
   setProductData() {
     this.dProductList.map(
       (ele) => {

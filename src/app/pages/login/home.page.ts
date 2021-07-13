@@ -43,6 +43,7 @@ export class HomePage implements OnInit {
 
   inputVal(type: any) {
     this.loginType = type;
+    console.log("login type :", this.loginType);
   }
 
   doLogin() {
@@ -90,7 +91,13 @@ export class HomePage implements OnInit {
     if (data.hcpCode) {
       this.storageService.setHcpCode(data.hcpCode);
       this.storageService.set('hcpCode', data.hcpCode);
-      this.storageService.set('apiKey', 'YTAxZTU2NWMtZDM5NS00M2Q3LTkwYzgtYmZiOTFmMzc0OTk3nM391W7QykFhd0OEO3Il6r-VXfP1lDOad7Jlq8FiprIe');
+      this.storageService.userEmail = data.email;
+      this.storageService.userMobile = data.mobileNo;
+      if (this.loginType === 'email') {
+        this.storageService.otpOnemail = true;
+      } else {
+        this.storageService.otpOnemail = false;
+      }
       console.log('varify ', data.tncFlag);
 
       if (data.tncFlag == "true") {

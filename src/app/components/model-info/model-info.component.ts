@@ -68,6 +68,7 @@ export class ModelInfoComponent implements OnInit {
   processTermsSuccess(data) {
     console.log(data);
     this.termsConditionText = data.termsConditinDetails.description;
+    console.log("this.termsConditionText :",this.termsConditionText);
   }
 
   processTermsError(data) {

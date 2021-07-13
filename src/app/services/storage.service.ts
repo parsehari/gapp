@@ -10,6 +10,9 @@ export class StorageService {
   productData: any;
   private _storage: Storage | null = null;
 
+  userEmail: string;
+  userMobile: string;
+  otpOnemail: boolean;
   prefDistFlag: boolean;
   constructor(private storage: Storage) {
     this.init();

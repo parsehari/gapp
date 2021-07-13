@@ -48,15 +48,17 @@ export class SelectDistributorPage implements OnInit {
   }
 
   ngOnInit() {
+    this.commonService.showLoader();
     this.apiService.getDataService(this.apiService.getPDistributorPrice).subscribe(
       (response) => {
         console.log("price :", response);
         this.stockiestPrice = response;
         console.log("stockiestPrice :", this.stockiestPrice);
         this.setPDistributorData();
+        this.commonService.hideLoader();
       },
       (error) => {
-
+          this.commonService.hideLoader();
       }
     )
   }

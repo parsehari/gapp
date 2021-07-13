@@ -28,7 +28,9 @@ export class AppComponent {
         this.apiService.acces_token = this.appToken;
         this.storageService.setHcpCode(respHCP);
         this.apiService.setDistributorHeader();
-        this.router.navigate(['product-list']);
+        if (this.appToken) {
+          this.router.navigate(['product-list']);
+        }
       })
     });
   }

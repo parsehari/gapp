@@ -27,6 +27,9 @@ export class OtpPage implements OnInit {
   loginData: any;
   loginType: any;
   otpTypeText: any;
+  userEmail = this.storageService.userEmail;
+  userMobile = this.storageService.userMobile;
+  isEmail=this.storageService.otpOnemail;
   constructor(
     public menu: MenuController,
     private router: Router,
