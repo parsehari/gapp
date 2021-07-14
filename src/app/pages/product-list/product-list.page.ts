@@ -31,13 +31,14 @@ export class ProductListPage implements OnInit {
     private commonService: CommonService,
     private route: ActivatedRoute,
     private storageService: StorageService,
-    private mCtrl:ModalController
+    private mCtrl:ModalController,
   ) {
     this.route.params.subscribe(
       (param) => {
         if (param) {
           if (param['distributor']) {
             this.distributor = JSON.parse(param['distributor']);
+            console.log("***************distributor :*******************",this.distributor)
             this.fromView = param['fromView'];
           }
         }
@@ -190,7 +191,9 @@ export class ProductListPage implements OnInit {
         }
       )
       var cartJson = {
-        "Gsk_CartList": cartList
+        "StockistCerpCode":"",
+        "Preference":"",
+        "Gsk_CartList": cartList,
       }
       this.commonService.showLoader();
       this.apiService.postDataService(this.apiService.saveCartURL, cartJson).subscribe(
@@ -202,6 +205,12 @@ export class ProductListPage implements OnInit {
           } else {
             this.router.navigate(['/cart', { fromView: this.fromView, fromEvent: this.fromEvent }]);
           }
+    
+      //    this.storageService.cartDetails.fromEvent = this.fromEvent;
+        ///  this.storageService.cartDetails.fromView = this.fromView;
+          //this.storageService.cartDetails.cart = cartList;
+          //this.storageService.cartDetails.distributor = this.distributor;
+
         },
         (error) => {
           this.commonService.showToast(error);
@@ -241,6 +250,10 @@ export class ProductListPage implements OnInit {
         this.fromEvent = 'buyNow'
         this.router.navigate(['/select-distributor', { param: JSON.stringify(cartList), fromView: this.fromView, fromEvent: this.fromEvent }]);
       }
+          this.storageService.cartDetails.fromEvent = this.fromEvent;
+          this.storageService.cartDetails.fromView = this.fromView;
+          this.storageService.cartDetails.cart = cartList;
+          this.storageService.cartDetails.distributor = this.distributor;
     }
   }
 

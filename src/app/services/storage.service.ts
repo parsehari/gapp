@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
+import { CartDetails } from '../Model/cart-details.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class StorageService {
   userMobile: string;
   otpOnemail: boolean;
   prefDistFlag: boolean;
+  cartDetails:CartDetails;
+
   constructor(private storage: Storage) {
     this.init();
   }

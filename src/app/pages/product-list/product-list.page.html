@@ -60,7 +60,7 @@
           </div>
           <div  class="content"></div>
         </ion-col >
-        <ion-col class="img-padding" (click)="viewPdf(product)">
+        <ion-col class="img-padding" >
           <div class="ion-text-center">
             <img [src]="getImageURL(product.productImage)">
           </div>
@@ -75,7 +75,7 @@
         <ion-col size="8">
           <div class="ion-text-left">
             <ion-label >
-              <h2 class="text-color">{{product.productDescription}}</h2>
+              <h2 class="text-color">{{product.productDescription}}<ion-icon class="info-icon" name="information-circle-outline" (click)="viewPdf(product)"></ion-icon></h2>
                <p *ngIf="product?.stockistCerpCode" [ngClass]="{'color-green':product?.salebleQty >= product.quantity,
                 'color-red':product?.salebleQty < product.quantity   
               }">{{product?.salebleQty < product.quantity ?'Not Available':'Available'}}</p>

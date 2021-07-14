@@ -5,6 +5,7 @@ import { PreferredDistributorModel } from 'src/app/Model/pdistributor.model';
 import { Product } from 'src/app/Model/product.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from 'src/app/services/common.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-cart',
@@ -21,7 +22,8 @@ export class CartPage implements OnInit {
   constructor(private route: Router,
     private apiService: ApiService,
     private commonService: CommonService,
-    private aRoute: ActivatedRoute
+    private aRoute: ActivatedRoute,
+    private storage:StorageService,
   ) {
     this.aRoute.params.subscribe(
       (param) => {
@@ -92,7 +94,9 @@ export class CartPage implements OnInit {
         }
       )
       var cartJson = {
-        "Gsk_CartList": cartList
+        "StockistCerpCode":"",
+        "Preference":"",
+        "Gsk_CartList": cartList,
       }
       this.commonService.showLoader();
       this.apiService.postDataService(this.apiService.saveCartURL, cartJson).subscribe(
@@ -111,6 +115,8 @@ export class CartPage implements OnInit {
     }
   }
   addNewProduct() {
+  //  this.storage.cartDetails.isAddProduct = true;
+   // this.storage.cartDetails.fromCart = true;
     this.route.navigate(['/product-list'])
   }
   modifyQuantity(event, productCode, index) {
