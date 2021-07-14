@@ -17,7 +17,7 @@
     <ion-card>
       <ion-row class="cardContentDetail" *ngFor="let orderBo of orderViewDetailInfo; let i = index">
         <ion-col size="6">
-          {{orderBo.productCode}}
+          {{orderBo.productDescription}}
           <div class="priceCs">
             {{orderBo.productValue| currency:'INR'}}
           </div>
