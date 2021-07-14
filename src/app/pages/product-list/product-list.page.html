@@ -67,7 +67,7 @@
         </ion-col>
         <ion-col class="img-padding" size="2">
           <div class="ion-text-right">
-            <ion-label>{{product.ptr | currency:'INR':'symbol-narrow':'1.0-0'}}</ion-label>
+            <ion-label>{{product?.stokiestRate > 0 ? product?.stokiestRate:product?.ptr | currency:'INR':'symbol-narrow':'1.0-0'}}</ion-label>
           </div>
         </ion-col>
       </ion-row>

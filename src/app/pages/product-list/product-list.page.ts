@@ -49,7 +49,6 @@ export class ProductListPage implements OnInit {
 
   ngOnInit() {
     this.menu.enable(true);
-   
     this.apiService.setDistributorHeader();
    
   }
@@ -104,11 +103,13 @@ export class ProductListPage implements OnInit {
         prod.stokiestRate = ele.stokiestRate;
         prod.salebleQty = ele.salebleQty;
         prod.pI_URL = ele.pI_URL;
-        if (ele.stokiestRate > 0) {
-          prod.ptr = ele.stokiestRate.toString();
-        } else {
-          prod.ptr = ele.ptr.toString();
+        if(ele.stokiestRate){
+          prod.stokiestRate = ele.stokiestRate;
+        }else{
+          prod.stokiestRate = 0;
         }
+       
+        prod.ptr = ele.ptr;
         this.productList.push(prod);
       }
     )
@@ -186,10 +187,20 @@ export class ProductListPage implements OnInit {
           cartProd.productDescription = ele.productDescription;
           cartProd.productImage = '';
           cartProd.quantity = ele.quantity;
-          cartProd.mrp = parseFloat(ele.ptr);
+          cartProd.ptr = parseInt (ele.ptr);
+          if(ele.stokiestRate){
+            cartProd.StockiestRate = ele.stokiestRate;
+          }else{
+            cartProd.StockiestRate = 0;
+          }
+         
           cartList.push(cartProd);
         }
       )
+      // if(this.storageService.cartDetails.isAddProduct && this.storageService.cartDetails.fromCart){
+      //   cartList = cartList.concat(this.storageService.cartDetails.cart);
+      // }
+      cartList = cartList.concat()
       var cartJson = {
         "StockistCerpCode":"",
         "Preference":"",
@@ -206,11 +217,12 @@ export class ProductListPage implements OnInit {
             this.router.navigate(['/cart', { fromView: this.fromView, fromEvent: this.fromEvent }]);
           }
     
-      //    this.storageService.cartDetails.fromEvent = this.fromEvent;
-        ///  this.storageService.cartDetails.fromView = this.fromView;
-          //this.storageService.cartDetails.cart = cartList;
-          //this.storageService.cartDetails.distributor = this.distributor;
-
+        // this.storageService.cartDetails.fromEvent = this.fromEvent;
+        // this.storageService.cartDetails.fromView = this.fromView;
+        // this.storageService.cartDetails.cart = cartList;
+        // this.storageService.cartDetails.distributor = this.distributor;
+        // this.storageService.cartDetails.isAddProduct = false;
+        // this.storageService.cartDetails.fromCart = false;
         },
         (error) => {
           this.commonService.showToast(error);
@@ -239,7 +251,13 @@ export class ProductListPage implements OnInit {
           cartProd.productDescription = ele.productDescription;
           cartProd.productImage = ele.productImage;
           cartProd.quantity = ele.quantity;
-          cartProd.mrp = parseFloat(ele.ptr);
+          cartProd.ptr = parseInt(ele.ptr);
+          if(ele.stokiestRate){
+            cartProd.StockiestRate = ele.stokiestRate;
+          }else{
+            cartProd.StockiestRate = 0;
+
+          }
           cartList.push(cartProd);
         }
       );
@@ -250,10 +268,10 @@ export class ProductListPage implements OnInit {
         this.fromEvent = 'buyNow'
         this.router.navigate(['/select-distributor', { param: JSON.stringify(cartList), fromView: this.fromView, fromEvent: this.fromEvent }]);
       }
-          this.storageService.cartDetails.fromEvent = this.fromEvent;
-          this.storageService.cartDetails.fromView = this.fromView;
-          this.storageService.cartDetails.cart = cartList;
-          this.storageService.cartDetails.distributor = this.distributor;
+          // this.storageService.cartDetails.fromEvent = this.fromEvent;
+          // this.storageService.cartDetails.fromView = this.fromView;
+          // this.storageService.cartDetails.cart = cartList;
+          // this.storageService.cartDetails.distributor = this.distributor;
     }
   }
 

@@ -109,12 +109,12 @@ export class CommonService {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+            
           }
         }, {
           text: 'Yes',
           handler: () => {
-            console.log('Confirm Okay');
+            
           }
         }
       ]

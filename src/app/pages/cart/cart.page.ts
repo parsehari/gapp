@@ -89,7 +89,8 @@ export class CartPage implements OnInit {
           cartProd.productDescription = ele.productDescription;
           cartProd.productImage = '';
           cartProd.quantity = ele.quantity;
-          cartProd.mrp = ele.mrp;
+          cartProd.ptr = ele.ptr;
+          cartProd.StockiestRate = ele.StockiestRate;
           cartList.push(cartProd);
         }
       )
@@ -115,8 +116,8 @@ export class CartPage implements OnInit {
     }
   }
   addNewProduct() {
-  //  this.storage.cartDetails.isAddProduct = true;
-   // this.storage.cartDetails.fromCart = true;
+    // this.storage.cartDetails.isAddProduct = true;
+    // this.storage.cartDetails.fromCart = true;
     this.route.navigate(['/product-list'])
   }
   modifyQuantity(event, productCode, index) {

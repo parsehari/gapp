@@ -4,7 +4,7 @@ export class ProductByDistributor{
     public prodCode: string;
     public productDescription: string; 
     public stokiestRate:number;
-    public ptr:number;
+    public ptr:string;
     public productImage :string;
     public salebleQty?:number;
     public pI_URL?:string;
