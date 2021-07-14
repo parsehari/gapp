@@ -94,7 +94,9 @@ export class CartPage implements OnInit {
         }
       )
       var cartJson = {
-        "Gsk_CartList": cartList
+        "StockistCerpCode":"",
+        "Preference":"",
+        "Gsk_CartList": cartList,
       }
       this.commonService.showLoader();
       this.apiService.postDataService(this.apiService.saveCartURL, cartJson).subscribe(

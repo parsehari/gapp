@@ -191,6 +191,8 @@ export class ProductListPage implements OnInit {
         }
       )
       var cartJson = {
+        "StockistCerpCode":"",
+        "Preference":"",
         "Gsk_CartList": cartList,
       }
       this.commonService.showLoader();
@@ -204,10 +206,10 @@ export class ProductListPage implements OnInit {
             this.router.navigate(['/cart', { fromView: this.fromView, fromEvent: this.fromEvent }]);
           }
     
-          this.storageService.cartDetails.fromEvent = this.fromEvent;
-          this.storageService.cartDetails.fromView = this.fromView;
-          this.storageService.cartDetails.cart = cartList;
-          this.storageService.cartDetails.distributor = this.distributor;
+      //    this.storageService.cartDetails.fromEvent = this.fromEvent;
+        ///  this.storageService.cartDetails.fromView = this.fromView;
+          //this.storageService.cartDetails.cart = cartList;
+          //this.storageService.cartDetails.distributor = this.distributor;
 
         },
         (error) => {
