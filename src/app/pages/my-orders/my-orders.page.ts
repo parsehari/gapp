@@ -104,7 +104,7 @@ export class MyOrdersPage implements OnInit {
       }
     }, (err) => {
       console.log("error ", err);
-      this.commonService.hideLoader();
+      // this.commonService.hideLoader();
       this.commonService.showToast(err.message);
     })
   }

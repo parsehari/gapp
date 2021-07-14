@@ -15,7 +15,7 @@ export class StorageService {
   userMobile: string;
   otpOnemail: boolean;
   prefDistFlag: boolean;
-  cartDetails:CartDetails;
+  cartDetails: CartDetails;
 
   constructor(private storage: Storage) {
     this.init();
@@ -36,6 +36,10 @@ export class StorageService {
 
   async get(key: any) {
     return await this.storage.get(key);
+  }
+
+  async clearData() {
+    await this.storage.clear();
   }
 
 
@@ -62,5 +66,7 @@ export class StorageService {
   getProductData() {
     return this.productData;
   }
+
+
 
 }

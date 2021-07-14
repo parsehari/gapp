@@ -4,6 +4,7 @@ import { MenuController } from '@ionic/angular';
 import { StorageService } from './services/storage.service';
 import { ApiService } from './services/api.service';
 import { Router } from '@angular/router';
+import { CommonService } from './services/common.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -13,8 +14,13 @@ export class AppComponent {
   public appPages: any;
   public appToken: any;
 
-  constructor(private translate: TranslateService, private menu: MenuController, private storageService: StorageService, private apiService: ApiService
-    , private router: Router
+  constructor(private translate: TranslateService,
+    private menu: MenuController,
+    private storageService: StorageService,
+    private apiService: ApiService,
+    private router: Router,
+    private commonService: CommonService
+
   ) {
     translate.setDefaultLang('en');
 
@@ -43,5 +49,26 @@ export class AppComponent {
       { title: this.translate.instant("sideMenu.logout"), url: 'login', icon: 'log-out' }
     ];
 
+  }
+  logout(url: any) {
+    console.log("url ", url);
+    this.commonService.showLoader();
+    if (url == "login") {
+      console.log("login called ");
+      this.apiService.getDataService(this.apiService.logout).subscribe((resp: any) => {
+        console.log("response ", resp);
+        this.commonService.hideLoader();
+        if (resp.code == "200") {
+          this.storageService.clearData().then((respn: any) => {
+            this.commonService.showToast(resp.message);
+          });
+        } else {
+          this.commonService.showToast(resp.message);
+        }
+      }, (err) => {
+        this.commonService.hideLoader();
+        console.log("error ", err);
+      })
+    }
   }
 }
