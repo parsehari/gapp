@@ -39,11 +39,16 @@
 }
 
 .msg-text {
-  padding: 5px 15px 5px 15px !important;
-  height: 190px;
   overflow: scroll;
+  margin: 0px 5px 10px 5px;
 }
+.heading{
+  height: 210px;
 
+}
+.header-text{
+  background-color: #F69427;
+}
 .dropdownClr {
   color: var(--ion-gsk-orange-color);
 }

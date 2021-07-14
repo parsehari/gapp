@@ -8,6 +8,7 @@ import { StockiestPrice } from 'src/app/Model/stockiest-price.model';
 import { Stockiest } from 'src/app/Model/stockiest.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from 'src/app/services/common.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-select-distributor',
@@ -28,7 +29,8 @@ export class SelectDistributorPage implements OnInit {
   constructor(private router: Router, private menu: MenuController,
     private route: ActivatedRoute,
     private apiService: ApiService,
-    private commonService:CommonService
+    private commonService:CommonService,
+    private storage:StorageService
   ) {
     this.route.params.subscribe(
       (param) => {
@@ -173,6 +175,8 @@ export class SelectDistributorPage implements OnInit {
   }
   continueClicked() {
     if(this.sDistributor){
+      //this.storage.cartDetails.cWPDistributor = this.cartWithPDistributor;
+      //this.storage.cartDetails.sotockiest = this.sDistributor;
       this.router.navigate(['/order-summary', { stockiest: JSON.stringify(this.sDistributor), cartInfo: JSON.stringify(this.cartWithPDistributor), fromView: this.fromView, fromEvent: this.fromEvent }]);
     }else{
       this.commonService.presentOneButtonAlert('GSK','Please select distributor for continue.','OK');
@@ -187,11 +191,15 @@ export class SelectDistributorPage implements OnInit {
       this.cartWithPDistributor[index].unitCart.quantity++;
       this.setPriceForDistributor(index);
     } else {
-      if (this.cartWithPDistributor[index].unitCart.quantity != 1)
+      if (this.cartWithPDistributor[index].unitCart.quantity != 1){
         this.cartWithPDistributor[index].unitCart.quantity--;
-      this.setPriceForDistributor(index);
+        this.setPriceForDistributor(index);
+      }
+    else {
+      this.deleteItem( this.cartWithPDistributor[index].unitCart.productCode,index)
     }
   }
+}
 
 
   setPriceForDistributor(index) {
@@ -204,5 +212,29 @@ export class SelectDistributorPage implements OnInit {
     if (this.cartWithPDistributor[index].stockiestThree?.unitDisplayPrice) {
       this.cartWithPDistributor[index].stockiestThree.totalDisplayPrice = this.cartWithPDistributor[index].stockiestThree?.unitDisplayPrice * this.cartWithPDistributor[index].unitCart?.quantity;
     }
+  }
+
+  deleteItem(pCode, index) {
+    var removeItem = {
+      productcode: pCode
+    }
+    this.commonService.showLoader();
+    this.apiService.postDataService(this.apiService.removeItemURL, removeItem).subscribe(
+      (response) => {
+        this.commonService.hideLoader()
+        this.cartWithPDistributor.splice(index, 1);
+        this.commonService.badgeCountValue = this.commonService.badgeCountValue - 1;
+        this.badgeCountValue = this.badgeCountValue - 1;
+        console.log("remove cart response:", response);
+        console.log("this.cartWithPDistributor?.length :",this.cartWithPDistributor?.length)
+        if( this.cartWithPDistributor?.length == 0){
+          this.router.navigate(['/product-list']);
+        }
+      },
+      (error) => {
+        this.commonService.hideLoader()
+        this.commonService.showToast(error)
+      }
+    )
   }
 }

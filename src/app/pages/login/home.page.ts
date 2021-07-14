@@ -19,17 +19,13 @@ export class HomePage implements OnInit {
   //public loginInput: string = 'harshada.v.wabgaonkar@gsk.com';
   public inputType: string = 'number';
   public loginType: string;
-  isPrivacyPolicy = true;
-
+  
   constructor(private modelCtrl: ModalController, private menu: MenuController, private route: Router,
     private commonService: CommonService, private apiService: ApiService,
     private storageService: StorageService,
     private model: ModalController) {
     this.menu.enable(false);
-    if (this.isPrivacyPolicy) {
-      this.presentModal();
-      this.isPrivacyPolicy = false;
-    }
+    
   }
   async presentModal() {
     const modal = await this.model.create({
@@ -39,6 +35,13 @@ export class HomePage implements OnInit {
     return await modal.present();
   }
   ngOnInit() {
+
+    this.storageService.get('token').then((respToken: any) => {
+      console.log("*************token********",respToken)
+      if(respToken == undefined){
+        this.presentModal()
+      }
+    });
   }
 
   inputVal(type: any) {
