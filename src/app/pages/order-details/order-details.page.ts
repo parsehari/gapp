@@ -80,8 +80,8 @@ export class OrderDetailsPage implements OnInit {
         cartProd.productCode = ele.productCode;
         cartProd.productDescription = ele.productDescription;
         cartProd.productImage = ele.productImage;
-        cartProd.quantity = ele.quantity;
-        cartProd.mrp = parseFloat(ele.productValue);
+        cartProd.quantity = Math.ceil(ele.quantity);
+        cartProd.ptr = parseFloat(ele.productValue);
         cartList.push(cartProd);
       }
     );

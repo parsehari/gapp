@@ -56,18 +56,18 @@ export class OrderSummaryPage implements OnInit {
           if (element.stockiestOne) {
             if (this.stockiestObj.stockiest === element.stockiestOne.stockiest) {
               element.stockiestOne.stockiest ?
-                element.unitCart.mrp = element.stockiestOne.stokiestRate : '';
+                element.unitCart.ptr = element.stockiestOne.stokiestRate : '';
 
             }
           } if (element.stockiestTwo) {
             if (this.stockiestObj.stockiest === element.stockiestTwo.stockiest) {
 
-              element.stockiestTwo.stokiestRate ? element.unitCart.mrp = element.stockiestTwo.stokiestRate : '';
+              element.stockiestTwo.stokiestRate ? element.unitCart.ptr = element.stockiestTwo.stokiestRate : '';
             }
           } if (element.stockiestThree) {
             if (this.stockiestObj.stockiest === element.stockiestThree.stockiest) {
               element.stockiestThree.stokiestRate ?
-                element.unitCart.mrp = element.stockiestThree.stokiestRate : '';
+                element.unitCart.ptr = element.stockiestThree.stokiestRate : '';
             }
           }
           this.products.push(element.unitCart);
@@ -120,7 +120,7 @@ export class OrderSummaryPage implements OnInit {
   modifyQuantity(event: any, productCode: any, index: any) {
     this.products.map((ele) => {
       if (ele.productCode === productCode) {
-        let unitPrice = ele.mrp / ele.quantity;
+        let unitPrice = ele.ptr / ele.quantity;
         if (event === 'add') {
           ele.quantity++;
         } else {
@@ -164,7 +164,7 @@ export class OrderSummaryPage implements OnInit {
     var total = 0;
     this.productSubTotal = 0;
     this.products.forEach(element => {
-      total = (element.mrp * element.quantity);
+      total = (element.ptr * element.quantity);
       this.productSubTotal += total;
     });
   }
@@ -241,7 +241,7 @@ export class OrderSummaryPage implements OnInit {
                 if (ele.quantity >= percentList.minQty) {
                   this.subTotal = 0;
                   var total = 0;
-                  total = ele.quantity * ele.mrp;
+                  total = ele.quantity * ele.ptr;
                   this.subTotal = (total - ((total * percentList.disPercent) / 100));
                   this.savingValue = total - this.subTotal;
                   console.log("subTotalone ", this.subTotal);
@@ -254,7 +254,7 @@ export class OrderSummaryPage implements OnInit {
                   console.log("test ", ele.productCode);
                   //ele. = 
                 } else {
-                  total = ele.quantity * ele.mrp;
+                  total = ele.quantity * ele.ptr;
                   this.subTotal = total;
                   this.savingValue += total - this.subTotal;
                   ele.total = total;
@@ -266,7 +266,7 @@ export class OrderSummaryPage implements OnInit {
                 }
               })
             } else {
-              ele.total = ele.quantity * ele.mrp;
+              ele.total = ele.quantity * ele.ptr;
               ele.productDiscount = this.subTotal;
               ele.savingValue = this.savingValue;
               //  ele.gskDiscount = this.gskDiscount;
@@ -288,7 +288,7 @@ export class OrderSummaryPage implements OnInit {
                     if (ele.quantity >= percentList.minQty) {
                       this.subTotalTwo = 0;
                       var total = 0;
-                      total = ele.quantity * ele.mrp;
+                      total = ele.quantity * ele.ptr;
                       this.subTotalTwo = (ele.quantity * percentList.disAmtPerUnit);
                       this.savingValueTwo = this.subTotalTwo;
                       ele.total = total;
@@ -299,7 +299,7 @@ export class OrderSummaryPage implements OnInit {
                       ele.disFlag = percentList.disFlag;
                       console.log("test2 ", ele.productCode);
                     } else {
-                      total = ele.quantity * ele.mrp;
+                      total = ele.quantity * ele.ptr;
                       this.subTotalTwo = total;
                       this.savingValue += total - this.subTotalTwo;
                       // this.gskDiscount += this.subTotal;
@@ -313,7 +313,7 @@ export class OrderSummaryPage implements OnInit {
                     }
                   })
                 } else {
-                  ele.total = ele.quantity * ele.mrp;
+                  ele.total = ele.quantity * ele.ptr;
                   ele.productDiscount = this.subTotalTwo;
                   ele.savingValue = this.savingValue;
                   ele.gskDiscount = this.gskDiscount;

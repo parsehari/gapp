@@ -35,8 +35,8 @@ export class CommonService {
     public popoverController: PopoverController,
     public translateService: TranslateService,
     public router: Router,
-    private sanitizer:DomSanitizer,
-    public apiService:ApiService,
+    private sanitizer: DomSanitizer,
+    public apiService: ApiService,
   ) {
 
     this.currentUrl = router.url;
@@ -109,12 +109,12 @@ export class CommonService {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            
+
           }
         }, {
           text: 'Yes',
           handler: () => {
-            
+
           }
         }
       ]
@@ -139,7 +139,7 @@ export class CommonService {
       message: msg || 'Please wait',
     }).then(a => {
       a.present().then(() => {
-        console.log('presented');
+        console.log('presented', this.isLoading);
         if (!this.isLoading) {
           a.dismiss().then(() => console.log('abort presenting'));
         }
@@ -192,20 +192,20 @@ export class CommonService {
     this.toast = this.toastController.dismiss();
   }
 
-  getImageURLFromBase64(imageData):any{
+  getImageURLFromBase64(imageData): any {
     var imageSource = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${imageData}`);
     return imageSource;
   }
-  
+
   getCartItem() {
     this.showLoader();
     this.apiService.getDataService(this.apiService.getCartAPI).subscribe((resp: any) => {
       console.log("response cart ", resp);
-      if (resp.getProdList){
-       
+      if (resp.getProdList) {
+
         this.hideLoader();
         this.badgeCountValue = resp.getProdList.length;
-      }else{
+      } else {
         this.showToast(resp.message);
       }
     }, (err) => {

@@ -88,7 +88,7 @@ export class PaymentPage implements OnInit {
         "ProductCode": ele.productCode.toString(),
         "Quantity": ele.quantity.toString(),
         "RatePerUnit": ele.total.toString(),
-        "ProductValue": ele.mrp.toString(),
+        "ProductValue": ele.ptr.toString(),
         "GskDiscountAmount": ele.productDiscount.toString(),
         "GskDiscountPercent": ele.disPercent != undefined ? ele.disPercent.toString() : '',
         "DisId": ele.disId != undefined ? ele.disId.toString() : '',

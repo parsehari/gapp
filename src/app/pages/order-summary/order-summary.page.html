@@ -32,7 +32,7 @@
     <ion-row style="align-items: center;height: 60px;">
       <ion-col size="4">
        <p>{{product.productDescription}}</p>
-       <p class="font-subtitle">{{product.mrp | currency:'INR'}}
+       <p class="font-subtitle">{{product.ptr | currency:'INR'}}
       </p>
       </ion-col>
       <ion-col size="3">
@@ -56,7 +56,7 @@
        </ion-col>
        <ion-col size="3">
         <div class="ion-text-right">
-          {{product.mrp*product.quantity | currency:'INR'}}
+          {{product.ptr*product.quantity | currency:'INR'}}
         </div>
             </ion-col>
        <ion-col size="2">

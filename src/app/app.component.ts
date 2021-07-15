@@ -52,12 +52,12 @@ export class AppComponent {
   }
   logout(url: any) {
     console.log("url ", url);
-    this.commonService.showLoader();
+    // this.commonService.showLoader();
     if (url == "login") {
       console.log("login called ");
       this.apiService.getDataService(this.apiService.logout).subscribe((resp: any) => {
         console.log("response ", resp);
-        this.commonService.hideLoader();
+        //  this.commonService.hideLoader();
         if (resp.code == "200") {
           this.storageService.clearData().then((respn: any) => {
             this.commonService.showToast(resp.message);
@@ -66,7 +66,7 @@ export class AppComponent {
           this.commonService.showToast(resp.message);
         }
       }, (err) => {
-        this.commonService.hideLoader();
+        // this.commonService.hideLoader();
         console.log("error ", err);
       })
     }
