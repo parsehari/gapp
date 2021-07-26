@@ -1,8 +1,8 @@
-<app-header heading="Vaccines" [showMenuButton]="true" [showSubHeader]="false" [showSearch]="true" [showCart]="true" [badgeCount]="badgeValue">
+<app-header heading="Vaccines" [showMenuButton]="showCart? true:false" [showSubHeader]="showCart? false:true" [showSearch]="true" [showCart]="true" [badgeCount]="badgeValue" (searchEvents)="onSearch($event)">
 </app-header>
 <ion-content>
  <div *ngIf="productList?.length>0">
-  <ion-card *ngFor="let product of productList;let i = index">
+  <ion-card *ngFor="let product of productList | filter : 'productDescription' : searchStr;let i = index">
     <ion-grid class="card-section">
       <ion-row class="ion-no-padding"class="ion-no-margin" >
         <ion-col size="4">
@@ -67,7 +67,7 @@
         </ion-col>
         <ion-col class="img-padding" size="2">
           <div class="ion-text-right">
-            <ion-label>{{product?.stokiestRate > 0 ? product?.stokiestRate:product?.ptr | currency:'INR':'symbol-narrow':'1.0-0'}}</ion-label>
+            <ion-label>{{product?.stokiestRate > 0 ? (product?.stokiestRate | currency:'INR':'symbol-narrow':'1.0-0'):(product?.ptr | currency:'INR':'symbol-narrow':'1.0-0')}}</ion-label>
           </div>
         </ion-col>
       </ion-row>
@@ -99,4 +99,4 @@
  </div>
 </ion-content>
 
-<app-footer  [isFirstOutline]=true [isSecondOutline]=false [firstTitle]="'product-list.product-listPage.aCart'" [secondTitle]="'product-list.product-listPage.bNow'" (firstEvent)="addToCart()" (secondEvent)="buyNow()"></app-footer>
+<app-footer  [isFirstOutline]="showCart?true:false" [moreEvent]="showCart?true:false" [isSecondOutline]=false [firstTitle]="showCart?'product-list.product-listPage.aCart':btnTitle" [secondTitle]="'product-list.product-listPage.bNow'" (firstEvent)="showCart?addToCart():doneButtonClicked()" (secondEvent)="buyNow()"></app-footer>

@@ -4,12 +4,10 @@ import { PreferredDistributorModel } from "./pdistributor.model";
 import { Stockiest } from "./stockiest.model";
 
 export class CartDetails {
-    public distributor : PreferredDistributorModel;
+    public distributor : any;
     public cart:CartModel[]=[];
     public fromView:string;
     public fromEvent:string;
     public isAddProduct = false;
     public fromCart = false;
-    public cWPDistributor:CartWithStockiest[]=[];
-    public sotockiest:Stockiest;
 }

@@ -14,6 +14,7 @@ import { StorageService } from 'src/app/services/storage.service';
 export class PreferredDistributorPage implements OnInit {
   pDistributorList: PreferredDistributorModel[];
   selDistributor=[];
+  searchStr="";
   constructor(private route:Router, private menu : MenuController,private apiService:ApiService,private storage:StorageService,
    private commonService:CommonService) { }
   
@@ -25,13 +26,12 @@ export class PreferredDistributorPage implements OnInit {
       this.pDistributorList = response.gskDistributorList;
       this.pDistributorList.map(
          (ele)=>{
-            if(ele.preference.length>0){
+            if(ele.preference.length >0){
                ele.isPreferred = true;
                this.selDistributor.push(ele.stockistCerpCode);
             }
          }
       )
-      console.log("this.pDistributorList :",this.pDistributorList);
       this.commonService.hideLoader();
      }),
      (error)=>{
@@ -42,18 +42,18 @@ export class PreferredDistributorPage implements OnInit {
   goBack(){
 
   }
-  searchInputValueChange(event){
-
+  searchInputValueChange(str){
+   this.searchStr = str;
   }
   onPress(stockCode) {
    var count = 0; 
    var isSelected=false;
    this.pDistributorList.map((ele)=>{
-      if(ele.isPreferred){
+      if(ele?.preference?.length > 0){
         count++;
      }
-     if(ele.stockistCerpCode === stockCode && ele.isPreferred){
-      ele.isPreferred = false;
+     if(ele.stockistCerpCode === stockCode && ele?.preference?.length > 0){
+      ele.preference = "";
       isSelected = true;
       this.selDistributor = this.selDistributor.filter((ele)=>{
          return ele != stockCode
@@ -67,7 +67,7 @@ export class PreferredDistributorPage implements OnInit {
  if(count < 3){
     this.pDistributorList.map((ele)=>{
        if(ele.stockistCerpCode === stockCode){
-           ele.isPreferred = true;
+           ele.preference = "preference";
            this.selDistributor.push(ele.stockistCerpCode);
        }
      })
@@ -85,11 +85,9 @@ export class PreferredDistributorPage implements OnInit {
 
      }else{
       var dict = this.setJsonForPreferredDistributor();
-      console.log("Dict :", dict);
       this.commonService.showLoader();
       this.apiService.postDataService(this.apiService.insertDistributorURL,dict).subscribe(
          (response)=>{
-          console.log("response :", response);
           this.commonService.hideLoader();
           this.route.navigate(['/product-list'])
          },

@@ -9,12 +9,13 @@ import { TrackOrderComponent } from '../track-order/track-order.component';
 import { AlertModelComponent } from '../alert-model/alert-model.component';
 import { PdfViewerComponent } from '../pdf-viewer/pdf-viewer.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
 
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, ExpandableComponent,FooterComponent,TrackOrderComponent,AlertModelComponent,PdfViewerComponent],
+  declarations: [HeaderComponent, ExpandableComponent,FooterComponent,TrackOrderComponent,AlertModelComponent,PdfViewerComponent,FilterPipe],
   imports: [
     CommonModule,
     IonicModule,
@@ -27,7 +28,8 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     FooterComponent,
     TrackOrderComponent,
     AlertModelComponent,
-    PdfViewerComponent
+    PdfViewerComponent,
+    FilterPipe
 
   ]
 })

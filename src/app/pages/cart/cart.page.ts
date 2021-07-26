@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CartDetails } from 'src/app/Model/cart-details.model';
 import { CartModel } from 'src/app/Model/cart.model';
 import { PreferredDistributorModel } from 'src/app/Model/pdistributor.model';
 import { Product } from 'src/app/Model/product.model';
@@ -41,23 +42,32 @@ export class CartPage implements OnInit {
   }
 
   ngOnInit() {
+    this.storage.cartDetails = new CartDetails();
     this.getCartItem();
   }
 
   getCartItem() {
     this.commonService.showLoader();
     this.apiService.getDataService(this.apiService.getCartAPI).subscribe((resp: any) => {
-      console.log("response cart ", resp);
       if (resp.getProdList) {
         this.cartProducts = resp.getProdList;
+        console.log("cartProducts",this.cartProducts)
         this.commonService.hideLoader();
+        this.storage.cartDetails.cart = this.cartProducts;
         this.commonService.badgeCountValue = this.cartProducts.length;
         this.badgeCountValue = this.commonService.badgeCountValue;
+        if(resp?.distributor?.stockistCerpCode){
+          this.stockiest = resp?.distributor;
+          this.storage.cartDetails.distributor = resp?.distributor;
+          this.storage.cartDetails.fromView = 'distributor';
+          this.fromView = 'distributor';
+        }
       } else {
         this.commonService.hideLoader();
       }
+      console.log("cart response",resp);
     }, (err) => {
-      console.log("error in cart", err);
+     
       this.commonService.hideLoader()
       this.commonService.showToast(err);
     });
@@ -90,15 +100,26 @@ export class CartPage implements OnInit {
           cartProd.productImage = '';
           cartProd.quantity = ele.quantity;
           cartProd.ptr = ele.ptr;
-          cartProd.StockiestRate = ele.StockiestRate;
+          cartProd.stockiestRate = ele.stockiestRate;
           cartList.push(cartProd);
         }
       )
-      var cartJson = {
-        "StockistCerpCode":"",
-        "Preference":"",
-        "Gsk_CartList": cartList,
+      var cartJson : any;
+      if(this.storage.cartDetails?.distributor){
+       cartJson = {
+          "StockistCerpCode":this.storage.cartDetails?.distributor?.stockistCerpCode,
+          "Preference":this.storage.cartDetails?.distributor?.preference?this.storage.cartDetails?.distributor?.preference:"",
+          "Gsk_CartList": cartList,
+        }
+      }else{
+        cartJson = {
+          "StockistCerpCode":"",
+
+          "Preference":"",
+          "Gsk_CartList": cartList,
+        }
       }
+      
       this.commonService.showLoader();
       this.apiService.postDataService(this.apiService.saveCartURL, cartJson).subscribe(
         (response) => {
@@ -116,8 +137,8 @@ export class CartPage implements OnInit {
     }
   }
   addNewProduct() {
-    // this.storage.cartDetails.isAddProduct = true;
-    // this.storage.cartDetails.fromCart = true;
+    this.storage.cartDetails.isAddProduct = true;
+    this.storage.cartDetails.fromCart = true;
     this.route.navigate(['/product-list'])
   }
   modifyQuantity(event, productCode, index) {
@@ -151,7 +172,7 @@ export class CartPage implements OnInit {
         this.cartProducts.splice(index, 1);
         this.commonService.badgeCountValue = this.commonService.badgeCountValue - 1;
         this.badgeCountValue = this.badgeCountValue - 1;
-        console.log("remove cart response:", response);
+       
       },
       (error) => {
         this.commonService.hideLoader()

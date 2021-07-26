@@ -21,7 +21,7 @@
           <ion-row>
             <ion-col>
               <div class="ion-text-right">
-                <ion-label class="price-text"> {{cartItem?.StockiestRate > 0 ? cartItem?.StockiestRate : cartItem?.ptr| currency:'INR':'symbol-narrow':'1.0-0'}}
+                <ion-label class="price-text"> {{(cartItem?.stockiestRate > 0 ? cartItem?.stockiestRate : cartItem?.ptr)| currency:'INR':'symbol-narrow':'1.0-0'}}
                 </ion-label>
               </div>
             </ion-col>

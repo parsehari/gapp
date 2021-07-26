@@ -4,6 +4,7 @@ import { MenuController } from "@ionic/angular";
 import { timer } from "rxjs";
 import { ApiService } from "src/app/services/api.service";
 import { CommonService } from "src/app/services/common.service";
+import { Events } from "src/app/services/events";
 import { StorageService } from "src/app/services/storage.service";
 
 @Component({
@@ -36,7 +37,8 @@ export class OtpPage implements OnInit {
     private activatedroute: ActivatedRoute,
     private apiService: ApiService,
     private commonService: CommonService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private event:Events,
 
   ) { }
 
@@ -52,6 +54,8 @@ export class OtpPage implements OnInit {
     this.getOTP();
   }
 
+
+ 
   ngOnDestroy() {
     this.countDown = null;
   }
@@ -66,7 +70,7 @@ export class OtpPage implements OnInit {
       "Mobile_Email": this.loginData,
       "OtpSendOn": ''
     }
-    console.log(this.loginType);
+   
 
     if (this.loginType == 'email') {
       data.OtpSendOn = "EMAIL"
@@ -75,7 +79,7 @@ export class OtpPage implements OnInit {
     }
     this.apiService.postDataService(this.apiService.SendOTP, data)
       .subscribe((resp: any) => {
-        console.log("response ", resp);
+       
         this.processOTPSuccess(resp);
       }, (err) => {
         this.processOTPError(err);
@@ -111,16 +115,7 @@ export class OtpPage implements OnInit {
 
   validateOTP() {
     let finalOTP: Number;
-    console.log(
-      "1,2,3,4--" +
-      this.otpOne +
-      ", " +
-      this.otpTwo +
-      ", " +
-      this.otpThree +
-      ", " +
-      this.otpFour
-    );
+   
     if (
       this.otpOne === "" ||
       this.otpTwo === "" ||
@@ -141,29 +136,27 @@ export class OtpPage implements OnInit {
         ""
       );
 
-    console.log("finalOTP", finalOTP);
-    this.commonService.showLoader("Please wait");
+    
     let data = {
       "HcpCode": this.storageService.getHcpCode(),
-      "OTP": finalOTP.toString()
+      "OTP": finalOTP.toString(),
+      "imei":this.commonService.uniqueDeviceId
     };
+    console.log("verify otp request :",data);
+    this.commonService.showLoader();
     this.apiService
       .postDataService(this.apiService.validateOtp, data)
       .subscribe(
         (response: any) => {
           this.commonService.hideLoader();
-          console.log("validateOtp Response-", response);
           this.storageService.set('token', response.token);
+          this.storageService.set('userName',response._BO.hcpProfile.hcpName)
           this.apiService.setUserData(response.token);
+          this.event.publish('SET_USER',{user:response._BO.hcpProfile.hcpName});
           this.storageService.prefDistFlag = response._BO.prefDistFlag === "true" ? true : false;
-          if (this.storageService.prefDistFlag) {
-            this.router.navigate(['/product-list']);
-          } else {
-            this.router.navigate(["/preferred-distributor"]);
-          }
+          this.getCartItem()
         },
         (err) => {
-          console.log("error in page ", err);
           this.commonService.hideLoader();
           if (err.status == 400) this.commonService.showToast(err.message);
         }
@@ -174,26 +167,28 @@ export class OtpPage implements OnInit {
       this.btnDisabled = false;
     }
   }
-  /*
   getCartItem() {
-    this.commonService.showLoader();
+    this.apiService.setDistributorHeader();
     this.apiService.getDataService(this.apiService.getCartAPI).subscribe((resp: any) => {
-      console.log("response cart ", resp);
-      if (resp.getProdList){
-        if(this.storageService.prefDistFlag){
-          this.router.navigate(['/product-list']);
-        }else{
-          this.router.navigate(["/preferred-distributor"]);
-        }
-        this.commonService.hideLoader();
-        this.commonService.badgeCountValue = resp.getProdList.length;
-      }else{
-        this.commonService.showToast(resp.message);
+      if (resp.getProdList) {
+        this.cartProducts = resp.getProdList;
+        console.log("cartProducts",this.cartProducts)
+        this.commonService.badgeCountValue = this.cartProducts.length;
+      } 
+     
+      if (this.storageService.prefDistFlag) {
+        this.router.navigate(['/product-list']);
+      } else {
+        this.router.navigate(["/preferred-distributor"]);
       }
     }, (err) => {
-      console.log("error in cart", err);
-      this.commonService.hideLoader()
-      this.commonService.showToast(err);
+    
+      this.commonService.badgeCountValue = 0;
+      if (this.storageService.prefDistFlag) {
+        this.router.navigate(['/product-list']);
+      } else {
+        this.router.navigate(["/preferred-distributor"]);
+      }
     });
   }
   /*

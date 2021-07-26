@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CartDetails } from 'src/app/Model/cart-details.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -28,14 +29,11 @@ export class PaymentPage implements OnInit {
     this.cartData = JSON.parse(this.cartData);
     this.Summarydata = JSON.parse(this.Summarydata);
     this.stockiestObj = JSON.parse(this.stockiestObj);
-    console.log("cartData ", this.cartData);
-    console.log("netPrice ", this.netPrice);
-    console.log("Summarydata ", this.Summarydata);
-    console.log("stockiestObj ", this.stockiestObj);
+   
 
-
+    console.log("cart data :",this.cartData);
+    console.log("summary data :",this.Summarydata);
     this.stockiestObj.stockistCerpCode ? this.stockiestID = this.stockiestObj.stockistCerpCode : this.stockiestID = this.stockiestObj.stockiest;
-    console.log("this.stockiestID ", this.stockiestID);
     if (this.stockiestID == undefined) {
       let stobj = JSON.parse(this.stockiestObj);
       stobj.stockistCerpCode ? this.stockiestID = stobj.stockistCerpCode : this.stockiestID = null;
@@ -45,7 +43,6 @@ export class PaymentPage implements OnInit {
     if (this.stockiestID == null) {
       this.stockiestObj ? this.stockiestID = this.stockiestObj : '';
     }
-    console.log("this.stockiestID ", this.stockiestID);
     this.orderDate = new Date();
     this.orderDate = this.datePipe.transform(this.orderDate, 'dd-MM-yyyy');
   }
@@ -82,13 +79,12 @@ export class PaymentPage implements OnInit {
     }
 
     this.cartData.map((ele: any, index) => {
-      console.log('element ', ele);
       data.Order_Info_BO.push({
         "OrderLineNo": (index + 1).toString(),
         "ProductCode": ele.productCode.toString(),
         "Quantity": ele.quantity.toString(),
         "RatePerUnit": ele.total.toString(),
-        "ProductValue": ele.ptr.toString(),
+        "ProductValue":(ele.stockiestRate > 0 ? ele.stockiestRate:ele.ptr).toString(),
         "GskDiscountAmount": ele.productDiscount.toString(),
         "GskDiscountPercent": ele.disPercent != undefined ? ele.disPercent.toString() : '',
         "DisId": ele.disId != undefined ? ele.disId.toString() : '',
@@ -96,20 +92,17 @@ export class PaymentPage implements OnInit {
         "TaxValue": ele.productDiscount.toString(),
       })
     })
-    console.log("data ", data);
     this.commonService.showLoader();
     this.apiService.postDataService(this.apiService.saveOrder, data).subscribe((response: any) => {
-      console.log("response ", response);
       this.commonService.hideLoader();
       if (response.code == "200") {
-        //  this.removeCartItem();
-        this.route.navigate(['my-orders']);
+        this.storageService.cartDetails = new CartDetails();
+        this.removeCartItem();
       } else {
         this.commonService.showToast(response.message);
       }
     }, (err) => {
       this.commonService.hideLoader();
-      console.log("error ", err);
       this.commonService.showToast(err.message);
     });
 
@@ -122,14 +115,13 @@ export class PaymentPage implements OnInit {
         this.commonService.hideLoader();
         if (response.code === '200') {
           this.commonService.badgeCountValue = 0;
-          this.route.navigate(['my-orders']);
-        } else {
-          this.commonService.showToast(response.message);
-        }
+        } 
+        this.route.navigate(['my-orders']);
       },
       (error) => {
+       // this.storageService.cartDetails = new CartDetails();
         this.commonService.hideLoader();
-        this.commonService.showToast(error.message);
+        this.route.navigate(['my-orders']);
       }
     )
   }

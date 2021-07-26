@@ -27,7 +27,6 @@ export class PdfViewerComponent implements OnInit {
   ngOnInit() {}
 
   getUrl(urlStr):any{
-    console.log("url :",urlStr)
    return this.sanitizer.bypassSecurityTrustResourceUrl(urlStr)
 
   }

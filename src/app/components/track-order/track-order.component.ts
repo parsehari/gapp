@@ -19,10 +19,7 @@ export class TrackOrderComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log("gskOrderDate ", this.gskOrderDate);
-    console.log("createdOn ", this.createdOn);
-    console.log("payGatewayTrxnDt ", this.payGatewayTrxnDt);
-    console.log("deliveryDate ", this.deliveryDate);
+   
   }
 
 

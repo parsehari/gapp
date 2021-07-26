@@ -35,26 +35,36 @@ export class HomePage implements OnInit {
     return await modal.present();
   }
   ngOnInit() {
-
-    this.storageService.get('token').then((respToken: any) => {
-      console.log("*************token********",respToken)
-      if(respToken == undefined){
-        this.presentModal()
-      }
-    });
+    console.log("this.commonService.showPrivacyFlag",this.commonService.showPrivacyFlag)
+   if(this.commonService.showPrivacyFlag){
+     console.log("inside flag")
+     this.presentModal()
+   }
   }
 
   inputVal(type: any) {
     this.loginType = type;
-    console.log("login type :", this.loginType);
   }
 
+  validateInput ():boolean {
+    var regValid = /^\d{10}$/;
+    if(this.loginInput.match(regValid)){
+      return true;
+    }else{
+      regValid = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if(regValid.test(this.loginInput)){
+       return true;
+      }else{
+         return false;
+      }
+    }
+  }
   doLogin() {
-    this.commonService.showLoader();
-    if (!this.loginInput) {
+    if (!this.validateInput()) {
       this.commonService.showToast("Enter registered Mobile No. or Email Id");
       return;
     }
+    this.commonService.showLoader();
     this.apiService.setLoginHeader();
     var data = {
       "Mobile_Email": this.loginInput,
@@ -70,7 +80,6 @@ export class HomePage implements OnInit {
 
     this.apiService.postDataService(this.apiService.loginAPI, data)
       .subscribe((resp: any) => {
-        console.log("response ", resp);
         this.processLoginSuccess(resp);
       }, (err) => {
         this.processLoginError(err);
@@ -89,7 +98,6 @@ export class HomePage implements OnInit {
   }
 
   processLoginSuccess(data: any) {
-    console.log("success data ", data);
     this.commonService.hideLoader();
     if (data.hcpCode) {
       this.storageService.setHcpCode(data.hcpCode);
@@ -101,7 +109,6 @@ export class HomePage implements OnInit {
       } else {
         this.storageService.otpOnemail = false;
       }
-      console.log('varify ', data.tncFlag);
 
       if (data.tncFlag == "true") {
         this.route.navigate(["/otp", { loginData: this.loginInput, type: this.inputType }]);
@@ -123,12 +130,10 @@ export class HomePage implements OnInit {
   }
 
   processLoginError(error: any) {
-    console.log("error ", error);
     this.commonService.hideLoader();
     if (error.status == 400) {
       this.commonService.showToast("Mobile No must be numeric and 10 digits");
     }
-    // this.commonService.showToast(error.errors.MobileNo[0]);
   }
 
 

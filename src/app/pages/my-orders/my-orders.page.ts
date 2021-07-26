@@ -29,6 +29,9 @@ export class MyOrdersPage implements OnInit {
   }
 
   ngOnInit() {
+    
+  }
+  ionViewWillEnter(){
     this.getMyOrders('');
   }
 
@@ -47,7 +50,7 @@ export class MyOrdersPage implements OnInit {
 
     modal.onDidDismiss()
       .then((data) => {
-        console.log("data ", data);
+        
         this.dataSearch = data.data;
         this.myOrders = [];
         this.offset = 1;
@@ -74,18 +77,17 @@ export class MyOrdersPage implements OnInit {
     var orderEnd = '';
     var orderStatus = 'ALL';
     var productCode = 'ALL';
-    console.log("data ", data);
+   
     if (data != undefined) {
       orderStart = data.startDate ? orderStart = data.startDate : '';
       orderEnd = data.endDate ? orderEnd = data.endDate : '';
       orderStatus = data.orderStatus ? orderStatus = data.orderStatus : 'ALL';
       productCode = data.productsData ? productCode = data.productsData : 'ALL';
-      console.log("inside data ");
+     
     }
-    console.log("data ", data);
+   
     this.commonService.showLoader();
-    console.log("offset ", this.offset);
-    console.log("limit ", this.limit);
+   
     this.apiService.postDataService(this.apiService.myOrders, { "OrderStartDate": orderStart, "OrderEndDate": orderEnd, "OrderStatus": orderStatus, "productCode": productCode, "offset": this.offset, "limit": this.limit }).subscribe((response: any) => {
       this.commonService.hideLoader();
       if (response.code == "811" || response.code) {
@@ -100,10 +102,10 @@ export class MyOrdersPage implements OnInit {
           this.myOrders = response.gsk_Ord_Header_BO_List;
         }
         this.disable = false;
-        console.log("my orders ", this.myOrders);
+       
       }
     }, (err) => {
-      console.log("error ", err);
+     
       this.commonService.hideLoader();
       this.commonService.showToast(err.message);
     })

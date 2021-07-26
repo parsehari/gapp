@@ -1,10 +1,12 @@
-<app-header heading="Preferred Distributors" [showMenuButton]="true" [showSubHeader]="false" [showSearch]="true" [showCart]="true">
+<app-header heading="Preferred Distributors" (searchEvents)="searchInputValueChange($event)" [showMenuButton]="true" [showSubHeader]="false" [showSearch]="true" [showCart]="true">
 </app-header>
 <ion-content>
-    <ion-card *ngFor="let distributor of pDistributorList; let i = index"  [ngStyle]="{'background-color':distributor.isPreferred?'#B8DEFD':'white'}"  (click)="goToDetail(i)" >
-    <ion-item detail lines="none" (press)="onPress(distributor.stockistCerpCode)">
-      <ion-avatar slot="start">
-        <ion-img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyJkQmcLKxLATdMA4rIC0SIzu2CiH5Xk48Kw&usqp=CAU"></ion-img>
+    <ion-card *ngFor="let distributor of pDistributorList | filter:'stkName':searchStr; let i = index"  [ngStyle]="{'background-color':(distributor?.preference?.length > 0)?'#B8DEFD':'white'}"  >
+    <ion-item  lines="none" >
+    <ion-button  (click)="onPress(distributor.stockistCerpCode)" fill="clear">
+      <ion-icon  icon-only slot="start" [name]="distributor?.preference?.length>0?'checkbox-outline':'square-outline'"></ion-icon>
+    </ion-button>
+    <ion-avatar style="margin-right: 5px;"> <ion-img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyJkQmcLKxLATdMA4rIC0SIzu2CiH5Xk48Kw&usqp=CAU"></ion-img>
       </ion-avatar>
         <ion-label class="card-label">
           <p class="card-title">{{distributor.stkName}}</p>
@@ -12,8 +14,10 @@
             <ion-label class="left-content"><ion-icon class="icon-color" slot="start" name="location-outline"></ion-icon>&nbsp; {{distributor.stkState}}</ion-label>
             <ion-label class="right-content"><ion-icon class="icon-color" slot="start" name="navigate-outline"></ion-icon>&nbsp;{{distributor.stkArea}}</ion-label>
           </p>
-        </ion-label>
+        </ion-label> <ion-button (click)="goToDetail(i)" fill="clear">
+          <ion-icon icon-only slot="end" style="font-size: 24px;" name="chevron-forward-outline"></ion-icon>
+        </ion-button>
       </ion-item>
     </ion-card>
 </ion-content>
-<app-footer  [isFirstOutline]=false [moreEvent]=false [showInfo]="true" [infoLabel]="'pdistributor.pdistributorPage.pdistributor-info'" [firstTitle]="'pdistributor.pdistributorPage.save-pdistributor'" (firstEvent)="savePressed()"></app-footer>
+<app-footer  [isFirstOutline]=false [moreEvent]=false [showInfo]="true" [infoLabel]="'pdistributor.pdistributorPage.pdistributor-info'" [firstTitle]="'pdistributor.pdistributorPage.save-pdistributor'" (firstEvent)="savePressed()" ></app-footer>

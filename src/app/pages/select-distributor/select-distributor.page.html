@@ -14,7 +14,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of cartWithPDistributor;let i=index;">
-        <td>{{item.unitCart.productDescription}}</td>
+        <td><ion-label><p>{{item.unitCart.productDescription}}</p>
+        <p class="mrp-section">{{item.unitCart.ptr | currency : 'INR' : 'symbol-narrow':'1.0-0'}}</p></ion-label></td>
         <td>
           <ion-row>
             <ion-col>

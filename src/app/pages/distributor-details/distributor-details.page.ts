@@ -16,7 +16,7 @@ export class DistributorDetailsPage implements OnInit {
   this.route.params.subscribe(params => {
     if(params['data']){
       this.distributor = JSON.parse(params['data']);
-      console.log("distributor :", this.distributor);
+     
     }    
   })
 }

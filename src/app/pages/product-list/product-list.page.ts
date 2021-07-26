@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController, ModalController } from '@ionic/angular';
@@ -17,28 +18,31 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./product-list.page.scss'],
 })
 export class ProductListPage implements OnInit {
+  searchStr = "";
   productList: Product[] = [];
-  distributor: PreferredDistributorModel;
-  dProductList: ProductByDistributor[];
+  distributor: any;
   quantity = 0;
   discountInfo: Discount;
   fromView: string = 'product-list';
   fromEvent: string = 'aCart';
   dViaProduct: DiscountProduct[] = [];
   badgeValue =  this.commonService.badgeCountValue;
+  showCart = true;
+  btnTitle="Done";
+  cartJson:any = {}; 
   constructor(private menu: MenuController, private router: Router,
     private apiService: ApiService,
     private commonService: CommonService,
     private route: ActivatedRoute,
     private storageService: StorageService,
     private mCtrl:ModalController,
+    private loc:Location,
   ) {
     this.route.params.subscribe(
       (param) => {
         if (param) {
           if (param['distributor']) {
             this.distributor = JSON.parse(param['distributor']);
-            console.log("***************distributor :*******************",this.distributor)
             this.fromView = param['fromView'];
           }
         }
@@ -48,37 +52,43 @@ export class ProductListPage implements OnInit {
 
 
   ngOnInit() {
+    
+ 
     this.menu.enable(true);
     this.apiService.setDistributorHeader();
    
   }
-  ionViewDidEnter(){
-    this.commonService.showLoader()
-    if (this.fromView === 'distributor') {
-      this.apiService.postDataService(this.apiService.getDistributorProduct, { StockistCerpCode: this.distributor.stockistCerpCode }).subscribe(
-        (response) => {
-          this.commonService.hideLoader();
-          console.log("product distributor :", response)
-          this.dProductList = response.distributorList;
-          this.commonService.hideLoader();
-          this.setProductData();
-          this.getDiscount();
-        },
-        (error) => {
-          this.commonService.hideLoader();
-          this.commonService.showToast(error);
-        }
-      )
+  ionViewWillEnter(){
+    this.badgeValue =  this.commonService.badgeCountValue;
+    console.log("this.badgeValue ",this.badgeValue);
+    this.showCart = !this.storageService.cartDetails.isAddProduct;
+    
+    if(this.storageService.cartDetails.isAddProduct && this.storageService.cartDetails.distributor){
+     var dCode ='';
+     if(this.storageService?.cartDetails?.distributor?.stockistCerpCode){
+         dCode = this.storageService?.cartDetails?.distributor?.stockistCerpCode;
+         
+     }else{
+        dCode = this.storageService.cartDetails.distributor.stockiest;
+     }
+     this.cartJson['StockistCerpCode']=dCode;
+     this.cartJson['Preference']= this.storageService.cartDetails?.distributor?.preference ? this.storageService.cartDetails?.distributor?.preference : "";
+      this.getProductByDistributor(dCode);
+    }
+  else if (this.fromView === 'distributor') {
+    this.cartJson['StockistCerpCode']=this.distributor.stockistCerpCode;
+     this.cartJson['Preference']= this.distributor?.preference ? this.distributor?.preference : "";
+      this.getProductByDistributor(this.distributor.stockistCerpCode);
     } else {
+      this.cartJson['StockistCerpCode']="";
+      this.cartJson['Preference']= "";
+      this.commonService.showLoader();
       this.apiService.getDataService(this.apiService.getProductURL).subscribe(
         (response) => {
-          console.log("response :", response);
-          this.commonService.hideLoader()
+          this.commonService.hideLoader();
+          console.log("product -list",response);
           this.productList = response.gskProdList;
           this.storageService.setProductData(this.productList);
-          this.productList.map((ele) => {
-            ele.quantity = 0;
-          })
           this.getDiscount();
         },
         (error) => {
@@ -88,41 +98,39 @@ export class ProductListPage implements OnInit {
       )
     }
   }
-  getDiscountTotal(unit,discount){
-    return  parseFloat(unit)* parseFloat(discount);
-  }
-  setProductData() {
-    this.dProductList.map(
-      (ele) => {
-        var prod = new Product();
-        prod.productCode = ele.prodCode;
-        prod.productDescription = ele.productDescription;
-        prod.productImage = ele.productImage;
-        prod.quantity = 0;
-        prod.stockistCerpCode = ele.stockistCerpCode;
-        prod.stokiestRate = ele.stokiestRate;
-        prod.salebleQty = ele.salebleQty;
-        prod.pI_URL = ele.pI_URL;
-        if(ele.stokiestRate){
-          prod.stokiestRate = ele.stokiestRate;
-        }else{
-          prod.stokiestRate = 0;
-        }
-       
-        prod.ptr = ele.ptr;
-        this.productList.push(prod);
+
+  getProductByDistributor(pCode){
+    this.commonService.showLoader()
+    this.apiService.postDataService(this.apiService.getDistributorProduct, { StockistCerpCode: pCode }).subscribe(
+      (response) => {
+        this.commonService.hideLoader();
+        console.log("response list :",response);
+        this.productList = response.distributorList;
+        this.storageService.setProductData(this.productList);
+        this.getDiscount();
+      },
+      (error) => {
+        this.commonService.hideLoader();
+        this.commonService.showToast(error);
       }
     )
   }
+  ionViewDidEnter(){
+    
+  }
+  getDiscountTotal(unit,discount){
+    return  parseFloat(unit)* parseFloat(discount);
+  }
+  
   getDiscount() {
-    this.commonService.showLoader();
+    this.commonService.showLoader()
     this.apiService.getDataService(this.apiService.getDiscount).subscribe(
       (response) => {
-        console.log("get Discount data :", JSON.stringify(response));
+        this.commonService.hideLoader()
+        console.log("response prod:",response)
         this.discountInfo = response;
-        console.log("get Discount data from list:", JSON.stringify(this.discountInfo));
+        this.dViaProduct = [];
         this.storageService.setProductDiscount(this.discountInfo);
-        this.commonService.hideLoader();
         this.setDiscountData();
       },
       (error) => {
@@ -131,10 +139,13 @@ export class ProductListPage implements OnInit {
       }
     )
   }
-
+  onSearch(str){
+   this.searchStr = str;
+  }
   setDiscountData() {
     this.productList.map(
       (ele) => {
+        ele.quantity =0;
         var discountItem = new DiscountProduct();
         discountItem.isPercentDiscount = false;
         discountItem.isDiscount = false;
@@ -165,7 +176,43 @@ export class ProductListPage implements OnInit {
     )
   }
   searchInputValueChange(event) {
-    console.log("change", event);
+  }
+
+  getArrayList(cartData:Product[]):Array<CartModel>{
+    let cartList: CartModel[] = [];
+      cartData.map(
+        (ele) => { 
+          var cartProd = new CartModel();
+          cartProd.productCode = ele.productCode;
+          cartProd.productDescription = ele.productDescription;
+          cartProd.productImage = '';
+          cartProd.quantity = ele.quantity;
+          cartProd.ptr = parseInt (ele.ptr);
+          if(ele.stokiestRate){
+            cartProd.stockiestRate = ele.stokiestRate;
+          }else{
+            cartProd.stockiestRate = 0;
+          }
+          if(this.storageService.cartDetails.isAddProduct){
+            this.storageService.cartDetails.cart =  this.storageService.cartDetails.cart.filter(
+               (innerele)=>{
+                 if(innerele.productCode == ele.productCode){
+                  cartProd.quantity  += innerele.quantity; 
+                  return false;
+                 }else{
+                  innerele.productImage =""
+                   return true;
+                 }
+               } 
+              )
+          }
+          cartList.push(cartProd);
+        }
+      )
+      if(this.storageService.cartDetails.isAddProduct){
+      cartList = cartList.concat(this.storageService.cartDetails.cart);
+      }
+      return cartList;
   }
   addToCart() {
     var cartData = this.productList.filter((ele) => {
@@ -179,55 +226,23 @@ export class ProductListPage implements OnInit {
       this.commonService.presentOneButtonAlert('GSK', 'Please select product.', 'OK');
     } else {
 
-      let cartList: CartModel[] = [];
-      cartData.map(
-        (ele) => {
-          var cartProd = new CartModel();
-          cartProd.productCode = ele.productCode;
-          cartProd.productDescription = ele.productDescription;
-          cartProd.productImage = '';
-          cartProd.quantity = ele.quantity;
-          cartProd.ptr = parseInt (ele.ptr);
-          if(ele.stokiestRate){
-            cartProd.StockiestRate = ele.stokiestRate;
-          }else{
-            cartProd.StockiestRate = 0;
-          }
-         
-          cartList.push(cartProd);
-        }
-      )
-      // if(this.storageService.cartDetails.isAddProduct && this.storageService.cartDetails.fromCart){
-      //   cartList = cartList.concat(this.storageService.cartDetails.cart);
-      // }
-      cartList = cartList.concat()
-      var cartJson = {
-        "StockistCerpCode":"",
-        "Preference":"",
-        "Gsk_CartList": cartList,
-      }
+      let cartList = this.getArrayList(cartData);
+     
+      this.cartJson['Gsk_CartList']=cartList;
       this.commonService.showLoader();
-      this.apiService.postDataService(this.apiService.saveCartURL, cartJson).subscribe(
+      this.apiService.postDataService(this.apiService.saveCartURL, this.cartJson).subscribe(
         (response) => {
-          console.log("save cart data :", response);
           this.commonService.hideLoader();
           if (this.fromView == 'distributor') {
             this.router.navigate(['/cart', { stockiest: JSON.stringify(this.distributor), fromView: this.fromView, fromEvent: this.fromEvent }]);
           } else {
             this.router.navigate(['/cart', { fromView: this.fromView, fromEvent: this.fromEvent }]);
           }
-    
-        // this.storageService.cartDetails.fromEvent = this.fromEvent;
-        // this.storageService.cartDetails.fromView = this.fromView;
-        // this.storageService.cartDetails.cart = cartList;
-        // this.storageService.cartDetails.distributor = this.distributor;
-        // this.storageService.cartDetails.isAddProduct = false;
-        // this.storageService.cartDetails.fromCart = false;
+          this.productList = [];
         },
         (error) => {
           this.commonService.showToast(error);
           this.commonService.hideLoader()
-          console.log("error :", error);
         }
       )
     }
@@ -253,9 +268,9 @@ export class ProductListPage implements OnInit {
           cartProd.quantity = ele.quantity;
           cartProd.ptr = parseInt(ele.ptr);
           if(ele.stokiestRate){
-            cartProd.StockiestRate = ele.stokiestRate;
+            cartProd.stockiestRate = ele.stokiestRate;
           }else{
-            cartProd.StockiestRate = 0;
+            cartProd.stockiestRate = 0;
 
           }
           cartList.push(cartProd);
@@ -268,10 +283,6 @@ export class ProductListPage implements OnInit {
         this.fromEvent = 'buyNow'
         this.router.navigate(['/select-distributor', { param: JSON.stringify(cartList), fromView: this.fromView, fromEvent: this.fromEvent }]);
       }
-          // this.storageService.cartDetails.fromEvent = this.fromEvent;
-          // this.storageService.cartDetails.fromView = this.fromView;
-          // this.storageService.cartDetails.cart = cartList;
-          // this.storageService.cartDetails.distributor = this.distributor;
     }
   }
 
@@ -292,7 +303,6 @@ export class ProductListPage implements OnInit {
     return this.commonService.getImageURLFromBase64(imageSource);
   }
  async viewPdf(prod :Product){
-   console.log("pdf :",prod.pI_URL);
   const pdfModel = await this.mCtrl.create({
     component:PdfViewerComponent,
     cssClass:'pdf-style',
@@ -301,5 +311,45 @@ export class ProductListPage implements OnInit {
     }
   });
   return await pdfModel.present();
+  }
+
+  doneButtonClicked(){
+    var cartData = this.productList.filter((ele) => {
+      if (ele.quantity > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    if (cartData.length == 0) {
+      this.commonService.presentOneButtonAlert('GSK', 'Please select product.', 'OK');
+    } else {
+
+      let cartList = this.getArrayList(cartData);
+     
+      if(this.storageService.cartDetails.fromCart){
+        this.cartJson['Gsk_CartList']=cartList;
+
+        this.commonService.showLoader();
+        this.apiService.postDataService(this.apiService.saveCartURL, this.cartJson).subscribe(
+          (response) => {
+            this.commonService.hideLoader();
+          this.router.navigate(['/cart', { stockiest: JSON.stringify(this.distributor), fromView: this.fromView, fromEvent: this.fromEvent }]);
+          this.storageService.cartDetails.fromEvent = this.fromEvent;
+          this.storageService.cartDetails.fromView = this.fromView;
+          this.storageService.cartDetails.isAddProduct = false;
+          this.storageService.cartDetails.fromCart = false;
+          this.productList = [];
+          },
+          (error) => {
+            this.commonService.showToast(error);
+            this.commonService.hideLoader()
+          }
+        )
+      }else{
+        this.storageService.cartDetails.cart = cartList;
+        this.loc.back();
+      }
+    }
   }
 }

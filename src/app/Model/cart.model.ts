@@ -6,5 +6,6 @@ export class CartModel {
     public productImage: string;
     public quantity: number;
     public ptr: number;
-    public StockiestRate: number;
+    public stockiestRate: number;
 }
+

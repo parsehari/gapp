@@ -17,8 +17,7 @@ export class OrderViewModalPage implements OnInit {
     this.orderViewDetail = this.navParams.data.data;
     this.orderViewDetailInfo = this.navParams.data.detail;
 
-    console.log("orderViewDetail ", this.orderViewDetail);
-    console.log("orderViewDetailInfo ", this.orderViewDetailInfo);
+   
   }
 
   dismissModel() {

@@ -1,7 +1,7 @@
-<app-header heading="Order By Distributor" [showMenuButton]="true" [showSubHeader]="true" [showSearch]="true" [issettingIcon]="false" [showCart]="true">
+<app-header heading="Order By Distributor" [showMenuButton]="true" [showSubHeader]="true" [showSearch]="true" [issettingIcon]="false" [showCart]="true" (searchEvents)="searchbarChanged($event)">
 </app-header>
 <ion-content>
-  <ion-card *ngFor="let distributor of pDistributorList" (click)="getProduct(distributor)">
+  <ion-card [ngStyle]="{'background-color':distributor?.preference && distributor?.preference?.length>0 ? '#B8DEFD':'white'}" *ngFor="let distributor of pDistributorList | filter : 'stkName': searchStr"  (click)="getProduct(distributor)">
     <ion-item detail lines="none">
       <ion-avatar slot="start">
        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSppkoKsaYMuIoNLDH7O8ePOacLPG1mKXtEng&usqp=CAU">

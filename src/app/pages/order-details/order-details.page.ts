@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController, ModalController } from '@ionic/angular';
 import { CartModel } from 'src/app/Model/cart.model';
+import { Product } from 'src/app/Model/product.model';
 import { OrderViewModalPage } from 'src/app/pages/order-view-modal/order-view-modal.page';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from 'src/app/services/common.service';
@@ -25,7 +26,7 @@ export class OrderDetailsPage implements OnInit {
     private router: Router
   ) {
     this.orderNo = this.activatedroute.snapshot.paramMap.get('orderNo');
-    console.log("orderDetailHeader", this.orderDetailHeader);
+    
   }
 
   ngOnInit() {
@@ -37,16 +38,18 @@ export class OrderDetailsPage implements OnInit {
   }
 
   getOrderDetails() {
+    this.commonService.showLoader();
     this.apiService.getDataService(this.apiService.getOrderDetail + '/' + this.orderNo).subscribe((response: any) => {
-      console.log("response ", response);
+     
       this.orderDetailHeader = response.ord_Header_BO;
       this.orderDetailInfo = response.order_Info_BO;
-      console.log('detail ', this.orderDetailHeader);
+      console.log("details :",response);
       this.bindata = true;
+      this.commonService.hideLoader()
       this.getInvoiceData()
     }, (err) => {
-      console.log("error ", err);
       this.commonService.showToast(err.message);
+      this.commonService.hideLoader();
     })
   }
 
@@ -71,21 +74,48 @@ export class OrderDetailsPage implements OnInit {
     })
     return await model.present();
   }
-  savePressed() {
-    let cartList: CartModel[] = [];
-    this.orderDetailInfo.map(
-      (ele) => {
-        console.log("element ", ele);
-        var cartProd = new CartModel();
-        cartProd.productCode = ele.productCode;
-        cartProd.productDescription = ele.productDescription;
-        cartProd.productImage = ele.productImage;
-        cartProd.quantity = Math.ceil(ele.quantity);
-        cartProd.ptr = parseFloat(ele.productValue);
-        cartList.push(cartProd);
+
+
+  reorderPressed(){
+    this.commonService.showLoader();
+    this.apiService.postDataService(this.apiService.getDistributorProduct, { StockistCerpCode: this.orderDetailHeader.stockistCerpCode }).subscribe(
+      (response) => {
+        console.log("response list :",response);
+       const dProduct = response.distributorList as Product[];
+       let cartList: CartModel[] = [];
+       this.orderDetailInfo.map(
+         (ele) => {
+
+          dProduct.map(
+            (innerEle) => {
+          if(ele.productCode === innerEle.productCode){   
+          var cartProd = new CartModel();
+           cartProd.productCode = innerEle.productCode;
+           cartProd.productDescription = innerEle.productDescription;
+           cartProd.productImage = '';
+           cartProd.quantity = parseInt(ele.quantity);
+           cartProd.ptr = parseFloat(innerEle.ptr);
+           cartProd.stockiestRate = innerEle.stokiestRate;
+           cartList.push(cartProd);
+            }
+          }
+          );
+            }
+       );
+       this.commonService.hideLoader();
+       const stockiestObj = {
+        "preference":this.orderDetailHeader.preference,
+        "stockistCerpCode":this.orderDetailHeader.stockistCerpCode,
+        "stkName":this.orderDetailHeader.stkName
       }
-    );
-    console.log("cartList ", cartList);
-    this.router.navigate(['/order-summary', { stockiest: JSON.stringify(this.orderDetailHeader.stockistCerpCode), cartInfo: JSON.stringify(cartList), fromView: 'distributor', fromEvent: 'buyNow' }]);
+      if(cartList?.length > 0){
+        this.router.navigate(['/order-summary', { stockiest: JSON.stringify(stockiestObj), cartInfo: JSON.stringify(cartList), fromView: 'distributor', fromEvent: 'buyNow' }]);
+      }
+      },
+      (error) => {
+        this.commonService.hideLoader();
+        this.commonService.showToast(error);
+      }
+    )
   }
 }

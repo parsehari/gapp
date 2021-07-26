@@ -17,7 +17,6 @@ export class ModelInfoComponent implements OnInit {
   constructor(private modalController: ModalController, private apiService: ApiService, private route: Router, private navparams: NavParams, private storageService: StorageService, private commonService: CommonService) { }
 
   ngOnInit() {
-    console.log("this.navparams.data.pdfPath ", this.navparams.data.loginInput);
     this.loginData = this.navparams.data.loginInput;
     this.loginType = this.navparams.data.loginType;
     this.getTerms();
@@ -34,10 +33,8 @@ export class ModelInfoComponent implements OnInit {
       "HcpCode": this.storageService.getHcpCode(),
       "TncFlag": "1"
     };
-    console.log(data);
     this.apiService.postDataService(this.apiService.insertTnC, data)
       .subscribe((resp: any) => {
-        console.log("response ", resp);
         this.commonService.hideLoader();
         this.processTncSuccess(resp);
       }, (err) => {
@@ -60,19 +57,16 @@ export class ModelInfoComponent implements OnInit {
     this.apiService.getDataService(this.apiService.GetTncDetails).subscribe((resp: any) => {
       this.processTermsSuccess(resp);
     }, (err) => {
-      console.log("err native", err)
       this.processTermsError(err);
     });
   }
 
   processTermsSuccess(data) {
-    console.log(data);
     this.termsConditionText = data.termsConditinDetails.description;
-    console.log("this.termsConditionText :",this.termsConditionText);
   }
 
   processTermsError(data) {
-    console.log(data);
+    
   }
 
 

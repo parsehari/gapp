@@ -16,6 +16,7 @@ export class OrderByDistributorPage implements OnInit {
   masterData:PreferredDistributorModel[];
   pDistributorList: PreferredDistributorModel[];
   selDistributor=[];
+  searchStr = "";
   constructor(private route:Router, private menu : MenuController,private apiService:ApiService,
    private commonService:CommonService) { }
 
@@ -26,7 +27,7 @@ export class OrderByDistributorPage implements OnInit {
      this.pDistributorList = response.gskDistributorList;
      this.masterData = response.gskDistributorList;
      this.commonService.hideLoader();
-     console.log("pDistributor :",this.pDistributorList);
+    
     }),
     (error)=>{
        this.commonService.hideLoader()
@@ -36,8 +37,8 @@ export class OrderByDistributorPage implements OnInit {
   goBack(){
 
   }
-  searchbarChanged(){
-    
+  searchbarChanged(str){
+    this.searchStr = str;
   }
   getProduct(distributor){
    this.route.navigate(['/product-list',{distributor:JSON.stringify(distributor),fromView:'distributor'}])

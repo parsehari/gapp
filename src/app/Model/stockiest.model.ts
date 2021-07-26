@@ -1,4 +1,4 @@
-export class Stockiest {
+export class Stockiest {   
 public preference: string;
 public productCode: string;
 public ptr?: number;

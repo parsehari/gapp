@@ -6,7 +6,7 @@
           <ion-toolbar class="someText">
             <ion-icon  slot="start" name="person-circle-outline"></ion-icon>
           <ion-title class="menuTitle" color="gsk-white">
-            Welcome, John Doe
+            Welcome, {{userName}}
           </ion-title>
               <ion-icon slot="end" name="close"></ion-icon>
         
@@ -16,7 +16,7 @@
       <ion-content>
         <ion-list id="inbox-list">
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="true" (click)="logout(p.url);" routerLinkActive="selected">
+            <ion-item routerDirection="root"  lines="none" detail="true" (click)="logout(p.url);" >
              
               <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
               <ion-label>{{ p.title }}</ion-label>

@@ -12,7 +12,6 @@ describe('PaymentPage', () => {
       declarations: [ PaymentPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
-
     fixture = TestBed.createComponent(PaymentPage);
     component = fixture.componentInstance;
     fixture.detectChanges();

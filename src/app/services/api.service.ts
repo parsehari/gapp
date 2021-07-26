@@ -32,7 +32,6 @@ export class InterceptService implements HttpInterceptor {
         // }
       }
     }, error => {
-      console.log("Error captured in Interceptor");
       //this.analytics.trackEvent("Web Api Error", { Error: error['error']['error_description'] });
       if (error.status == 401 && this.router.url != '/login') {
         // this.analytics.trackEvent("Session expired", { Error: "Session Expired" });
@@ -134,6 +133,8 @@ export class ApiService {
   public getDistributorProduct = 'Distributor/GetProductWrtDistributor';
   public removeCart = "Product/Removecart";
   public logout = "Product/Logout";
+  public privacyPolicy = "Login/GetPrivacyPolicy";
+  public insertPrivacyPolicy = "Login/InsertPrivacyPolicy"
   constructor(private httpClient: HttpClient, private storageService: StorageService, public router: Router, private alertController: AlertController, private translate: TranslateService) {
 
   }
@@ -153,7 +154,10 @@ export class ApiService {
     }
     return this.httpClient.get(this.baseURL + url, this.httpOptions);
   }
-
+  getDataServiceWithData(url: string, data: any): Observable<any> {
+     console.log("this.httpOptions :",this.httpOptions)
+    return this.httpClient.get(this.baseURL + url);
+  }
   /**
    * post method used for http call 
    * @example called from the javascript function where to post anything or update to the server
@@ -164,10 +168,7 @@ export class ApiService {
    * @param setHeaderContent any header params set for api
    */
   postDataService(url: string, data: any): Observable<any> {
-    console.log("url :", url);
-    console.log("base url :", this.baseURL);
-    console.log("data :", data);
-    console.log("http option :", this.httpOptions);
+   
     return this.httpClient.post(this.baseURL + url, data, this.httpOptions);
   }
   /**

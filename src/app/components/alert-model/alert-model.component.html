@@ -8,6 +8,7 @@
                 </div>
       </ion-col>
     </ion-row>
+    
     <ion-row>
       <ion-col style="text-align: center;">
         <div class="img-circel">
@@ -21,6 +22,9 @@
           <ion-label class="alert-text">Alerts!</ion-label>
         </div>
       </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><ion-label style="color: red;font-size: 12px;"><sup>*</sup>Please scroll down to accept privacy policy</ion-label></ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="msg-text">
@@ -40,6 +44,12 @@
     <li>I consent to receiving SMS and/or email contextual reminders for the purpose of generation of an OTP and/or related to your account.</li>  
   <p>You have the right to withdraw your consent for the purposes set out above, at any time.</p>  
  <li>Manage your preference to receive contextualized reminders by SMS or email, by using the available mechanisms to opt-out.</li> 
+<ion-row>
+  <ion-col>
+    <div class="ion-text-left"> <ion-checkbox (ionChange)="acceptPolicy($event)"></ion-checkbox><ion-label class="accept">&nbsp;I Accept.</ion-label> 
+    </div>
+  </ion-col>
+</ion-row>
 </div>
       </ion-col>
     </ion-row>

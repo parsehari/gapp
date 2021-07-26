@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
   @Output() paymentModes: EventEmitter<null> = new EventEmitter();
   @Output() openSetting = new EventEmitter();
   @Input() badgeCount: number = 0;
-
+   @Output()searchEvents=new EventEmitter();
   esopLogo: any;
   companyLogo: any;
   searchBarSize: any;
@@ -85,8 +85,7 @@ export class HeaderComponent implements OnInit {
   }
 
   goBack() {
-   // console.log('previous ', this.commonService.previousUrl);
-   // this.router.navigate([this.commonService.previousUrl]);
+   
 
    this.loc.back();
   }
@@ -94,5 +93,8 @@ export class HeaderComponent implements OnInit {
   goToCart() {
     this.router.navigate(['cart']);
   }
-
+searchInElement(str){
+ 
+  this.searchEvents.emit(str.detail.value);
+}
 }

@@ -27,8 +27,8 @@ export class CommonService {
   alert: any;
   public badgeCountValue = 0;
   passReset: boolean = true;
-
-
+  showPrivacyFlag = false;
+  uniqueDeviceId:any;
   constructor(private loadingController: LoadingController,
     public toastController: ToastController,
     public alertController: AlertController,
@@ -52,7 +52,6 @@ export class CommonService {
     let header = this.translateService.instant("common.alert")
     let balance = this.translateService.instant("common.noInternetMessage");
     let buttonText = this.translateService.instant("common.okbtn");
-    console.log("header message ", header);
     if (navigator.onLine)
       this.isConnected = true;
     else
@@ -134,6 +133,9 @@ export class CommonService {
   }
 
   showLoader(msg?) {
+    if( this.isLoading){
+      return;
+    }
     this.isLoading = true;
     this.loaderToShow = this.loadingController.create({
       message: msg || 'Please wait',
@@ -200,7 +202,6 @@ export class CommonService {
   getCartItem() {
     this.showLoader();
     this.apiService.getDataService(this.apiService.getCartAPI).subscribe((resp: any) => {
-      console.log("response cart ", resp);
       if (resp.getProdList) {
 
         this.hideLoader();
@@ -209,7 +210,6 @@ export class CommonService {
         this.showToast(resp.message);
       }
     }, (err) => {
-      console.log("error in cart", err);
       this.hideLoader()
       this.showToast(err);
     });

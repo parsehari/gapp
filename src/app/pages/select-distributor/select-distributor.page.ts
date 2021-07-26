@@ -21,7 +21,7 @@ export class SelectDistributorPage implements OnInit {
   distributor: any = 'Distributor 2';
   cartData: CartModel[];
   cartWithPDistributor: CartWithStockiest[] = [];
-  stockiestPrice: StockiestPrice;
+  stockiestPrice: StockiestPrice = new StockiestPrice();
   sDInfoLabel = 'sdistributor.sdistributorPage.selected-distributor-info'
   fromView = 'product-list'
   fromEvent: string = 'aCart';
@@ -40,10 +40,8 @@ export class SelectDistributorPage implements OnInit {
         }
         if (param['fromView']) {
           this.fromView = param['fromView'];
-          console.log("***********fron view**************", this.fromView);
         } if (param['fromEvent']) {
           this.fromEvent = param['fromEvent'];
-          console.log("***********fromEvent**************", this.fromView);
         }
       }
     )
@@ -53,13 +51,13 @@ export class SelectDistributorPage implements OnInit {
     this.commonService.showLoader();
     this.apiService.getDataService(this.apiService.getPDistributorPrice).subscribe(
       (response) => {
-        console.log("price :", response);
+        console.log("discount price :",response);
         this.stockiestPrice = response;
-        console.log("stockiestPrice :", this.stockiestPrice);
         this.setPDistributorData();
         this.commonService.hideLoader();
       },
       (error) => {
+        console.log("discount price :",error);
           this.commonService.hideLoader();
       }
     )
@@ -70,6 +68,7 @@ export class SelectDistributorPage implements OnInit {
       (ele) => {
         var cartWithStockiest = new CartWithStockiest();
         cartWithStockiest.unitCart = ele;
+        console.log("unit cart :",ele);
         this.stockiestPrice.distributor1_List.map(
           (innerEle) => {
             if (ele.productCode === innerEle.productCode) {
@@ -98,7 +97,6 @@ export class SelectDistributorPage implements OnInit {
           }
         )
         this.cartWithPDistributor.push(cartWithStockiest);
-        console.log("cartWithPDistributor :", this.cartWithPDistributor)
       }
     )
   }
@@ -107,7 +105,6 @@ export class SelectDistributorPage implements OnInit {
   }
 
   selectDistributor(event) {
-    console.log("select radio :", event);
 
     let index = parseInt(event.detail.value);
     switch (index) {
@@ -174,9 +171,8 @@ export class SelectDistributorPage implements OnInit {
     return total;
   }
   continueClicked() {
+    console.log("cartWithPDistributor",this.cartWithPDistributor[0].unitCart);
     if(this.sDistributor){
-      //this.storage.cartDetails.cWPDistributor = this.cartWithPDistributor;
-      //this.storage.cartDetails.sotockiest = this.sDistributor;
       this.router.navigate(['/order-summary', { stockiest: JSON.stringify(this.sDistributor), cartInfo: JSON.stringify(this.cartWithPDistributor), fromView: this.fromView, fromEvent: this.fromEvent }]);
     }else{
       this.commonService.presentOneButtonAlert('GSK','Please select distributor for continue.','OK');
@@ -223,10 +219,10 @@ export class SelectDistributorPage implements OnInit {
       (response) => {
         this.commonService.hideLoader()
         this.cartWithPDistributor.splice(index, 1);
-        this.commonService.badgeCountValue = this.commonService.badgeCountValue - 1;
-        this.badgeCountValue = this.badgeCountValue - 1;
-        console.log("remove cart response:", response);
-        console.log("this.cartWithPDistributor?.length :",this.cartWithPDistributor?.length)
+        if(response.message === 'Cart Product Removed'){
+          this.commonService.badgeCountValue = this.commonService.badgeCountValue - 1;
+          this.badgeCountValue = this.badgeCountValue - 1;
+        }
         if( this.cartWithPDistributor?.length == 0){
           this.router.navigate(['/product-list']);
         }

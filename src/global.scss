@@ -30,9 +30,13 @@
   top: 0px !important;
   left: 0px !important;
   width: 100% !important;
-  height: 90px !important;
-  background: transparent linear-gradient(180deg, #EF4B22 0%, #F69427 100%) 0% 0% no-repeat padding-box !important;
-  opacity: 1 !important;
+  height: 30px !important;
+  background-color: transparent;
+ opacity: 1 !important;
+  ion-row , ion-col{
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 }
 
 ion-card {

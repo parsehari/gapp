@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import { IonicSafeString, ModalController, NavParams, Platform } from '@ionic/angular';
 import * as moment from 'moment';
+import { ApiService } from 'src/app/services/api.service';
+import { CommonService } from 'src/app/services/common.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -19,8 +21,10 @@ export class AlertModelComponent implements OnInit {
   selectedProd: any;
   productselectedValue: any;
 
-  constructor(private modalController: ModalController, private navParams: NavParams, private storageService: StorageService) {
-    console.log('type', this.navParams.data.type);
+  constructor(
+    private commonService:CommonService,
+    private apiService:ApiService,
+    private platform:Platform,private modalController: ModalController, private navParams: NavParams, private storageService: StorageService) {
     if (this.navParams.data.type == "order") {
       this.showFilter = true;
     }
@@ -29,16 +33,22 @@ export class AlertModelComponent implements OnInit {
 
   ngOnInit() {
     this.productsData = this.storageService.getProductData();
-    console.log("this.productsData ", this.productsData);
     let sixmnths = moment();
     sixmnths = sixmnths.subtract(180, "days");
     this.maxDate = new Date(sixmnths.format("YYYY/MM/DD")).toISOString();
     this.minDate = new Date().toISOString();
   }
   closeModal() {
-    this.modalController.dismiss({
-      'dismissed': true
-    });
+    if(!this.showFilter){
+      navigator['app'].exitApp();
+      this.modalController.dismiss({
+        'dismissed': true
+      });
+    }else{
+      this.modalController.dismiss({
+        'dismissed': true
+      });
+    }    
   }
 
   selectValue(ev) {
@@ -49,7 +59,6 @@ export class AlertModelComponent implements OnInit {
   }
 
   showDate(ev, type) {
-    console.log("type", type);
     if (type == "start") {
       this.startDate = ev.detail.value;
       this.startDate = moment(this.startDate).format("MM-DD-YYYY");
@@ -58,15 +67,10 @@ export class AlertModelComponent implements OnInit {
       this.endDate = ev.detail.value;
       this.endDate = moment(this.endDate).format("MM-DD-YYYY");
     }
-    console.log("this.startDate ", this.startDate);
-    console.log("this.startDate ", this.endDate);
+ 
   }
 
   applyFilter() {
-    console.log('selectedValue ', this.selectedValue);
-    console.log('productsData ', this.productselectedValue);
-    console.log('startDate ', this.startDate);
-    console.log('endDate ', this.endDate);
     var filter = {
       'orderStatus': this.selectedValue,
       'startDate': this.startDate,
@@ -75,5 +79,24 @@ export class AlertModelComponent implements OnInit {
       'apply': true
     }
     this.modalController.dismiss(filter);
+  }
+  acceptPolicy(event){
+  if(event.detail.checked){
+    const reqJson = {
+      "imei":this.commonService.uniqueDeviceId,
+      "Privicyflag":"true"
+  }
+    this.commonService.showLoader();
+    this.apiService.postDataService(this.apiService.insertPrivacyPolicy,reqJson).subscribe((res)=>{
+     console.log("insert response :",res);
+     this.commonService.hideLoader();
+     this.modalController.dismiss({
+      'dismissed': true
+    });
+    },(error)=>{
+      this.commonService.showToast(error);
+      this.commonService.hideLoader();
+    })
+  }
   }
 }

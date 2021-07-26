@@ -15,7 +15,7 @@ export class StorageService {
   userMobile: string;
   otpOnemail: boolean;
   prefDistFlag: boolean;
-  cartDetails: CartDetails;
+  cartDetails: CartDetails = new CartDetails();
 
   constructor(private storage: Storage) {
     this.init();
@@ -31,7 +31,6 @@ export class StorageService {
   // call, for example:
   public set(key: string, value: any) {
     this._storage.set(key, value);
-    console.log("storage ", value);
   }
 
   async get(key: any) {

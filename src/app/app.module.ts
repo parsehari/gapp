@@ -13,6 +13,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { IonicGestureConfig } from './utils/IonicGestureConfig';
 import { CountdownModule } from 'ngx-countdown';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+import { AuthGuardService } from './services/auth-guard.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -44,6 +46,8 @@ export function createTranslateLoader(http: HttpClient) {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: IonicGestureConfig
     },
+    AuthGuardService,
+    UniqueDeviceID
   ],
   bootstrap: [AppComponent],
 })

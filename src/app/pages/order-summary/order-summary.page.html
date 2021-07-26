@@ -32,7 +32,7 @@
     <ion-row style="align-items: center;height: 60px;">
       <ion-col size="4">
        <p>{{product.productDescription}}</p>
-       <p class="font-subtitle">{{product.ptr | currency:'INR'}}
+       <p class="font-subtitle">{{(product?.stockiestRate > 0 ? product?.stockiestRate : product.ptr) | currency:'INR'}}
       </p>
       </ion-col>
       <ion-col size="3">
@@ -56,7 +56,7 @@
        </ion-col>
        <ion-col size="3">
         <div class="ion-text-right">
-          {{product.ptr*product.quantity | currency:'INR'}}
+          {{(product.stockiestRate > 0 ? product.stockiestRate:product.ptr)*product.quantity | currency:'INR'}}
         </div>
             </ion-col>
        <ion-col size="2">
@@ -68,37 +68,37 @@
   </ion-grid>
 <div class="gst-section">
   <ion-row class="bottom-section">
-    <ion-col>
+    <ion-col size="7">
       <div class="ion-text-left">
         Sub Total
       </div>
-      </ion-col>
-      <ion-col>
-      <div class="ion-text-right">
+      </ion-col >
+      <ion-col size="5" pull="2">
+        <div class="ion-text-right">
         {{productSubTotal | currency:'INR'}}
       </div>
     </ion-col>
   </ion-row>
   <ion-row class="bottom-section">
-    <ion-col>
+    <ion-col size="7">
       <div class="ion-text-left">
         GST 
       </div>
       </ion-col>
-      <ion-col>
-      <div class="ion-text-right">
+      <ion-col size="5" pull="2">
+        <div class="ion-text-right">
         {{gstTotal | currency:'INR'}}
       </div>
     </ion-col>
   </ion-row>
   <ion-row class="bottom-section">
-    <ion-col>
+    <ion-col size="7">
       <div class="ion-text-left">
         GSK Discount
       </div>
       </ion-col>
-      <ion-col>
-      <div class="ion-text-right">
+      <ion-col size="5" pull="2">
+        <div class="ion-text-right">
         {{savingValue | currency:'INR'}}
       </div>
     </ion-col>
@@ -107,12 +107,12 @@
 </div>
 <div class="netprice-theme">
   <ion-row class="netprice">
-    <ion-col>
+    <ion-col size="7">
       <div class="ion-text-left">
         Net Price
       </div>
       </ion-col>
-      <ion-col>
+      <ion-col size="5" pull="2">
       <div class="ion-text-right font-twenty">
         {{netPrice | currency:'INR'}}
       </div>

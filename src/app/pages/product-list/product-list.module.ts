@@ -9,6 +9,7 @@ import { ProductListPageRoutingModule } from './product-list-routing.module';
 import { ProductListPage } from './product-list.page';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/components/shared/shared.module';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
 
 @NgModule({
   imports: [

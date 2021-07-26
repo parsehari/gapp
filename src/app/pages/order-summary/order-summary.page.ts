@@ -26,8 +26,8 @@ export class OrderSummaryPage implements OnInit {
   stockiestObj: any;
   formView: any;
   formEvent: any;
-
-  cartWithPDistributor: any;
+  gstDiscountList:any=[];
+  cartWithPDistributor: any ;
   products: any = [];
   productsArr: any = [];
   badgeCount = this.commonService.badgeCountValue;
@@ -36,78 +36,90 @@ export class OrderSummaryPage implements OnInit {
     private storageService: StorageService,
     private activatedroute: ActivatedRoute
   ) {
-    console.log("this previous ", this.commonService.getPreviousUrl());
+   
     this.activatedroute.params.subscribe((params) => {
       if (params["cartInfo"]) {
         this.cartWithPDistributor = JSON.parse(params["cartInfo"]);
+        console.log("summary data :",this.cartWithPDistributor);
       } if (params["stockiest"]) {
         this.stockiestObj = JSON.parse(params["stockiest"]);
+        console.log("summary data obj:",this.stockiestObj);
+
       } if (params["fromView"]) {
         this.formView = params["fromView"];
       } if (params["fromEvent"]) {
         this.formEvent = params["fromEvent"];
       }
-
-      console.log('this.stockiestObj ', this.stockiestObj);
-
-      if ((this.formView == "product-list" && this.formEvent == "buyNow") || (this.formView == "product-list" && this.formEvent == "aCart")) {
-        this.cartWithPDistributor.forEach(element => {
-          console.log("element ", element);
-          if (element.stockiestOne) {
-            if (this.stockiestObj.stockiest === element.stockiestOne.stockiest) {
-              element.stockiestOne.stockiest ?
-                element.unitCart.ptr = element.stockiestOne.stokiestRate : '';
-
-            }
-          } if (element.stockiestTwo) {
-            if (this.stockiestObj.stockiest === element.stockiestTwo.stockiest) {
-
-              element.stockiestTwo.stokiestRate ? element.unitCart.ptr = element.stockiestTwo.stokiestRate : '';
-            }
-          } if (element.stockiestThree) {
-            if (this.stockiestObj.stockiest === element.stockiestThree.stockiest) {
-              element.stockiestThree.stokiestRate ?
-                element.unitCart.ptr = element.stockiestThree.stokiestRate : '';
-            }
-          }
-          this.products.push(element.unitCart);
-        });
-        console.log("products ", this.products);
-        this.products.forEach(element => {
-          console.log("elem ", element);
-          this.productsArr.push(element.productCode);
-        });
-        this.callAll();
-      }
-      if ((this.formView == "distributor" && this.formEvent == "buyNow") || (this.formView == "distributor" && this.formEvent == "aCart")) {
-        console.log("buyNow aCart");
-        this.cartWithPDistributor.forEach(element => {
-          this.products.push(element);
-          this.productsArr.push(element.productCode);
-          this.callAll();
-        })
-      }
     })
 
   }
 
+  ionViewWillEnter(){
+    if(this.storageService.cartDetails.isAddProduct){
+      this.productsArr = [];
+        this.products =  this.storageService.cartDetails.cart;
+        this.storageService.cartDetails.isAddProduct = false;
+        this.storageService.cartDetails.fromCart = false;
+        this.products.forEach(element => {
+       
+          this.productsArr.push(element.productCode);
+        });
+        this.callAll();
+    }
+  }
   callAll() {
     this.getGSTDetail();
-    this.calculateTotal();
-    this.getDiscountList();
   }
 
   ngOnInit() {
+    if ((this.formView == "product-list" && this.formEvent == "buyNow") || (this.formView == "product-list" && this.formEvent == "aCart")) {
+      this.cartWithPDistributor.forEach(element => {
+       
+        if (element.stockiestOne) {
+          if (this.stockiestObj.stockiest === element.stockiestOne.stockiest) {
+            element.stockiestOne.stockiest ?
+              element.unitCart.stockiestRate = element.stockiestOne.stokiestRate : 0;
+          }
+        } if (element.stockiestTwo) {
+          if (this.stockiestObj.stockiest === element.stockiestTwo.stockiest) {
 
+            element.stockiestTwo.stokiestRate ? element.unitCart.stockiestRate = element.stockiestTwo.stokiestRate : 0;
+          }
+        } if (element.stockiestThree) {
+          if (this.stockiestObj.stockiest === element.stockiestThree.stockiest) {
+            element.stockiestThree.stokiestRate ? element.unitCart.stockiestRate = element.stockiestThree.stokiestRate : 0;
+          }
+        }
+        this.products.push(element.unitCart);
+      });
+     
+      this.products.forEach(element => {
+       
+        this.productsArr.push(element.productCode);
+      });
+      this.callAll();
+    }
+    if ((this.formView == "distributor" && this.formEvent == "buyNow") || (this.formView == "distributor" && this.formEvent == "aCart")) {
+      
+      this.cartWithPDistributor.forEach(element => {
+        this.products.push(element);
+        this.productsArr.push(element.productCode);
+        this.callAll();
+      })
+    }
   }
 
   addNewProduct() {
+   
+    this.storageService.cartDetails.isAddProduct = true;
+    this.storageService.cartDetails.fromCart = false;
+    this.storageService.cartDetails.cart = this.products;
+    this.storageService.cartDetails.distributor = this.stockiestObj;
     this.router.navigate(['product-list']);
   }
 
   continue() {
-    console.log("products ", this.products);
-    console.log("netprice ", this.netPrice);
+   
     var data = {
       gstTotal: this.gstTotal,
       subTotal: this.subTotal,
@@ -123,15 +135,20 @@ export class OrderSummaryPage implements OnInit {
         let unitPrice = ele.ptr / ele.quantity;
         if (event === 'add') {
           ele.quantity++;
+          this.setGSTDiscount(this.gstDiscountList);
+          this.calculateTotal(productCode, index);
+          this.setDiscount();
         } else {
           if (ele.quantity > 1) {
             ele.quantity--;
+            this.setGSTDiscount(this.gstDiscountList);
+            this.calculateTotal(productCode, index);
+            this.setDiscount();
           } else {
             this.deleteItem(productCode, index);
           }
         }
-        this.calculateTotal(productCode, index);
-        this.setDiscount();
+       
       }
     });
   }
@@ -164,7 +181,7 @@ export class OrderSummaryPage implements OnInit {
     var total = 0;
     this.productSubTotal = 0;
     this.products.forEach(element => {
-      total = (element.ptr * element.quantity);
+      total = ((element.stockiestRate > 0 ? element.stockiestRate : element.ptr) * element.quantity);
       this.productSubTotal += total;
     });
   }
@@ -178,10 +195,12 @@ export class OrderSummaryPage implements OnInit {
       (response) => {
         this.commonService.hideLoader()
         this.products.splice(index, 1);
-        console.log("remove cart response:", response);
+        this.productsArr.splice(index,1);
+        this.gstDiscountList.splice(index,1);
+        this.setGSTDiscount(this.gstDiscountList);
         this.calculateTotal();
         this.setDiscount();
-        if (this.commonService.badgeCountValue > 0) {
+        if (this.commonService.badgeCountValue > 0 && response.message === 'Cart Product Removed') {
           this.badgeCount = this.commonService.badgeCountValue = this.commonService.badgeCountValue - 1;
         }
         if (this.products?.length == 0) {
@@ -197,27 +216,33 @@ export class OrderSummaryPage implements OnInit {
 
   getGSTDetail() {
     this.apiService.getDataService(this.apiService.getGSTdetail, this.productsArr.toString()).subscribe((response: any) => {
-      console.log("response ", response);
+    console.log("gst response",response);
       var total = 0;
       if (response.gstDetailList) {
-        response.gstDetailList.forEach(element => {
-          total = parseInt(element.cgstRate) + parseInt(element.sgstRate);
-          this.gstTotal += total;
-        });
+        this.gstDiscountList = response.gstDetailList;
+        this.setGSTDiscount(response.gstDetailList)
       }
-      this.setDiscount();
+    this.calculateTotal();
+    this.getDiscountList();
     })
   }
-
+setGSTDiscount(gstDetailList:any){
+  var total = 0;
+  this.gstTotal = 0;
+  gstDetailList.forEach((element,index) => {
+    total = parseInt(element.cgstRate) + parseInt(element.sgstRate);
+    total = (((this.products[index].stockiestRate > 0 ? this.products[index].stockiestRate : this.products[index].ptr)*this.products[index].quantity)/100)*total;
+    this.gstTotal += total;
+  });
+}
   getDiscountList() {
     this.discountInfo = this.storageService.getProductDiscount();
-    console.log("dViaProduct ", this.discountInfo);
     this.setDiscount();
   }
 
 
   setDiscount(products?: any) {
-    console.log("products ", products);
+   
     this.subTotal = 0;
     this.savingValue = 0;
     this.savingValueTwo = 0;
@@ -228,7 +253,7 @@ export class OrderSummaryPage implements OnInit {
         var discountItem = new DiscountProduct();
         discountItem.isPercentDiscount = false;
         discountItem.isDiscount = false;
-        console.log("this.discountInfo  ", this.discountInfo);
+       
         // this.discountInfo.gskDisPercentList.map(
         this.discountInfo.disPercentWithProdList.map(
           (innerEle: any) => {
@@ -237,21 +262,24 @@ export class OrderSummaryPage implements OnInit {
               discountItem.isDiscount = true;
               discountItem.pDiscount = innerEle;
               //add discount logic according to disPercent
-              innerEle.gskDisPercentList.map((percentList: any) => {
-                if (ele.quantity >= percentList.minQty) {
+              innerEle.gskDisPercentList.map((percentList,index) => {
+                if (ele.quantity >= percentList.minQty && (innerEle.gskDisPercentList.length-1 == index || innerEle.gskDisPercentList[index+1]?.minQty > ele.quantity)) {
+                 console.log("percentList.disPercent",percentList.disPercent);
                   this.subTotal = 0;
                   var total = 0;
                   total = ele.quantity * ele.ptr;
-                  this.subTotal = (total - ((total * percentList.disPercent) / 100));
+                  console.log("ele.ptr",ele.ptr);
+                  this.subTotal = (total - ((total/100) * percentList.disPercent));
+                  console.log("this.subTotal",this.subTotal)
                   this.savingValue = total - this.subTotal;
-                  console.log("subTotalone ", this.subTotal);
+                 
                   ele.total = total;
                   ele.productDiscount = this.subTotal;
                   ele.savingValue = this.savingValue;
                   ele.disId = innerEle.disId;
                   ele.disPercent = innerEle.disPercent;
                   ele.disFlag = innerEle.disFlag;
-                  console.log("test ", ele.productCode);
+                
                   //ele. = 
                 } else {
                   total = ele.quantity * ele.ptr;
@@ -297,7 +325,7 @@ export class OrderSummaryPage implements OnInit {
                       ele.disId = percentList.disId;
                       ele.disPercent = percentList.disAmtPerUnit;
                       ele.disFlag = percentList.disFlag;
-                      console.log("test2 ", ele.productCode);
+                    
                     } else {
                       total = ele.quantity * ele.ptr;
                       this.subTotalTwo = total;
@@ -326,16 +354,15 @@ export class OrderSummaryPage implements OnInit {
           )
         }
 
-        console.log("subTotalTwo ", this.subTotalTwo);
+       
         this.savingValue = this.savingValueTwo + this.savingValue;
         discountItem.productCode = ele.productCode;
         this.dViaProduct.push(discountItem);
-        console.log("saving value ", this.savingValue);
+       
       }
     )
-    console.log("gst Total ", this.gstTotal);
+   
     this.netPrice = ((this.productSubTotal + this.gstTotal) - this.savingValue);
-    //  console.log("netPrice ", this.netPrice);
   }
 
 }
