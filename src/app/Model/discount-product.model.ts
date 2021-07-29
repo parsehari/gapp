@@ -6,7 +6,10 @@ import { UnitDiscount } from "./unit-discount.model";
 export class DiscountProduct {
     public productCode: string;
     public isDiscount: boolean;
-    public isPercentDiscount: boolean;
+    public isUDiscount: boolean;
+    public isPDiscount: boolean;
+    public isGDiscount: boolean;
     public uDiscount?: UnitDiscountInfo[];
     public pDiscount?: PercentDiscountInfo[];
+    public gDiscount?: UnitDiscountInfo[];
 }

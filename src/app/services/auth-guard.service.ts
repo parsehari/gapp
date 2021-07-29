@@ -19,7 +19,7 @@ export class AuthGuardService implements CanActivate {
   }
 
  async canActivate(): Promise<boolean  | boolean> {
- await this.getUniqueDevice();
+/* await this.getUniqueDevice();
   const response = await this.getPolicyFlag(); 
   console.log("ploicy response :",response);
   if(response.code === '819'){
@@ -51,7 +51,7 @@ export class AuthGuardService implements CanActivate {
         })
       }
     }
-  }
+  }*/
   return true;    
   }
   getUniqueDevice(){

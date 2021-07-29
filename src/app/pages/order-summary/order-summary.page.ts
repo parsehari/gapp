@@ -251,14 +251,14 @@ setGSTDiscount(gstDetailList:any){
     this.products.map(
       (ele: any) => {
         var discountItem = new DiscountProduct();
-        discountItem.isPercentDiscount = false;
+        discountItem.isPDiscount = false;
         discountItem.isDiscount = false;
        
         // this.discountInfo.gskDisPercentList.map(
         this.discountInfo.disPercentWithProdList.map(
           (innerEle: any) => {
             if (ele.productCode === innerEle.gskProductCode) {
-              discountItem.isPercentDiscount = true;
+              discountItem.isPDiscount = true;
               discountItem.isDiscount = true;
               discountItem.pDiscount = innerEle;
               //add discount logic according to disPercent
@@ -304,7 +304,7 @@ setGSTDiscount(gstDetailList:any){
             }
           }
         )
-        if (discountItem.isPercentDiscount == false) {
+        if (discountItem.isPDiscount == false) {
           this.discountInfo.gskDisPerUnitPerProd.map(
             //  this.discountInfo.gskDisPerUnitPerProdList.map(
             (innerEle: any) => {

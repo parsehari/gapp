@@ -24,6 +24,7 @@ export class PreferredDistributorPage implements OnInit {
      this.apiService.setDistributorHeader();
      this.apiService.getDataService(this.apiService.getDistributorURL).subscribe((response)=>{
       this.pDistributorList = response.gskDistributorList;
+      console.log("this.pDistributorList :",this.pDistributorList);
       this.pDistributorList.map(
          (ele)=>{
             if(ele.preference.length >0){

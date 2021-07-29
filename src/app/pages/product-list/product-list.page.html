@@ -3,8 +3,12 @@
 <ion-content>
  <div *ngIf="productList?.length>0">
   <ion-card *ngFor="let product of productList | filter : 'productDescription' : searchStr;let i = index">
+   
     <ion-grid class="card-section">
       <ion-row class="ion-no-padding"class="ion-no-margin" >
+      <!--  <ion-col size="1">
+          <ion-checkbox class="chk"></ion-checkbox>
+        </ion-col>-->
         <ion-col size="4">
           <div  class="offer-content">
             <ion-grid class="offer-item">
@@ -28,18 +32,18 @@
                    <thead>
                      <tr>
                        <th>Unit</th>
-                       <th *ngIf="!dViaProduct[i].isPercentDiscount">Saving</th>
-                       <th *ngIf="dViaProduct[i].isPercentDiscount">Discount</th>
+                       <th *ngIf="dViaProduct[i].isUDiscount">Saving</th>
+                       <th *ngIf="dViaProduct[i].isPDiscount">Discount</th>
                      </tr>
                    </thead>
-                   <tbody *ngIf="dViaProduct[i].isPercentDiscount">
+                   <tbody *ngIf="dViaProduct[i].isPDiscount">
                     
                     <tr *ngFor="let item of dViaProduct[i].pDiscount;let j=index;">
                       <td>{{item.minQty}}</td>
                       <td>{{(item.disPercent | number:'1.0-0') + " %"}}</td>
                       </tr>
                    </tbody>
-                   <tbody *ngIf="!dViaProduct[i].isPercentDiscount">
+                   <tbody *ngIf="dViaProduct[i].isUDiscount">
                     <tr *ngFor="let item of dViaProduct[i].uDiscount;let j=index;">
                     <td>{{item.minQty}}</td>
                     <td>{{getDiscountTotal(item.minQty,item.disAmtPerUnit) | currency:'INR':'symbol-narrow':'1.0-0'}}</td>
@@ -52,7 +56,7 @@
               <ion-row *ngIf="dViaProduct.length !=0 && !dViaProduct[i]?.isDiscount">
                 <ion-col>
                   <div class="ion-text-center">
-                    <ion-label> Offer not available</ion-label>
+                    <ion-label style="font-weight: bold;font-size: 10px;"> Rotrix(10) & Havrix(10)  Discount 10%</ion-label>
                   </div>
                 </ion-col>
               </ion-row>

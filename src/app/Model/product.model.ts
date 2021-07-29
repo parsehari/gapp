@@ -8,4 +8,5 @@ public stokiestRate?:number;
 public stockistCerpCode :string;
 public salebleQty?:number;
 public pI_URL?: string;
+public isProduct:boolean;
 }

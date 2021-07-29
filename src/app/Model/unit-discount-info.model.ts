@@ -3,4 +3,6 @@ export class UnitDiscountInfo {
     public minQty: string;
     public disAmtPerUnit: string;
     public disFlag: string;
+    public gskProductCode?:string;
+    public productDesc?:string;
 }

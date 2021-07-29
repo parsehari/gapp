@@ -4,5 +4,5 @@ import { UnitDiscount } from "./unit-discount.model";
 export class Discount {
     public gskDisPerUnitPerProd : UnitDiscount [];
     public disPercentWithProdList: PercentDiscount[];
-    public gskDisGrpHdrList?: any;
+    public disGrpWithDisIdList?: UnitDiscount [];;
 }

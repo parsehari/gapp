@@ -127,8 +127,9 @@ export class ProductListPage implements OnInit {
     this.apiService.getDataService(this.apiService.getDiscount).subscribe(
       (response) => {
         this.commonService.hideLoader()
-        console.log("response prod:",response)
+        
         this.discountInfo = response;
+        console.log("response prod:", this.discountInfo)
         this.dViaProduct = [];
         this.storageService.setProductDiscount(this.discountInfo);
         this.setDiscountData();
@@ -147,29 +148,69 @@ export class ProductListPage implements OnInit {
       (ele) => {
         ele.quantity =0;
         var discountItem = new DiscountProduct();
-        discountItem.isPercentDiscount = false;
+        discountItem.isPDiscount = false;
         discountItem.isDiscount = false;
         this.discountInfo.disPercentWithProdList.map(
           (innerEle) => {
             if (ele.productCode === innerEle.gskProductCode) {
-              discountItem.isPercentDiscount = true;
+              discountItem.isPDiscount = true;
               discountItem.isDiscount = true;
               discountItem.pDiscount = innerEle.gskDisPercentList;
             }
           }
         )
-        if (discountItem.isPercentDiscount == false) {
+        if (discountItem.isPDiscount == false) {
           this.discountInfo.gskDisPerUnitPerProd.map(
             (innerEle) => {
               if (innerEle != null) {
                 if (ele.productCode === innerEle.gskProductCode) {
                   discountItem.isDiscount = true;
+                  discountItem.isUDiscount = true;
                   discountItem.uDiscount = innerEle.gskDisPerUnitList;
                 }
               }
             }
           )
         }
+        /*if(discountItem.isPDiscount == false && discountItem.isUDiscount == false){
+          var total = 0;
+          
+          this.discountInfo.disGrpWithDisIdList.map(
+            (innerEle) => {
+              if (innerEle != null) {
+                if (ele.productCode === innerEle.disId) {
+                  discountItem.isDiscount = true;
+                  discountItem.isGDiscount = true;
+                 // discountItem.uDiscount = innerEle.gskDisPerUnitList;
+
+                 innerEle.gskGrpDisDtlList.map((gEle)=>{
+                   this.productList.filter((fEle)=>{
+                     if(fEle.isProduct){
+                       return true;
+                     }
+                   }).map((mEle,index)=>{
+                     if(index == 0){
+                      var minQty = mEle.salebleQty;
+                     }
+                      if(mEle.productCode === gEle.gskProductCode){
+                        gEle.productDesc = mEle.productDescription;
+                        if(mEle.stokiestRate > 0){
+                          total +=mEle.stokiestRate 
+                        }else{
+                          total = 0;
+                        }
+                        if(minQty < mEle.salebleQty){
+                          minQty = mEle.salebleQty;
+                        }
+                      }
+                   })
+                 })
+                }
+              }
+            }
+          )
+          ele.stokiestRate = total;
+        }*/
         discountItem.productCode = ele.productCode;
         this.dViaProduct.push(discountItem);
       }
