@@ -5,6 +5,7 @@ import { MenuController } from '@ionic/angular';
 import { PreferredDistributorModel } from 'src/app/Model/pdistributor.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from 'src/app/services/common.service';
+import { StorageService } from 'src/app/services/storage.service';
 import { PreferredDistributorPageModule } from '../preferred-distributor/preferred-distributor.module';
 
 @Component({
@@ -13,11 +14,10 @@ import { PreferredDistributorPageModule } from '../preferred-distributor/preferr
   styleUrls: ['./order-by-distributor.page.scss'],
 })
 export class OrderByDistributorPage implements OnInit {
-  masterData:PreferredDistributorModel[];
   pDistributorList: PreferredDistributorModel[];
   selDistributor=[];
   searchStr = "";
-  constructor(private route:Router, private menu : MenuController,private apiService:ApiService,
+  constructor(private storage:StorageService,private route:Router, private menu : MenuController,private apiService:ApiService,
    private commonService:CommonService) { }
 
   ngOnInit() {
@@ -25,7 +25,6 @@ export class OrderByDistributorPage implements OnInit {
     this.apiService.setDistributorHeader();
     this.apiService.getDataService(this.apiService.getDistributorURL).subscribe((response)=>{
      this.pDistributorList = response.gskDistributorList;
-     this.masterData = response.gskDistributorList;
      this.commonService.hideLoader();
     
     }),
@@ -40,7 +39,37 @@ export class OrderByDistributorPage implements OnInit {
   searchbarChanged(str){
     this.searchStr = str;
   }
-  getProduct(distributor){
-   this.route.navigate(['/product-list',{distributor:JSON.stringify(distributor),fromView:'distributor'}])
+ async getProduct(distributor:PreferredDistributorModel){
+    if(distributor.isBuyer === "false"){
+  const requestJson = {
+    stockistCerpCode: distributor.stockistCerpCode,
+    stkName:distributor.stkName,
+    stkMobileNo:distributor.stkMobile,
+    stkEmail:distributor.stkEmail,
+    hcpCode: this.storage.hcpCode,
+    hcpName: this.storage.userName,
+    hcpMobileNo: this.storage.userMobile,
+    hcpEmail: this.storage.userEmail
+   }
+
+   const alert = await this.commonService.presentAlertConfirm("GSK",distributor.stkName+" is not your buyer!! do you still want to continue.","Yes","No");
+  console.log("alert :",alert);
+  if(alert === "Yes"){
+    this.commonService.showLoader();
+    this.apiService.postDataService(this.apiService.mailtoDistributor,requestJson).subscribe((res)=>{
+    console.log("response :",res);
+    this.commonService.hideLoader();
+     if(res.code === "200"){
+     this.commonService.presentOneButtonAlert("GSK","A mail has been sent to "+distributor.stkName,"OK");
+    }
+    },(err)=>{
+      this.commonService.hideLoader();
+    })
+  }
+    
+
+    }else{
+      this.route.navigate(['/product-list',{distributor:JSON.stringify(distributor),fromView:'distributor'}])
+    }
   }
 }

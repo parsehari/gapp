@@ -13,6 +13,7 @@ export class StorageService {
 
   userEmail: string;
   userMobile: string;
+  userName:string;
   otpOnemail: boolean;
   prefDistFlag: boolean;
   cartDetails: CartDetails = new CartDetails();

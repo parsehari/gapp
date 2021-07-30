@@ -15,6 +15,7 @@ import { CountdownModule } from 'ngx-countdown';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { AuthGuardService } from './services/auth-guard.service';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -47,7 +48,8 @@ export function createTranslateLoader(http: HttpClient) {
       useClass: IonicGestureConfig
     },
     AuthGuardService,
-    UniqueDeviceID
+    UniqueDeviceID,
+    InAppBrowser
   ],
   bootstrap: [AppComponent],
 })

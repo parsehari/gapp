@@ -25,12 +25,16 @@ export class PreferredDistributorPage implements OnInit {
      this.apiService.getDataService(this.apiService.getDistributorURL).subscribe((response)=>{
       this.pDistributorList = response.gskDistributorList;
       console.log("this.pDistributorList :",this.pDistributorList);
-      this.pDistributorList.map(
+      this.pDistributorList =   this.pDistributorList.filter(
          (ele)=>{
+            if(ele.isBuyer === "false"){
+              return false;
+            }
             if(ele.preference.length >0){
                ele.isPreferred = true;
                this.selDistributor.push(ele.stockistCerpCode);
             }
+            return true;
          }
       )
       this.commonService.hideLoader();

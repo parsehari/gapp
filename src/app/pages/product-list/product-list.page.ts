@@ -12,6 +12,9 @@ import { Product } from 'src/app/Model/product.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { Events } from 'src/app/services/events';
+
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.page.html',
@@ -37,6 +40,8 @@ export class ProductListPage implements OnInit {
     private storageService: StorageService,
     private mCtrl:ModalController,
     private loc:Location,
+    private appBrowser:InAppBrowser,
+    private event:Events
   ) {
     this.route.params.subscribe(
       (param) => {
@@ -59,6 +64,7 @@ export class ProductListPage implements OnInit {
    
   }
   ionViewWillEnter(){
+    
     this.badgeValue =  this.commonService.badgeCountValue;
     console.log("this.badgeValue ",this.badgeValue);
     this.showCart = !this.storageService.cartDetails.isAddProduct;

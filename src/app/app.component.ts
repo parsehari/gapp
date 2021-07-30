@@ -36,6 +36,7 @@ export class AppComponent {
     
       this.events.subscribe('SET_USER',(info:any)=>{
         this.userName = info.user;
+        this.storageService.userName = this.userName;
       })
      
   }

@@ -13,5 +13,6 @@ export class PreferredDistributorModel {
   public  stkEmail: string;
   public stockistCerpCode: string;
   public isPreferred?:boolean=false;
+  public isBuyer?:string;
 }
 

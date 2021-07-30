@@ -16,15 +16,15 @@
     <ion-row class="sd-info">
       <ion-col size="5">
        <div class="square color-trans"><ion-label class="na-info">NA</ion-label></div>
-       <ion-label>&nbsp;Stockist price not available.</ion-label>
+       <ion-label style="color: black;">&nbsp;Stockist price not available.</ion-label>
       </ion-col>
       <ion-col>
        <div class="square color-red"><ion-label class="clear">N/A</ion-label></div>
-     <ion-label>&nbsp;Stock not available.</ion-label>
+     <ion-label style="color: black;">&nbsp;Stock not available.</ion-label>
       </ion-col>
       <ion-col>
         <div class="square color-green"><ion-label class="clear">N/A</ion-label></div>
-      <ion-label>&nbsp;Stock available.
+      <ion-label style="color: black;">&nbsp;Stock available.
    </ion-label>
        </ion-col>
     </ion-row>
@@ -47,7 +47,7 @@
     <ion-row *ngIf="!moreEvent">
       <ion-col >
         <div class="ion-text-center">
-          <ion-button expand="block" [ngClass]="{'button-single': isFirstOutline === true,'button-single': isFirstOutline === false}" shape="round"  (click)="actionFirstTapped()"><ion-icon *ngIf="isIcon" slot="start" name="refresh-outline"></ion-icon><ion-label >{{firstTitle | translate}}</ion-label></ion-button>
+          <ion-button expand="block" [ngClass]="{'button-single': isFirstOutline === true || isFirstOutline === false}" shape="round"  (click)="actionFirstTapped()"><ion-icon *ngIf="isIcon" slot="start" name="refresh-outline"></ion-icon><ion-label >{{firstTitle | translate}}</ion-label></ion-button>
         </div>
       </ion-col>
     </ion-row>

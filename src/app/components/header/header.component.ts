@@ -3,6 +3,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { Location } from '@angular/common';
+import { Events } from 'src/app/services/events';
 
 
 @Component({
@@ -25,7 +26,6 @@ export class HeaderComponent implements OnInit {
   @Input() showSearch: boolean = false;
   @Input() showCart: boolean = false;
   @Input() issettingIcon: boolean = false;
-
   @Output() notes: EventEmitter<null> = new EventEmitter();
   @Output() information: EventEmitter<null> = new EventEmitter();
   @Output() notifications: EventEmitter<null> = new EventEmitter();
@@ -41,9 +41,11 @@ export class HeaderComponent implements OnInit {
     public router: Router,
     public modalController: ModalController,
     private commonService: CommonService,
-    private loc:Location
+    private loc:Location,
+    private event:Events
 
   ) {
+
   }
 
   ngOnInit() {

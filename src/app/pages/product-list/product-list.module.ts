@@ -20,6 +20,6 @@ import { FilterPipe } from 'src/app/pipes/filter.pipe';
     TranslateModule.forChild(),
     SharedModule
   ],
-  declarations: [ProductListPage]
+  declarations: [ProductListPage],
 })
 export class ProductListPageModule {}

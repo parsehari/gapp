@@ -135,6 +135,7 @@ export class ApiService {
   public logout = "Product/Logout";
   public privacyPolicy = "Login/GetPrivacyPolicy";
   public insertPrivacyPolicy = "Login/InsertPrivacyPolicy"
+  public mailtoDistributor ="Distributor/MailtoDistributor";
   constructor(private httpClient: HttpClient, private storageService: StorageService, public router: Router, private alertController: AlertController, private translate: TranslateService) {
 
   }

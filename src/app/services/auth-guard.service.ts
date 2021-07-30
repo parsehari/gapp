@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+import { Platform } from '@ionic/angular';
 import { rejects } from 'assert';
 import { resolve } from 'path';
 import { promise } from 'protractor';
@@ -14,12 +15,14 @@ import { StorageService } from './storage.service';
 })
 export class AuthGuardService implements CanActivate {
 
-  constructor(private uniqueDeviceID:UniqueDeviceID,private commonService :CommonService,private event:Events, private router : Router, private storageService : StorageService, private apiService : ApiService) { 
+  constructor(private uniqueDeviceID:UniqueDeviceID,private commonService :CommonService,private event:Events, private router : Router, private storageService : StorageService, private apiService : ApiService,private pform:Platform) { 
 
   }
 
  async canActivate(): Promise<boolean  | boolean> {
-/* await this.getUniqueDevice();
+ 
+ await this.getUniqueDevice();
+ console.log("***************response device after uuid get*****************");
   const response = await this.getPolicyFlag(); 
   console.log("ploicy response :",response);
   if(response.code === '819'){
@@ -51,23 +54,26 @@ export class AuthGuardService implements CanActivate {
         })
       }
     }
-  }*/
+  }
   return true;    
   }
   getUniqueDevice(){
   return new Promise((resolve)=>{
-    this.uniqueDeviceID.get().then((uuid:any)=>{
-      this.commonService.uniqueDeviceId = uuid;
-      resolve(uuid);
-    }).catch((error)=>{
-      this.commonService.uniqueDeviceId = "";
-      console.log("error in device id :",error);
-    }
-      )
+    this.pform.ready().then(()=>{
+      this.uniqueDeviceID.get().then((uuid:any)=>{
+        this.commonService.uniqueDeviceId = uuid;
+        console.log("resolve device id :",uuid)
+        resolve(uuid);
+      }).catch((error)=>{
+        this.commonService.uniqueDeviceId = "";
+        console.log("error in device id :",error);
+      }
+        )
+    })
   })  
   
   }
-
+ 
   monthDiff(d1, d2) {
     var months;
     months = (d2.getFullYear() - d1.getFullYear()) * 12;

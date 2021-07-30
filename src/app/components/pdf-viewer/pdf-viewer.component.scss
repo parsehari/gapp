@@ -1,11 +1,9 @@
 .pdf-container{
-    width: 90%;
-    height: 96%;
-    background-color:transparent;
-    position: absolute;
-    top:50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+    min-height: 100% !important;
+    min-width: 100% !important;
+    height: 100% !important;
+    width: 100% !important;
+    background-color: rgba(1, 1, 1, .8);
 }
 .icon-pos{
     position: absolute;
@@ -14,7 +12,11 @@
     z-index: 1;
     font-size: 26px;
 }
-.pdf{
-    margin: 5% !important;
-    width:90%;
+.pdf-display{
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);  
+  width: 320px !important;
+  height: 450px !important;
 }

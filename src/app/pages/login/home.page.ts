@@ -43,7 +43,7 @@ export class HomePage implements OnInit {
   }
 
   inputVal(type: any) {
-    this.loginType = type;
+    this.loginType = type.detail.value;
   }
 
   validateInput ():boolean {

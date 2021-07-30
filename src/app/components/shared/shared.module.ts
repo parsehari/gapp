@@ -10,16 +10,19 @@ import { AlertModelComponent } from '../alert-model/alert-model.component';
 import { PdfViewerComponent } from '../pdf-viewer/pdf-viewer.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
+import { SafePipe } from 'src/app/pipes/safe.pipe';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, ExpandableComponent,FooterComponent,TrackOrderComponent,AlertModelComponent,PdfViewerComponent,FilterPipe],
+  declarations: [HeaderComponent, ExpandableComponent,FooterComponent,TrackOrderComponent,AlertModelComponent,PdfViewerComponent,FilterPipe,SafePipe],
   imports: [
     CommonModule,
     IonicModule,
     NgxExtendedPdfViewerModule,
+    PdfViewerModule,
     TranslateModule.forChild()
   ],
   exports: [
@@ -29,9 +32,11 @@ import { FilterPipe } from 'src/app/pipes/filter.pipe';
     TrackOrderComponent,
     AlertModelComponent,
     PdfViewerComponent,
-    FilterPipe
-
+    FilterPipe,
+    SafePipe,
+    PdfViewerModule
   ]
 })
 export class SharedModule { 
+
 }

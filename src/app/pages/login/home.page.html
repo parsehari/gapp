@@ -27,7 +27,7 @@
       </ion-col>
     </ion-row>
    <div class="pdnTop">
-      <ion-radio-group [(ngModel)]="inputType" (ionChange)="inputVal($event.detail.value)">
+      <ion-radio-group [(ngModel)]="inputType" (ionChange)="inputVal($event)">
         <div class="msgDiv">
           {{'login.loginPage.otpText' | translate}}
         </div>
